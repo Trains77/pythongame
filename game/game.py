@@ -13,6 +13,8 @@ from shared import credits, size, GameName, square_size, player_color, game_bord
 from colored import fore, back, style
 import math
 import random
+infox = 200
+infoy = 200
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -55,17 +57,21 @@ while not done:
                         playery =playery + speed
             if event.type == pygame.QUIT:
                 done = True
+        square_info = pygame.draw.rect(screen, background_color, [infox,infoy,square_size,square_size])
         player_square = pygame.draw.rect(screen, background_color, [playerx,playery,square_size,square_size])
-        player_detector = pygame.draw.rect(screen, background_color, [195,195,square_size + 10,square_size + 10])
+        player_detector = pygame.draw.rect(screen, background_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
         if facing == "Left":
             image_display(screen, "Textures/npcflipped.png", [playerx,playery])
         elif facing == "Right":
             image_display(screen, "Textures/npc.png", [playerx,playery])
-        square_info = pygame.draw.rect(screen, info_color, [200,200,square_size,square_size])
+        if playerx > infox:
+            image_display(screen, "Textures/scientist.png", [infox,infoy])
+        elif playerx < infox:
+            image_display(screen, "Textures/scientist_flipped.png", [infox,infoy])
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
             font1 = pygame.font.SysFont('Nerds', 20)
-            img1 = font1.render('Testing Square:', True, BLACK)
+            img1 = font1.render('Scientist:', True, BLACK)
             img2 = font1.render('Hello User!', True, BLACK)
             screen.blit(img1, (15, 360))
             screen.blit(img2, (30, 390))
