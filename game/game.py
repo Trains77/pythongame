@@ -32,6 +32,7 @@ clock = pygame.time.Clock()
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 # Game
+facing = "Right"
 while not done:
     # clock.tick() limits the while loop to a max of 10 times per second.
         clock.tick(10)
@@ -40,10 +41,12 @@ while not done:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     if not playerx == game_border2:
+                        facing = "Left"
                         playerx = playerx - speed
                 if event.key == pygame.K_RIGHT:
                     if not playerx == game_border1:
                         playerx = playerx + speed
+                        facing = "Right"
                 if event.key == pygame.K_UP:
                     if not playery == game_border2:
                         playery = playery - speed
@@ -54,7 +57,10 @@ while not done:
                 done = True
         player_square = pygame.draw.rect(screen, background_color, [playerx,playery,square_size,square_size])
         player_detector = pygame.draw.rect(screen, background_color, [195,195,square_size + 10,square_size + 10])
-        image_display(screen, "Textures/npc.png", [playerx,playery])
+        if facing == "Left":
+            image_display(screen, "Textures/npcflipped.png", [playerx,playery])
+        elif facing == "Right":
+            image_display(screen, "Textures/npc.png", [playerx,playery])
         square_info = pygame.draw.rect(screen, info_color, [200,200,square_size,square_size])
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
