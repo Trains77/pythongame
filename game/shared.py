@@ -13,3 +13,4 @@ song = 'Audio/music.wav'
 enable_music = 1
 info_color = (150, 150, 150)
 dialog_color = (255, 255, 255)
+fps = 10
