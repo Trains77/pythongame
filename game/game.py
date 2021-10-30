@@ -184,7 +184,7 @@ while not done:
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
         # Background and players
-        if disable_background == False:
+        if disable_background == True:
             image_display(screen, "Textures/Environment/background.png", [0,0])
         if facing == "Left":
             image_display(screen, "Textures/Characters/Player/playerflipped.png", [playerx,playery])
