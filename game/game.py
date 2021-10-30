@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, size, GameName, block_color, inventory_color, inventory_slot_color, square_size, item1x, item1y, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, size, GameName, block_color, square_size, item1x, item1y, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random

@@ -3,26 +3,24 @@ import pygame
 pygame.init()
 
 
-enable_os_restrictions = 0
-credits = 1
-size = [500, 500]
-GameName = "Another Python Game"
-square_size = 20
-player_color = (0, 0, 0)
-game_border1 = 480
-game_border2 = 0
-speed = 10
-background_color = (128, 0, 128)
-song = 'Audio/Music/music1.wav'
-enable_music = 1
-info_color = (150, 150, 150)
-dialog_color = (255, 255, 255)
-fps = 10
-block_color = (0, 0, 0)
-gameIcon = pygame.image.load('Textures/Icons/game.png')
-item_size = 10
-item1x = 250
-item1y = 250
-inventory_color = (75,35,00)
-inventory_slot_color = (50, 50, 50)
-enable_program = True
+enable_os_restrictions = 0 # Whether to enable strict os checking
+credits = 1 # Whether to display credits at startup
+size = [500, 500] # The size of the screen
+GameName = "Another Python Game" # The window name of the game
+square_size = 20 # How big the default square hitbox is
+player_color = (0, 0, 0) # The color of the player hitbox
+game_border1 = 480 # Maximum cordinates player can go
+game_border2 = 0 # Minimum cordinates playerr can go
+speed = 10 # How fast the player moves
+background_color = (128, 0, 128) # The background color of the game
+song = 'Audio/Music/music1.wav' # Where the game's music file is stored
+enable_music = 1 # Whether or not the game should play music
+info_color = (150, 150, 150) # Info square color
+dialog_color = (255, 255, 255) # Dialog box color
+fps = 10 # The game's FPS
+block_color = (0, 0, 0) # Block Color
+gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+item_size = 10 # Item size
+item1x = 250 # Item default x position
+item1y = 250 # Item default y position
+enable_program = True # Enable or Disable the program
