@@ -25,3 +25,4 @@ item1x = 250
 item1y = 250
 inventory_color = (75,35,00)
 inventory_slot_color = (50, 50, 50)
+enable_program = True

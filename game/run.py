@@ -11,7 +11,7 @@ system_required = "Linux"
 # system_unsupported = "Windows"
 
 # Script Settings
-from shared import enable_os_restrictions
+from shared import enable_os_restrictions, enable_program
 
 # This script was made in linux, it may not work on other operating systems
 
@@ -33,5 +33,8 @@ if not platform.system() == system_required:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this script" + style.RESET)
 
 #
-import music
-import game
+if enable_program == True:
+    import music
+    import game
+elif enable_program == False:
+    print("Game has been disabled in shared.py")

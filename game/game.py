@@ -163,6 +163,7 @@ while not done:
         image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
         if pygame.Rect.colliderect(cursor_square, player_square) == 1:
             createdialog("User", "Hello little mouse!")
+            facing = "Down"
         pygame.display.update()
         pygame.display.flip()
 # Quite the execution when clicking on close
