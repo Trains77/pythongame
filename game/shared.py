@@ -4,7 +4,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 pygame.init()
 
-disable_background = False # Set whether the game loads the background file
+disable_background = True # Set whether the game loads the background file
 enable_os_restrictions = 0 # Whether to enable strict os checking
 credits = 1 # Whether to display credits at startup
 size = [500, 500] # The size of the screen
