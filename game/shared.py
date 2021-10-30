@@ -4,7 +4,6 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 pygame.init()
 
-
 # Debugging settings
 disable_background = False # Set whether the game loads the background file
 player_color = (0, 0, 0) # The color of the player hitbox
@@ -15,6 +14,8 @@ background_color = (128, 0, 128) # The background color of the game
 show_debug = False
 
 # Game Settings
+disable_background = True # Set whether the game loads the background file
+enable_os_restrictions = 0 # Whether to enable strict os checking
 credits = 1 # Whether to display credits at startup
 GameName = "Another Python Game" # The window name of the game
 song = 'Audio/Music/music1.wav' # Where the game's music file is stored
