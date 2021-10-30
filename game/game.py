@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, size, GameName, block_color, inventory_color, inventory_slot_color, square_size, item1x, item1y, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, size, disable_background, GameName, block_color, square_size, item1x, item1y, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -122,7 +122,8 @@ while not done:
             if pygame.Rect.colliderect(item1, player_square) == 1:
                 inv[0] = 1
                 print("Item Get!")
-        image_display(screen, "Textures/Environment/background.png", [0,0])
+        if not disable_background == False:
+            image_display(screen, "Textures/Environment/background.png", [0,0])
         if facing == "Left":
             image_display(screen, "Textures/Characters/Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
@@ -163,6 +164,7 @@ while not done:
         image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
         if pygame.Rect.colliderect(cursor_square, player_square) == 1:
             createdialog("User", "Hello little mouse!")
+            facing = "Down"
         pygame.display.update()
         pygame.display.flip()
 # Quite the execution when clicking on close
