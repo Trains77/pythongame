@@ -57,8 +57,8 @@ while not done:
         clock.tick(fps)
         screen.fill(background_color)
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-        inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [220, 5, 60, 60])
-
+        inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [140, 5, 220, 60])
+        Selected_Slot = 150 + 70 * Inv_Slot
         # Controls
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
