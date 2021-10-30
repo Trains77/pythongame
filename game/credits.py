@@ -12,7 +12,7 @@ if credits == 1:
     print()
     print("Artwork by Trains77")
     print()
-    print("Utilizes Pygame 2.01")
+    print("Utilizes Pygame")
     print()
     print("AnotherGame v0.05")
     print(style.RESET)

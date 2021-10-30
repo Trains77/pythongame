@@ -62,6 +62,7 @@ while not done:
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
         inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [140, 5, 220, 60])
         Selected_Slot = 150 + 70 * Inv_Slot
+
         # Controls
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -184,7 +185,6 @@ while not done:
                         item1y = playery + 30
                         inv[0] = 0
                 elif playery + 30 > game_border1:
-                    print("Player tried to place item beyond maximum range")
                     playsound(1,"Audio/Environment/wallhit.wav")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
@@ -227,6 +227,5 @@ while not done:
             facing = "Down"
         pygame.display.update()
         pygame.display.flip()
-# Quite the execution when clicking on close
 pygame.quit()
 exit()

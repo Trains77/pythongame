@@ -28,6 +28,6 @@ if enable_program == True:
     import music
     import game
 elif enable_program == False:
-    print("Game has been disabled in shared.py")
+    print("The program has been disabled in shared.py")
 
 # Hello Nerds!
