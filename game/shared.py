@@ -19,8 +19,6 @@ GameName = "Another Python Game" # The window name of the game
 song = 'Audio/Music/music1.wav' # Where the game's music file is stored
 enable_music = 1 # Whether or not the game should play music
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
-item1x = 250 # Item 1 default x position
-item1y = 250 # Item 1 default y position
 
 # WARNING: Changing these settings will cause issues
 enable_os_restrictions = 0 # Whether to enable strict os checking
