@@ -155,8 +155,12 @@ while not done:
                     playsound(1,"Audio/Environment/wallhit.wav")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
+            image_display(screen,"Textures/slot/icon_unselect_transparent.png", [150, 5])
+            image_display(screen,"Textures/slot/icon_unselect_transparent.png", [290, 5])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen,"Textures/slot/icon_select.png", [220, 5])
+            image_display(screen,"Textures/slot/icon_unselect.png", [150, 5])
+            image_display(screen,"Textures/slot/icon_unselect.png", [290, 5])
         if inv[0] == 1:
             if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
                 image_display(screen, "Textures/slot/hammer_transparent.png", [235,20])
