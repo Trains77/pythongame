@@ -122,7 +122,7 @@ while not done:
             if pygame.Rect.colliderect(item1, player_square) == 1:
                 inv[0] = 1
                 print("Item Get!")
-        if not disable_background == False:
+        if disable_background == False:
             image_display(screen, "Textures/Environment/background.png", [0,0])
         if facing == "Left":
             image_display(screen, "Textures/Characters/Player/playerflipped.png", [playerx,playery])
@@ -146,9 +146,13 @@ while not done:
         elif inv[0] == 1:
             image_display(screen, "Textures/items/hammer.png", [playerx + 5,playery + 5])
             if mouse_button_list[1] == True:
-                item1x = playerx + 5
-                item1y = playery + 25
-                inv[0] = 0
+                if not playery + 30 > game_border1:
+                    item1x = playerx
+                    item1y = playery + 30
+                    inv[0] = 0
+                elif playery + 30 > game_border1:
+                    print("Player tried to place item beyond maximum range")
+                    playsound(1,"Audio/Environment/wallhit.wav")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
