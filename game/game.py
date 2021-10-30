@@ -12,7 +12,6 @@ from shared import credits, size, disable_background, GameName, block_color, squ
 from colored import fore, back, style
 import math
 import random
-
 # Default Variables
 infox = 200
 infoy = 200
@@ -24,7 +23,8 @@ GRAY = (200, 200, 200)
 Inv_Slot = 1
 pygame.mixer.init()
 inv = [0, 0, 0, 0]
-
+hammer_slot = 1
+hammer_slot_pos = 235
 # Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
@@ -146,7 +146,8 @@ while not done:
             if pygame.Rect.colliderect(item1, player_square) == 1:
                 inv[0] = 1
                 print("Item Get!")
-
+                hammer_slot_pos = Selected_Slot + 15
+                hammer_slot = Inv_Slot
         # Background and players
         if disable_background == False:
             image_display(screen, "Textures/Environment/background.png", [0,0])
@@ -175,9 +176,10 @@ while not done:
             image_display(screen, "Textures/items/hammer.png", [playerx + 5,playery + 5])
             if mouse_button_list[1] == True:
                 if not playery + 30 > game_border1:
-                    item1x = playerx
-                    item1y = playery + 30
-                    inv[0] = 0
+                    if hammer_slot == Inv_Slot:
+                        item1x = playerx
+                        item1y = playery + 30
+                        inv[0] = 0
                 elif playery + 30 > game_border1:
                     print("Player tried to place item beyond maximum range")
                     playsound(1,"Audio/Environment/wallhit.wav")
@@ -209,9 +211,9 @@ while not done:
                 image_display(screen,"Textures/slot/icon_unselect.png", [290, 5])
         if inv[0] == 1:
             if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-                image_display(screen, "Textures/slot/hammer_transparent.png", [235,20])
+                image_display(screen, "Textures/slot/hammer_transparent.png", [hammer_slot_pos,20])
             elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-                image_display(screen, "Textures/slot/hammer.png", [235,20])
+                image_display(screen, "Textures/slot/hammer.png", [hammer_slot_pos,20])
 
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
