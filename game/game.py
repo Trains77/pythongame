@@ -20,9 +20,11 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 GRAY = (200, 200, 200)
-Inv_Slot = 1
+Inv_Slot = 0
 pygame.mixer.init()
 inv = [0, 0, 0, 0]
+
+# Items
 hammer_slot = 1
 hammer_slot_pos = 235
 
@@ -39,7 +41,22 @@ def image_display(surface, filename, xy):
     surface.blit(img, xy)
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+def render_item_inv(item_texture, InvID, ItemSlotPos):
+    if inv[InvID] == 1:
+        if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
+            image_display(screen, item_texture, [ItemSlotPos,20])
+        elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
+            image_display(screen, item_texture, [ItemSlotPos,20])
 
+def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
+    if inv[ItemSlotID] == 0:
+        ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
+        if pygame.Rect.colliderect(ItemID, player_square) == 1:
+            inv[0] = 1
+            print("Item Get!")
+            item_slot_pos = Selected_Slot + 15
+            item_slot = Inv_Slot
+    return item_slot, item_slot_pos
 # Credits
 import credits
 
@@ -136,7 +153,6 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-        button_pressed = any(mouse_button_list)
 
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
@@ -145,13 +161,8 @@ while not done:
         player_detector = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
 
         # Item Managment
-        if inv[0] == 0:
-            item1 = pygame.draw.rect(screen, block_color, [item1x,item1y,item_size,item_size])
-            if pygame.Rect.colliderect(item1, player_square) == 1:
-                inv[0] = 1
-                print("Item Get!")
-                hammer_slot_pos = Selected_Slot + 15
-                hammer_slot = Inv_Slot
+        hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
+
         # Background and players
         if disable_background == False:
             image_display(screen, "Textures/Environment/background.png", [0,0])
@@ -178,7 +189,7 @@ while not done:
             image_display(screen, "Textures/items/hammer.png", [item1x,item1y])
         elif inv[0] == 1:
             image_display(screen, "Textures/items/hammer.png", [playerx + 5,playery + 5])
-            if mouse_button_list[1] == True:
+            if mouse_button_list[2] == True:
                 if not playery + 30 > game_border1:
                     if hammer_slot == Inv_Slot:
                         item1x = playerx
@@ -212,11 +223,8 @@ while not done:
                 image_display(screen,"Textures/slot/icon_select.png", [290, 5])
             elif not Inv_Slot == 2:
                 image_display(screen,"Textures/slot/icon_unselect.png", [290, 5])
-        if inv[0] == 1:
-            if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-                image_display(screen, "Textures/slot/hammer_transparent.png", [hammer_slot_pos,20])
-            elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-                image_display(screen, "Textures/slot/hammer.png", [hammer_slot_pos,20])
+
+            render_item_inv("Textures/slot/hammer.png", 0, hammer_slot_pos)
 
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
