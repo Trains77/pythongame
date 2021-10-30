@@ -41,6 +41,7 @@ def image_display(surface, filename, xy):
     surface.blit(img, xy)
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+
 def render_item_inv(item_texture, InvID, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
@@ -57,6 +58,21 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
             item_slot_pos = Selected_Slot + 15
             item_slot = Inv_Slot
     return item_slot, item_slot_pos
+
+def item_render(ItemSlotID, posx, posy, texture):
+    if inv[ItemSlotID] == 0:
+        image_display(screen, texture, [item1x,item1y])
+    elif inv[ItemSlotID] == 1:
+        image_display(screen, texture, [playerx + 5,playery + 5])
+        if mouse_button_list[2] == True:
+            if not playery + 30 > game_border1:
+                if hammer_slot == Inv_Slot:
+                    posx = playerx
+                    posy = playery + 30
+                    inv[ItemSlotID] = 0
+            elif playery + 30 > game_border1:
+                playsound(1,"Audio/Environment/wallhit.wav")
+    return posx, posy
 # Credits
 import credits
 
@@ -185,18 +201,7 @@ while not done:
                 image_display(screen, "Textures/Characters/Scientist/scientist_up.png", [infox,infoy])
 
         # Inventory Stuff
-        if inv[0] == 0:
-            image_display(screen, "Textures/items/hammer.png", [item1x,item1y])
-        elif inv[0] == 1:
-            image_display(screen, "Textures/items/hammer.png", [playerx + 5,playery + 5])
-            if mouse_button_list[2] == True:
-                if not playery + 30 > game_border1:
-                    if hammer_slot == Inv_Slot:
-                        item1x = playerx
-                        item1y = playery + 30
-                        inv[0] = 0
-                elif playery + 30 > game_border1:
-                    playsound(1,"Audio/Environment/wallhit.wav")
+        item1x, item1y = item_render(0, item1x, item1y, "Textures/items/hammer.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
                 image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
