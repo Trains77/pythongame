@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, size, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, size, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -28,9 +28,9 @@ item1y = 275
 item2y = 300
 item2x = 50
 # Items
-hammer_slot = 1
+hammer_slot = -1
 hammer_slot_pos = 235
-sword_slot = 1
+sword_slot = -1
 sword_slot_pos = 235
 # Functions
 def createdialog(speaker, text):
@@ -55,10 +55,12 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if inv[ItemSlotID] == 0:
         ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
         if pygame.Rect.colliderect(ItemID, player_square) == 1:
-            inv[ItemSlotID] = 1
-            print("Item Get!")
-            item_slot_pos = Selected_Slot + 15
-            item_slot = Inv_Slot
+            if not Inv_Slot == hammer_slot:
+                if not Inv_Slot == sword_slot:
+                    inv[ItemSlotID] = 1
+                    print("Item Get!")
+                    item_slot_pos = Selected_Slot + 15
+                    item_slot = Inv_Slot
     return item_slot, item_slot_pos
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     if inv[ItemSlotID] == 0:
@@ -70,10 +72,11 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
                 if ItemID == Inv_Slot:
                     posx = playerx
                     posy = playery + 30
+                    ItemID = -1
                     inv[ItemSlotID] = 0
             elif playery + 30 > game_border1:
                 playsound(1,"Audio/Environment/wallhit.wav")
-    return posx, posy
+    return posx, posy, ItemID
 # Credits
 import credits
 
@@ -202,8 +205,8 @@ while not done:
                 image_display(screen, "Textures/Characters/Scientist/scientist_up.png", [infox,infoy])
 
         # Inventory Stuff
-        item1x, item1y = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
-        item2x, item2y = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
+        item1x, item1y, hammer_slot = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
+        item2x, item2y, sword_slot = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
                 image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
@@ -240,6 +243,10 @@ while not done:
         if pygame.Rect.colliderect(cursor_square, player_square) == 1:
             createdialog("User", "Hello little mouse!")
             facing = "Down"
+        if show_debug == True:
+            print("Inv_Slot: " + str(Inv_Slot))
+            print("Hammer Slot: " + str(hammer_slot))
+            print("Sword Slot: " + str(sword_slot))
         pygame.display.update()
         pygame.display.flip()
 pygame.quit()

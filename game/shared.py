@@ -12,6 +12,7 @@ block_color = (0, 0, 0) # Block Color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
+show_debug = False
 
 # Game Settings
 credits = 1 # Whether to display credits at startup
