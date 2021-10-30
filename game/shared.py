@@ -1,9 +1,10 @@
-#Script Settings
+# Stuff for variables
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 pygame.init()
 
+# Game Settings
 disable_background = False # Set whether the game loads the background file
 enable_os_restrictions = 0 # Whether to enable strict os checking
 credits = 1 # Whether to display credits at startup
@@ -23,6 +24,6 @@ fps = 10 # The game's FPS
 block_color = (0, 0, 0) # Block Color
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 item_size = 10 # Item size
-item1x = 250 # Item default x position
-item1y = 250 # Item default y position
+item1x = 250 # Item 1 default x position
+item1y = 250 # Item 1 default y position
 enable_program = True # Enable or Disable the program

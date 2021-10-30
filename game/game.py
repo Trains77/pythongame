@@ -25,6 +25,7 @@ pygame.mixer.init()
 inv = [0, 0, 0, 0]
 hammer_slot = 1
 hammer_slot_pos = 235
+
 # Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
@@ -48,10 +49,12 @@ pygame.display.set_caption(GameName)
 done = False
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
+
 # Player Position
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-# Game
+
+# The actual Game
 facing = "Right"
 while not done:
         clock.tick(fps)

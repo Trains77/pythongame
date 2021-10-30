@@ -14,5 +14,5 @@ if credits == 1:
     print()
     print("Utilizes Pygame 2.01")
     print()
-    print("AnotherGame v0.04")
+    print("AnotherGame v0.05")
     print(style.RESET)
