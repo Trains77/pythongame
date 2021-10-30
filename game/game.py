@@ -157,7 +157,6 @@ while not done:
             image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen,"Textures/slot/icon_select.png", [220, 5])
-#        inventory_slot_1 = pygame.draw.rect(screen, inventory_slot_color, [225, 10, 50, 50])
         if inv[0] == 1:
             if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
                 image_display(screen, "Textures/slot/hammer_transparent.png", [235,20])
