@@ -33,6 +33,7 @@ hammer_slot_pos = 235
 sword_slot = -1
 sword_slot_pos = 235
 # Functions
+
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     font1 = pygame.font.SysFont('Nerds', 20)
@@ -40,11 +41,14 @@ def createdialog(speaker, text):
     img2 = font1.render(text, True, BLACK)
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
+
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
     surface.blit(img, xy)
+
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if inv[ItemSlotID] == 0:
         ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
@@ -57,12 +61,14 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                     inv[ItemSlotID] = 1
                     print("Item Get!")
     return item_slot, item_slot_pos
+
 def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             image_display(screen, item_texture2, [ItemSlotPos,20])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen, item_texture, [ItemSlotPos,20])
+
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     if inv[ItemSlotID] == 0:
         image_display(screen, texture, [posx,posy])
@@ -78,6 +84,7 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
             elif playery + 30 > game_border1:
                 playsound(1,"Audio/Environment/wallhit.wav")
     return posx, posy, ItemID
+
 # Credits
 import credits
 
