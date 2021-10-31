@@ -27,6 +27,8 @@ item1x = 250
 item1y = 275
 item2y = 300
 item2x = 50
+if show_debug == True:
+    print("Debugging features enabled")
 # Items
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -161,7 +163,8 @@ while not done:
                     facing = "Down"
                 if event.key == pygame.K_ESCAPE:
                     done = True
-                    print("Quit")
+                    if show_debug == True:
+                        print("Quit")
                 if event.key == pygame.K_q:
                     if not Inv_Slot == 0:
                         Inv_Slot = Inv_Slot - 1
@@ -174,14 +177,14 @@ while not done:
                         Inv_Slot = 0
             if event.type == pygame.QUIT:
                 done = True
-                print("Quit")
+                if show_debug == True:
+                    print("Quit")
 
         # Mouse Related info
         cursor_pos = pygame.mouse.get_pos()
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
@@ -211,7 +214,8 @@ while not done:
                 image_display(screen, "Textures/Characters/Scientist/scientist_down.png", [infox,infoy])
             elif playery < infoy:
                 image_display(screen, "Textures/Characters/Scientist/scientist_up.png", [infox,infoy])
-
+        if show_debug == True:
+            print(facing)
         # Inventory Stuff
         item1x, item1y, hammer_slot = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
         item2x, item2y, sword_slot = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
@@ -247,10 +251,14 @@ while not done:
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             createdialog("Scientist", "Hello User!")
-        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
+            if show_debug == True:
+                print("Dialog Opened")
+#        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
         if pygame.Rect.colliderect(cursor_square, player_square) == 1:
             createdialog("User", "Hello little mouse!")
             facing = "Down"
+            if show_debug == True:
+                print("Dialog Opened")
         if show_debug == True:
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
