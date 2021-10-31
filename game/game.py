@@ -45,23 +45,24 @@ def image_display(surface, filename, xy):
     surface.blit(img, xy)
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
-def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
-    if inv[InvID] == 1:
-        if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            image_display(screen, item_texture2, [ItemSlotPos,20])
-        elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-            image_display(screen, item_texture, [ItemSlotPos,20])
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if inv[ItemSlotID] == 0:
         ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
         if pygame.Rect.colliderect(ItemID, player_square) == 1:
             if not Inv_Slot == hammer_slot:
                 if not Inv_Slot == sword_slot:
-                    inv[ItemSlotID] = 1
-                    print("Item Get!")
+                    Selected_Slot = 150 + 70 * Inv_Slot
                     item_slot_pos = Selected_Slot + 15
                     item_slot = Inv_Slot
+                    inv[ItemSlotID] = 1
+                    print("Item Get!")
     return item_slot, item_slot_pos
+def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
+    if inv[InvID] == 1:
+        if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
+            image_display(screen, item_texture2, [ItemSlotPos,20])
+        elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
+            image_display(screen, item_texture, [ItemSlotPos,20])
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     if inv[ItemSlotID] == 0:
         image_display(screen, texture, [posx,posy])
@@ -247,6 +248,8 @@ while not done:
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
             print("Sword Slot: " + str(sword_slot))
+            print("Hammer POS: " + str(hammer_slot_pos))
+            print("Sword POS: " + str(sword_slot_pos))
         pygame.display.update()
         pygame.display.flip()
 pygame.quit()
