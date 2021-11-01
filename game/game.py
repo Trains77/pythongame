@@ -8,30 +8,24 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, inv, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
 # Default Variables
+pygame.mixer.init()
+
+# Cordinates and stuff
 infox = 200
 infoy = 200
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-GRAY = (200, 200, 200)
-Inv_Slot = 0
-pygame.mixer.init()
-inv = [0, 0, 0, 0]
 item1x = 250
 item1y = 275
 item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
-if show_debug == True:
-    print("Debugging logs enabled")
-# Items
+
+# Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
 sword_slot = -1
@@ -39,8 +33,11 @@ sword_slot_pos = 235
 axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
-# Functions
 
+if show_debug == True:
+    print("Debugging logs enabled")
+
+# Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     font1 = pygame.font.SysFont('Nerds', 20)
