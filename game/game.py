@@ -34,6 +34,7 @@ hammer_slot = -1
 hammer_slot_pos = 235
 sword_slot = -1
 sword_slot_pos = 235
+SelectItem = "NaN"
 # Functions
 
 def createdialog(speaker, text):
@@ -61,7 +62,8 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                     item_slot_pos = Selected_Slot + 15
                     item_slot = Inv_Slot
                     inv[ItemSlotID] = 1
-                    print("Item Get!")
+                    if show_debug == 1:
+                        print("Item Get!")
     return item_slot, item_slot_pos
 
 def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
@@ -72,11 +74,14 @@ def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
             image_display(screen, item_texture, [ItemSlotPos,20])
 
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
+    SelectedItem = SelectItem
     if inv[ItemSlotID] == 0:
         image_display(screen, texture, [posx,posy])
+        SelectedItem = str(SelectItem)
     elif inv[ItemSlotID] == 1:
-        if ItemID == Inv_Slot: 
+        if ItemID == Inv_Slot:
             image_display(screen, texture, [playerx + 5,playery + 5])
+            SelectedItem = str(ItemSlotID)
         if mouse_button_list[2] == True:
             if not playery + 30 > game_border1:
                 if ItemID == Inv_Slot:
@@ -84,9 +89,10 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
                     posy = playery + 30
                     ItemID = -1
                     inv[ItemSlotID] = 0
+                    SelectedItem = "NaN"
             elif playery + 30 > game_border1:
                 playsound(1,"Audio/Environment/wallhit.wav")
-    return posx, posy, ItemID
+    return posx, posy, ItemID, SelectedItem
 
 # Credits
 import credits
@@ -169,13 +175,17 @@ while not done:
                 if event.key == pygame.K_q:
                     if not Inv_Slot == 0:
                         Inv_Slot = Inv_Slot - 1
+                        SelectItem = "NaN"
                     elif Inv_Slot == 0:
                         Inv_Slot = 2
+                        SelectItem = "NaN"
                 if event.key == pygame.K_e:
                     if not Inv_Slot == 2:
                         Inv_Slot = Inv_Slot + 1
+                        SelectItem = "NaN"
                     elif Inv_Slot == 2:
                         Inv_Slot = 0
+                        SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -221,8 +231,8 @@ while not done:
             print(facing)
 
         # Inventory Stuff
-        item1x, item1y, hammer_slot = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
-        item2x, item2y, sword_slot = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
+        item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
+        item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
                 image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
@@ -271,6 +281,7 @@ while not done:
             print("Sword Slot: " + str(sword_slot))
             print("Hammer POS: " + str(hammer_slot_pos))
             print("Sword POS: " + str(sword_slot_pos))
+            print("Held Item: " + SelectItem)
         pygame.display.update()
         pygame.display.flip()
 pygame.quit()
