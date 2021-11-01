@@ -90,8 +90,8 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
         if mouse_button_list[2] == True:
             if not playery + 30 > game_border1:
                 if ItemID == Inv_Slot:
-                    posx = playerx
-                    posy = playery + 30
+                    posx = playerx + 6
+                    posy = playery + 25
                     ItemID = -1
                     inv[ItemSlotID] = 0
                     SelectedItem = "NaN"
