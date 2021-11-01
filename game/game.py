@@ -60,7 +60,7 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
             if not Inv_Slot == hammer_slot:
                 if not Inv_Slot == sword_slot:
                     if not Inv_Slot == axe_slot:
-                        Selected_Slot = 150 + 70 * Inv_Slot
+                        Selected_Slot = 80 + 70 * Inv_Slot
                         item_slot_pos = Selected_Slot + 15
                         item_slot = Inv_Slot
                         inv[ItemSlotID] = 1
@@ -182,13 +182,13 @@ while not done:
                         Inv_Slot = Inv_Slot - 1
                         SelectItem = "NaN"
                     elif Inv_Slot == 0:
-                        Inv_Slot = 2
+                        Inv_Slot = 4
                         SelectItem = "NaN"
                 if event.key == pygame.K_e:
-                    if not Inv_Slot == 2:
+                    if not Inv_Slot == 4:
                         Inv_Slot = Inv_Slot + 1
                         SelectItem = "NaN"
-                    elif Inv_Slot == 2:
+                    elif Inv_Slot == 4:
                         Inv_Slot = 0
                         SelectItem = "NaN"
             if event.type == pygame.QUIT:
@@ -243,31 +243,46 @@ while not done:
 
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_select_transparent.png", [220, 5])
-            elif not Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_unselect_transparent.png", [220, 5])
-            if Inv_Slot == 0:
                 image_display(screen, inventory_path + "icon_select_transparent.png", [150, 5])
-            elif not Inv_Slot == 0:
+            elif not Inv_Slot == 1:
                 image_display(screen, inventory_path + "icon_unselect_transparent.png", [150, 5])
+            if Inv_Slot == 0:
+                image_display(screen, inventory_path + "icon_select_transparent.png", [80, 5])
+            elif not Inv_Slot == 0:
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [80, 5])
             if Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_select_transparent.png", [290, 5])
+                image_display(screen, inventory_path + "icon_select_transparent.png", [220, 5])
             elif not Inv_Slot == 2:
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [220, 5])
+            if Inv_Slot == 3:
+                image_display(screen, inventory_path + "icon_select_transparent.png", [290, 5])
+            elif not Inv_Slot == 3:
                 image_display(screen, inventory_path + "icon_unselect_transparent.png", [290, 5])
+            if Inv_Slot == 4:
+                image_display(screen, inventory_path + "icon_select_transparent.png", [360, 5])
+            elif not Inv_Slot == 4:
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [360, 5])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             if Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_select.png", [220, 5])
-            elif not Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_unselect.png", [220, 5])
-            if Inv_Slot == 0:
                 image_display(screen, inventory_path + "icon_select.png", [150, 5])
-            elif not Inv_Slot == 0:
+            elif not Inv_Slot == 1:
                 image_display(screen, inventory_path + "icon_unselect.png", [150, 5])
+            if Inv_Slot == 0:
+                image_display(screen, inventory_path + "icon_select.png", [80, 5])
+            elif not Inv_Slot == 0:
+                image_display(screen, inventory_path + "icon_unselect.png", [80, 5])
             if Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_select.png", [290, 5])
+                image_display(screen, inventory_path + "icon_select.png", [220, 5])
             elif not Inv_Slot == 2:
+                image_display(screen, inventory_path + "icon_unselect.png", [220, 5])
+            if Inv_Slot == 3:
+                image_display(screen, inventory_path + "icon_select.png", [290, 5])
+            elif not Inv_Slot == 3:
                 image_display(screen, inventory_path + "icon_unselect.png", [290, 5])
-
+            if Inv_Slot == 4:
+                image_display(screen, inventory_path + "icon_select.png", [360, 5])
+            elif not Inv_Slot == 4:
+                image_display(screen, inventory_path + "icon_unselect.png", [360, 5])
         render_item_inv("hammer.png", "hammer_transparent.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", "sword_transparent.png", 1, sword_slot_pos)
         render_item_inv("axe.png", "axe_transparent.png", 2, axe_slot_pos)
