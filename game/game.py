@@ -28,7 +28,7 @@ item1y = 275
 item2y = 300
 item2x = 50
 if show_debug == True:
-    print("Debugging features enabled")
+    print("Debugging logs enabled")
 # Items
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -264,7 +264,12 @@ while not done:
         render_item_inv("Textures/slot/sword.png", "Textures/slot/sword_transparent.png", 1, sword_slot_pos)
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
-            createdialog("Scientist", "Hello User!")
+            if SelectItem == "NaN":
+                createdialog("Scientist", "Hello User!")
+            if SelectItem == "1":
+                createdialog("Scientist", "Why are you holding a sword?")
+            if SelectItem == "0":
+                createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet")
             if show_debug == True:
                 print("Dialog Opened")
 #        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
