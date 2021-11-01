@@ -75,7 +75,8 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
     if inv[ItemSlotID] == 0:
         image_display(screen, texture, [posx,posy])
     elif inv[ItemSlotID] == 1:
-        image_display(screen, texture, [playerx + 5,playery + 5])
+        if ItemID == Inv_Slot: 
+            image_display(screen, texture, [playerx + 5,playery + 5])
         if mouse_button_list[2] == True:
             if not playery + 30 > game_border1:
                 if ItemID == Inv_Slot:
@@ -262,6 +263,8 @@ while not done:
             facing = "Down"
             if show_debug == True:
                 print("Dialog Opened")
+
+        # Debugging stuff
         if show_debug == True:
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
