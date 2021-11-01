@@ -27,6 +27,8 @@ item1x = 250
 item1y = 275
 item2y = 300
 item2x = 50
+item3x = 99
+item3y = 450
 if show_debug == True:
     print("Debugging logs enabled")
 # Items
@@ -34,6 +36,8 @@ hammer_slot = -1
 hammer_slot_pos = 235
 sword_slot = -1
 sword_slot_pos = 235
+axe_slot = -1
+axe_slot_pos = 235
 SelectItem = "NaN"
 # Functions
 
@@ -58,12 +62,13 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
         if pygame.Rect.colliderect(ItemID, player_square) == 1:
             if not Inv_Slot == hammer_slot:
                 if not Inv_Slot == sword_slot:
-                    Selected_Slot = 150 + 70 * Inv_Slot
-                    item_slot_pos = Selected_Slot + 15
-                    item_slot = Inv_Slot
-                    inv[ItemSlotID] = 1
-                    if show_debug == 1:
-                        print("Item Get!")
+                    if not Inv_Slot == axe_slot:
+                        Selected_Slot = 150 + 70 * Inv_Slot
+                        item_slot_pos = Selected_Slot + 15
+                        item_slot = Inv_Slot
+                        inv[ItemSlotID] = 1
+                        if show_debug == 1:
+                            print("Item Get!")
     return item_slot, item_slot_pos
 
 def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
@@ -206,6 +211,7 @@ while not done:
         # Item Managment
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
+        axe_slot, axe_slot_pos = item_detector(2, "item3", axe_slot, axe_slot_pos, item3x, item3y)
 
         # Background and players
         if disable_background == False:
@@ -233,6 +239,8 @@ while not done:
         # Inventory Stuff
         item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
         item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
+        item3x, item3y, axe_slot, SelectItem = item_render(2, axe_slot, item3x, item3y, "Textures/items/axe.png")
+
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
                 image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
@@ -262,6 +270,7 @@ while not done:
 
         render_item_inv("Textures/slot/hammer.png", "Textures/slot/hammer_transparent.png", 0, hammer_slot_pos)
         render_item_inv("Textures/slot/sword.png", "Textures/slot/sword_transparent.png", 1, sword_slot_pos)
+        render_item_inv("Textures/slot/axe.png", "Textures/slot/axe_transparent.png", 2, axe_slot_pos)
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
@@ -269,7 +278,9 @@ while not done:
             if SelectItem == "1":
                 createdialog("Scientist", "Why are you holding a sword?")
             if SelectItem == "0":
-                createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet")
+                createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+            if SelectItem == "2":
+                createdialog("Scientist", "That looks more like a toothbrush than an axe.")
             if show_debug == True:
                 print("Dialog Opened")
 #        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
@@ -284,8 +295,10 @@ while not done:
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
             print("Sword Slot: " + str(sword_slot))
+            print("Axe Slot: " + str(axe_slot))
             print("Hammer POS: " + str(hammer_slot_pos))
             print("Sword POS: " + str(sword_slot_pos))
+            print("Axe POS: " + str(axe_slot_pos))
             print("Held Item: " + SelectItem)
         pygame.display.update()
         pygame.display.flip()
