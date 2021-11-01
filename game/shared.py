@@ -22,8 +22,9 @@ enable_music = 1 # Whether or not music is enabled
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
 item_path = "Textures/items/" # Where to pull item textures from
-enviroment_path = "Audio/Environment/" # Where to pull enviroment audio from
-
+environment_audio_path = "Audio/Environment/" # Where to pull enviroment audio from
+environment_path = "Textures/Environment/"
+characters_path = "Textures/Characters/"
 # WARNING: Changing these settings will cause issues
 enable_os_restrictions = 0 # Whether to enable strict os checking
 size = [500, 500] # The size of the screen

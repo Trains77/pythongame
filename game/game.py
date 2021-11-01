@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, size, item_path, enviroment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -99,7 +99,7 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
                     inv[ItemSlotID] = 0
                     SelectedItem = "NaN"
             elif playery + 30 > game_border1:
-                playsound(1, enviroment_path + "wallhit.wav")
+                playsound(1, environment_audio_path + "wallhit.wav")
     return posx, posy, ItemID, SelectedItem
 
 # Credits
@@ -132,49 +132,49 @@ while not done:
                     if not playerx == game_border2:
                         playerx = playerx - speed
                     elif playerx == game_border2:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Left"
                 if event.key == pygame.K_d:
                     if not playerx == game_border1:
                         playerx = playerx + speed
                     elif playerx == game_border1:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Right"
                 if event.key == pygame.K_w:
                     if not playery == game_border2:
                         playery = playery - speed
                     elif playery == game_border2:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Up"
                 if event.key == pygame.K_s:
                     if not playery == game_border1:
                         playery =playery + speed
                     elif playery == game_border1:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Down"
                 if event.key == pygame.K_LEFT:
                     if not playerx == game_border2:
                         playerx = playerx - speed
                     elif playerx == game_border2:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Left"
                 if event.key == pygame.K_RIGHT:
                     if not playerx == game_border1:
                         playerx = playerx + speed
                     elif playerx == game_border1:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Right"
                 if event.key == pygame.K_UP:
                     if not playery == game_border2:
                         playery = playery - speed
                     elif playery == game_border2:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Up"
                 if event.key == pygame.K_DOWN:
                     if not playery == game_border1:
                         playery =playery + speed
                     elif playery == game_border1:
-                        playsound(1, enviroment_path + "wallhit.wav")
+                        playsound(1, environment_audio_path + "wallhit.wav")
                     facing = "Down"
                 if event.key == pygame.K_ESCAPE:
                     done = True
@@ -218,24 +218,24 @@ while not done:
 
         # Background and players
         if disable_background == False:
-            image_display(screen, "Textures/Environment/background.png", [0,0])
+            image_display(screen, environment_path + "background.png", [0,0])
         if facing == "Left":
-            image_display(screen, "Textures/Characters/Player/playerflipped.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
-            image_display(screen, "Textures/Characters/Player/player.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/player.png", [playerx,playery])
         elif facing == "Up":
-            image_display(screen, "Textures/Characters/Player/playerup.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerup.png", [playerx,playery])
         elif facing == "Down":
-            image_display(screen, "Textures/Characters/Player/playerdown.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery])
         if playerx > infox:
-            image_display(screen, "Textures/Characters/Scientist/scientist.png", [infox,infoy])
+            image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
         elif playerx < infox:
-            image_display(screen, "Textures/Characters/Scientist/scientist_flipped.png", [infox,infoy])
+            image_display(screen, characters_path + "Scientist/scientist_flipped.png", [infox,infoy])
         elif playerx == infox:
             if playery > infoy:
-                image_display(screen, "Textures/Characters/Scientist/scientist_down.png", [infox,infoy])
+                image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
             elif playery < infoy:
-                image_display(screen, "Textures/Characters/Scientist/scientist_up.png", [infox,infoy])
+                image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
         if show_debug == True:
             print(facing)
 
@@ -246,30 +246,30 @@ while not done:
 
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
-                image_display(screen,"Textures/slot/icon_select_transparent.png", [220, 5])
+                image_display(screen, inventory_path + "icon_select_transparent.png", [220, 5])
             elif not Inv_Slot == 1:
-                image_display(screen,"Textures/slot/icon_unselect_transparent.png", [220, 5])
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [220, 5])
             if Inv_Slot == 0:
-                image_display(screen,"Textures/slot/icon_select_transparent.png", [150, 5])
+                image_display(screen, inventory_path + "icon_select_transparent.png", [150, 5])
             elif not Inv_Slot == 0:
-                image_display(screen,"Textures/slot/icon_unselect_transparent.png", [150, 5])
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [150, 5])
             if Inv_Slot == 2:
-                image_display(screen,"Textures/slot/icon_select_transparent.png", [290, 5])
+                image_display(screen, inventory_path + "icon_select_transparent.png", [290, 5])
             elif not Inv_Slot == 2:
-                image_display(screen,"Textures/slot/icon_unselect_transparent.png", [290, 5])
+                image_display(screen, inventory_path + "icon_unselect_transparent.png", [290, 5])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             if Inv_Slot == 1:
-                image_display(screen,"Textures/slot/icon_select.png", [220, 5])
+                image_display(screen, inventory_path + "icon_select.png", [220, 5])
             elif not Inv_Slot == 1:
-                image_display(screen,"Textures/slot/icon_unselect.png", [220, 5])
+                image_display(screen, inventory_path + "icon_unselect.png", [220, 5])
             if Inv_Slot == 0:
-                image_display(screen,"Textures/slot/icon_select.png", [150, 5])
+                image_display(screen, inventory_path + "icon_select.png", [150, 5])
             elif not Inv_Slot == 0:
-                image_display(screen,"Textures/slot/icon_unselect.png", [150, 5])
+                image_display(screen, inventory_path + "icon_unselect.png", [150, 5])
             if Inv_Slot == 2:
-                image_display(screen,"Textures/slot/icon_select.png", [290, 5])
+                image_display(screen, inventory_path + "icon_select.png", [290, 5])
             elif not Inv_Slot == 2:
-                image_display(screen,"Textures/slot/icon_unselect.png", [290, 5])
+                image_display(screen, inventory_path + "icon_unselect.png", [290, 5])
 
         render_item_inv("hammer.png", "hammer_transparent.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", "sword_transparent.png", 1, sword_slot_pos)
