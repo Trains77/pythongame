@@ -185,6 +185,7 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
+
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
@@ -194,8 +195,9 @@ while not done:
         # Item Managment
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
+
         # Background and players
-        if disable_background == True:
+        if disable_background == False:
             image_display(screen, "Textures/Environment/background.png", [0,0])
         if facing == "Left":
             image_display(screen, "Textures/Characters/Player/playerflipped.png", [playerx,playery])
@@ -216,6 +218,7 @@ while not done:
                 image_display(screen, "Textures/Characters/Scientist/scientist_up.png", [infox,infoy])
         if show_debug == True:
             print(facing)
+
         # Inventory Stuff
         item1x, item1y, hammer_slot = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
         item2x, item2y, sword_slot = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
