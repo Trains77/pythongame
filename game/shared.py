@@ -20,6 +20,9 @@ GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
 enable_music = 1 # Whether or not music is enabled
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
+item_path = "Textures/items/" # Where to pull item textures from
+enviroment_path = "Audio/Environment/" # Where to pull enviroment audio from
 
 # WARNING: Changing these settings will cause issues
 enable_os_restrictions = 0 # Whether to enable strict os checking

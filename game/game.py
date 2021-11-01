@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, size, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, size, item_path, enviroment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -74,18 +74,21 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
 def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            image_display(screen, item_texture2, [ItemSlotPos,20])
+            image_display(screen, inventory_path + item_texture2, [ItemSlotPos,20])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-            image_display(screen, item_texture, [ItemSlotPos,20])
+            image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
 
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     SelectedItem = SelectItem
     if inv[ItemSlotID] == 0:
-        image_display(screen, texture, [posx,posy])
+        image_display(screen, item_path + texture, [posx,posy])
         SelectedItem = str(SelectItem)
     elif inv[ItemSlotID] == 1:
         if ItemID == Inv_Slot:
-            image_display(screen, texture, [playerx + 5,playery + 5])
+            if not facing == "Right":
+                image_display(screen, item_path + texture, [playerx + 5,playery + 5])
+            elif facing == "Right":
+                image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
             SelectedItem = str(ItemSlotID)
         if mouse_button_list[2] == True:
             if not playery + 30 > game_border1:
@@ -96,7 +99,7 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
                     inv[ItemSlotID] = 0
                     SelectedItem = "NaN"
             elif playery + 30 > game_border1:
-                playsound(1,"Audio/Environment/wallhit.wav")
+                playsound(1, enviroment_path + "wallhit.wav")
     return posx, posy, ItemID, SelectedItem
 
 # Credits
@@ -129,49 +132,49 @@ while not done:
                     if not playerx == game_border2:
                         playerx = playerx - speed
                     elif playerx == game_border2:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Left"
                 if event.key == pygame.K_d:
                     if not playerx == game_border1:
                         playerx = playerx + speed
                     elif playerx == game_border1:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Right"
                 if event.key == pygame.K_w:
                     if not playery == game_border2:
                         playery = playery - speed
                     elif playery == game_border2:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Up"
                 if event.key == pygame.K_s:
                     if not playery == game_border1:
                         playery =playery + speed
                     elif playery == game_border1:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Down"
                 if event.key == pygame.K_LEFT:
                     if not playerx == game_border2:
                         playerx = playerx - speed
                     elif playerx == game_border2:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Left"
                 if event.key == pygame.K_RIGHT:
                     if not playerx == game_border1:
                         playerx = playerx + speed
                     elif playerx == game_border1:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Right"
                 if event.key == pygame.K_UP:
                     if not playery == game_border2:
                         playery = playery - speed
                     elif playery == game_border2:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Up"
                 if event.key == pygame.K_DOWN:
                     if not playery == game_border1:
                         playery =playery + speed
                     elif playery == game_border1:
-                        playsound(1,"Audio/Environment/wallhit.wav")
+                        playsound(1, enviroment_path + "wallhit.wav")
                     facing = "Down"
                 if event.key == pygame.K_ESCAPE:
                     done = True
@@ -237,9 +240,9 @@ while not done:
             print(facing)
 
         # Inventory Stuff
-        item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "Textures/items/hammer.png")
-        item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "Textures/items/sword.png")
-        item3x, item3y, axe_slot, SelectItem = item_render(2, axe_slot, item3x, item3y, "Textures/items/axe.png")
+        item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
+        item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "sword.png")
+        item3x, item3y, axe_slot, SelectItem = item_render(2, axe_slot, item3x, item3y, "axe.png")
 
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             if Inv_Slot == 1:
@@ -268,9 +271,9 @@ while not done:
             elif not Inv_Slot == 2:
                 image_display(screen,"Textures/slot/icon_unselect.png", [290, 5])
 
-        render_item_inv("Textures/slot/hammer.png", "Textures/slot/hammer_transparent.png", 0, hammer_slot_pos)
-        render_item_inv("Textures/slot/sword.png", "Textures/slot/sword_transparent.png", 1, sword_slot_pos)
-        render_item_inv("Textures/slot/axe.png", "Textures/slot/axe_transparent.png", 2, axe_slot_pos)
+        render_item_inv("hammer.png", "hammer_transparent.png", 0, hammer_slot_pos)
+        render_item_inv("sword.png", "sword_transparent.png", 1, sword_slot_pos)
+        render_item_inv("axe.png", "axe_transparent.png", 2, axe_slot_pos)
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
