@@ -5,9 +5,9 @@ import pygame
 pygame.init()
 
 # Debugging settings
-disable_background = False # Set whether the game loads the background file
-player_color = (0, 0, 0) # The color of the player hitbox
-block_color = (0, 0, 0) # Block Color
+disable_background = False # Wether the game should load the background file
+player_color = (0, 0, 0) # The color of the player's hitbox
+block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
@@ -19,11 +19,12 @@ item_path = "Textures/items/" # Where to pull item textures from
 environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
 environment_path = "Textures/Environment/" # Where to pull environmental textures from
 characters_path = "Textures/Characters/" # Where to pull character textures from
-transparent_prefix = "transparent_"
+transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
+flipped_prefix = "flipped_" # Currently does nothing
 
 # Game Settings
-enable_os_restrictions = 0 # Whether to enable strict os checking
-credits = True # Whether to display credits at startup
+enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
+credits = True # Whether to display the credits at startup
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
 enable_music = True # Whether or not music is enabled
@@ -41,12 +42,13 @@ enable_program = True # Enables or Disables the program
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
-minimum_slot = 80
+minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 
 # Colors
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-GRAY = (200, 200, 200)
+BLACK = (0, 0, 0) # The RGB code for Black
+RED = (255, 0, 0) # The RGB code for Red
+GREEN = (0, 255, 0) # The RGB code for Green
+BLUE = (0, 0, 255) # The RGB code for Blue
+GRAY = (200, 200, 200) # The RGB code for Gray
+NaN = (Nan, Nan, Nan) # The RGB code for Nan

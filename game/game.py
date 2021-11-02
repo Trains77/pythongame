@@ -123,9 +123,9 @@ clock = pygame.time.Clock()
 # Player Position
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+facing = "Right"
 
 # The actual Game
-facing = "Right"
 while not done:
         clock.tick(fps)
         screen.fill(background_color)
@@ -273,7 +273,7 @@ while not done:
 
         if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
             if SelectItem == "2":
-                createdialog("User", "It is still not a tree.")
+                createdialog("User", "It is still not a tree, and I only have not an axe.")
             if not SelectItem == "2":
                 createdialog("User", "It is not a tree.")
         # Dialogs
