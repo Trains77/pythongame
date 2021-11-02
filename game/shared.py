@@ -17,6 +17,7 @@ item_path = "Textures/items/" # Where to pull item textures from
 environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
 environment_path = "Textures/Environment/" # Where to pull environmental textures from
 characters_path = "Textures/Characters/" # Where to pull character textures from
+transparent_prefix = "transparent_"
 
 # Game Settings
 enable_os_restrictions = 0 # Whether to enable strict os checking

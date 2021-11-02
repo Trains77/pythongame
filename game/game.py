@@ -8,11 +8,10 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
-# Default Variables
 pygame.mixer.init()
 
 # Cordinates and stuff
@@ -24,7 +23,7 @@ item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
-transparent_prefix = "transparent_"
+
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
