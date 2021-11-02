@@ -24,7 +24,7 @@ item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
-
+transparent_prefix = "transparent_"
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -69,10 +69,10 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                         playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
-def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
+def render_item_inv(item_texture, InvID, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            image_display(screen, inventory_path + item_texture2, [ItemSlotPos,20])
+            image_display(screen, inventory_path + transparent_prefix + item_texture, [ItemSlotPos,20])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
 
@@ -108,9 +108,9 @@ def render_slot(slot_id):
 
 def render_transparent_slot(slot_id):
     if Inv_Slot == slot_id:
-        image_display(screen, inventory_path + "icon_select_transparent.png", [minimum_slot + 70 * slot_id, 5])
+        image_display(screen, inventory_path + transparent_prefix + "icon_select.png", [minimum_slot + 70 * slot_id, 5])
     elif not Inv_Slot == slot_id:
-        image_display(screen, inventory_path + "icon_unselect_transparent.png", [minimum_slot + 70 * slot_id, 5])
+        image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
 # Credits
 import credits
 
@@ -265,9 +265,9 @@ while not done:
             render_slot(2)
             render_slot(3)
             render_slot(4)
-        render_item_inv("hammer.png", "hammer_transparent.png", 0, hammer_slot_pos)
-        render_item_inv("sword.png", "sword_transparent.png", 1, sword_slot_pos)
-        render_item_inv("axe.png", "axe_transparent.png", 2, axe_slot_pos)
+        render_item_inv("hammer.png", 0, hammer_slot_pos)
+        render_item_inv("sword.png", 1, sword_slot_pos)
+        render_item_inv("axe.png", 2, axe_slot_pos)
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
