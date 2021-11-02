@@ -23,6 +23,7 @@ item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
+disable_controls = False
 
 # Item related stuff
 hammer_slot = -1
@@ -87,16 +88,17 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
             elif facing == "Right":
                 image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
             SelectedItem = str(ItemSlotID)
-        if mouse_button_list[2] == True:
-            if not playery + 30 > game_border1:
-                if ItemID == Inv_Slot:
-                    posx = playerx + 6
-                    posy = playery + 25
-                    ItemID = -1
-                    inv[ItemSlotID] = 0
-                    SelectedItem = "NaN"
-            elif playery + 30 > game_border1:
-                playsound(1, environment_audio_path + "wallhit.wav")
+        if disable_controls == False:
+            if mouse_button_list[2] == True:
+                if not playery + 12 > game_border1:
+                    if ItemID == Inv_Slot:
+                        posx = playerx + 6
+                        posy = playery + 25
+                        ItemID = -1
+                        inv[ItemSlotID] = 0
+                        SelectedItem = "NaN"
+                elif playery + 30 > game_border1:
+                    playsound(1, environment_audio_path + "wallhit.wav")
     return posx, posy, ItemID, SelectedItem
 
 def render_slot(slot_id):
@@ -112,6 +114,8 @@ def render_transparent_slot(slot_id):
         image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
 # Credits
 import credits
+
+nextdialog = False
 
 # Display
 screen = pygame.display.set_mode(size)
@@ -137,53 +141,61 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    if not playerx == game_border2:
-                        playerx = playerx - speed
-                    elif playerx == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Left"
+                    if disable_controls == False:
+                        if not playerx == game_border2:
+                            playerx = playerx - speed
+                        elif playerx == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Left"
                 if event.key == pygame.K_d:
-                    if not playerx == game_border1:
-                        playerx = playerx + speed
-                    elif playerx == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Right"
+                    if disable_controls == False:
+                        if not playerx == game_border1:
+                            playerx = playerx + speed
+                        elif playerx == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Right"
                 if event.key == pygame.K_w:
-                    if not playery == game_border2:
-                        playery = playery - speed
-                    elif playery == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Up"
+                    if disable_controls == False:
+                        if not playery == game_border2:
+                            playery = playery - speed
+                        elif playery == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Up"
                 if event.key == pygame.K_s:
-                    if not playery == game_border1:
-                        playery =playery + speed
-                    elif playery == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Down"
+                    if disable_controls == False:
+                        if not playery == game_border1:
+                            playery =playery + speed
+                        elif playery == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Down"
                 if event.key == pygame.K_LEFT:
-                    if not playerx == game_border2:
-                        playerx = playerx - speed
-                    elif playerx == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Left"
+                    if disable_controls == False:
+                        if not playerx == game_border2:
+                            playerx = playerx - speed
+                        elif playerx == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Left"
                 if event.key == pygame.K_RIGHT:
-                    if not playerx == game_border1:
-                        playerx = playerx + speed
-                    elif playerx == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Right"
+                    if disable_controls == False:
+                        if not playerx == game_border1:
+                            playerx = playerx + speed
+                        elif playerx == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Right"
                 if event.key == pygame.K_UP:
-                    if not playery == game_border2:
-                        playery = playery - speed
-                    elif playery == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Up"
+                    if disable_controls == False:
+                        if not playery == game_border2:
+                            playery = playery - speed
+                        elif playery == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Up"
                 if event.key == pygame.K_DOWN:
-                    if not playery == game_border1:
-                        playery =playery + speed
-                    elif playery == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Down"
+                    if disable_controls == False:
+                        if not playery == game_border1:
+                            playery =playery + speed
+                        elif playery == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Down"
                 if event.key == pygame.K_ESCAPE:
                     done = True
                     if show_debug == True:
@@ -202,6 +214,10 @@ while not done:
                     elif Inv_Slot == 4:
                         Inv_Slot = 0
                         SelectItem = "NaN"
+                if event.key == pygame.K_z:
+                    if show_debug == True:
+                        print("Entered")
+                    nextdialog == True
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:

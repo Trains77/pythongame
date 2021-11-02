@@ -51,4 +51,4 @@ RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
-NaN = (Nan, Nan, Nan) # The RGB code for Nan
+NaN = ("NaN", "NaN", "NaN") # The RGB code for Nan
