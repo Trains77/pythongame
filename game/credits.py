@@ -2,7 +2,7 @@ from shared import credits
 from colored import fore, back, style
 
 # Credits
-if credits == 1:
+if credits == True:
     print(fore.BLUE)
     print("Program by Trains77")
     print()

@@ -227,6 +227,7 @@ while not done:
         # Background and players
         if disable_background == False:
             image_display(screen, environment_path + "background.png", [0,0])
+        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
@@ -264,6 +265,7 @@ while not done:
             render_slot(2)
             render_slot(3)
             render_slot(4)
+
 
         render_item_inv("hammer.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", 1, sword_slot_pos)

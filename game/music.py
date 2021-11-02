@@ -6,13 +6,13 @@ import pygame
 import pydub
 from pygame.locals import *
 from shared import enable_music
-if enable_music == 1:
+if enable_music == True:
     pygame.mixer.init()
     pygame.mixer.music.load(song)
     pygame.mixer.music.play(-1)
     if show_debug == True:
         print("Playing Music")
-elif enable_music == 0:
+elif enable_music == False:
     if show_debug == True:
         print("Music playing is disabled")
 

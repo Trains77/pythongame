@@ -12,6 +12,8 @@ info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
 show_debug = False # Enable debugging messages
+
+# File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
 item_path = "Textures/items/" # Where to pull item textures from
 environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
@@ -21,11 +23,11 @@ transparent_prefix = "transparent_"
 
 # Game Settings
 enable_os_restrictions = 0 # Whether to enable strict os checking
-credits = 1 # Whether to display credits at startup
+credits = True # Whether to display credits at startup
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
-enable_music = 1 # Whether or not music is enabled
-gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+enable_music = True # Whether or not music is enabled
+enable_audio = True # Whether or not audio should be played
 Inv_Slot = 0 # Default inventory slot
 
 # WARNING: Changing these settings will cause issues
@@ -40,6 +42,7 @@ item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80
+gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 
 # Colors
 BLACK = (0, 0, 0)
