@@ -271,6 +271,11 @@ while not done:
         render_item_inv("sword.png", 1, sword_slot_pos)
         render_item_inv("axe.png", 2, axe_slot_pos)
 
+        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
+            if SelectItem == "2":
+                createdialog("User", "It is still not a tree.")
+            if not SelectItem == "2":
+                createdialog("User", "It is not a tree.")
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
