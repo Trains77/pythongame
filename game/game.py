@@ -66,6 +66,7 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                         inv[ItemSlotID] = 1
                         if show_debug == 1:
                             print("Item Get!")
+                        playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
 def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
