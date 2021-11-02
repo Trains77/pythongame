@@ -354,6 +354,7 @@ while not done:
             nextdialog = False
             nextdialog2 = False
             nextdialog3 = False
+            nextdialog4 = False
 #        image_display(screen, "Textures/Environment/tree.png", [infox,infoy]) # For rendering an unused tree asset
         # Debugging stuff
         if show_debug == True:
