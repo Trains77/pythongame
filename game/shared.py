@@ -38,7 +38,7 @@ speed = 10 # How fast the player moves
 enable_program = True # Enables or Disables the program
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
-inv = [0, 0, 0, 0] # Inventory list
+inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80
 
 # Colors

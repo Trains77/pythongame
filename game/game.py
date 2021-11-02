@@ -264,6 +264,7 @@ while not done:
             render_slot(2)
             render_slot(3)
             render_slot(4)
+
         render_item_inv("hammer.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", 1, sword_slot_pos)
         render_item_inv("axe.png", 2, axe_slot_pos)
