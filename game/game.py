@@ -13,7 +13,7 @@ from colored import fore, back, style
 import math
 import random
 pygame.mixer.init()
-
+mapid = 0
 # Cordinates and stuff
 infox = 200
 infoy = 200
@@ -25,6 +25,10 @@ item3x = 99
 item3y = 450
 disable_controls = False
 
+nextdialog = False
+nextdialog2 = False
+nextdialog3 = False
+nextdialog4 = False
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -43,8 +47,10 @@ def createdialog(speaker, text):
     font1 = pygame.font.SysFont('Nerds', 20)
     img1 = font1.render(speaker + ":", True, BLACK)
     img2 = font1.render(text, True, BLACK)
+    img3 = font1.render("Press 'z' to continue", True, BLACK)
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
+    screen.blit(img3, (355, 470))
 
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
@@ -114,8 +120,6 @@ def render_transparent_slot(slot_id):
         image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
 # Credits
 import credits
-
-nextdialog = False
 
 # Display
 screen = pygame.display.set_mode(size)
@@ -201,23 +205,31 @@ while not done:
                     if show_debug == True:
                         print("Quit")
                 if event.key == pygame.K_q:
-                    if not Inv_Slot == 0:
-                        Inv_Slot = Inv_Slot - 1
-                        SelectItem = "NaN"
-                    elif Inv_Slot == 0:
-                        Inv_Slot = 4
-                        SelectItem = "NaN"
+                    if disable_controls == False:
+                        if not Inv_Slot == 0:
+                            Inv_Slot = Inv_Slot - 1
+                            SelectItem = "NaN"
+                        elif Inv_Slot == 0:
+                            Inv_Slot = 4
+                            SelectItem = "NaN"
                 if event.key == pygame.K_e:
-                    if not Inv_Slot == 4:
-                        Inv_Slot = Inv_Slot + 1
-                        SelectItem = "NaN"
-                    elif Inv_Slot == 4:
-                        Inv_Slot = 0
-                        SelectItem = "NaN"
+                    if disable_controls == False:
+                        if not Inv_Slot == 4:
+                            Inv_Slot = Inv_Slot + 1
+                            SelectItem = "NaN"
+                        elif Inv_Slot == 4:
+                            Inv_Slot = 0
+                            SelectItem = "NaN"
                 if event.key == pygame.K_z:
+                    if nextdialog3 == True:
+                        nextdialog4 = True
+                    if nextdialog2 == True:
+                        nextdialog3 = True
+                    if nextdialog == True:
+                        nextdialog2 = True
                     if show_debug == True:
                         print("Entered")
-                    nextdialog == True
+                    nextdialog = True
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -295,24 +307,57 @@ while not done:
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
-                createdialog("Scientist", "Hello User!")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Hello User!")
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "1":
-                createdialog("Scientist", "Why are you holding a sword?")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Why are you holding a sword?")
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "0":
-                createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "2":
-                createdialog("Scientist", "That looks more like a toothbrush than an axe.")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "That looks more like a toothbrush than an axe.")
+                if not nextdialog == False:
+                    if nextdialog2 == False:
+                        createdialog("User", "Yeah, I know")
+                if not nextdialog2 == False:
+                    if nextdialog3 == False:
+                        createdialog("Trains77", "Hey, I did my best :c")
+                if not nextdialog3 == False:
+                    if nextdialog4 == False:
+                        createdialog("Scientist", "Well your best sucks.")
+                if nextdialog4 == True:
+                    disable_controls = False
             if show_debug == True:
                 print("Dialog Opened")
+        if not pygame.Rect.colliderect(player_square, player_detector) == 1:
+            nextdialog = False
+            nextdialog2 = False
+            nextdialog3 = False
 #        image_display(screen, "Textures/Environment/tree.png", [infox,infoy]) # For rendering an unused tree asset
-        if pygame.Rect.colliderect(cursor_square, player_square) == 1:
-            createdialog("User", "Hello little mouse!")
-            facing = "Down"
-            if show_debug == True:
-                print("Dialog Opened")
-
         # Debugging stuff
         if show_debug == True:
+            print("Controls Status: " + str(disable_controls))
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
             print("Sword Slot: " + str(sword_slot))
