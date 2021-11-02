@@ -268,6 +268,7 @@ while not done:
         render_item_inv("hammer.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", 1, sword_slot_pos)
         render_item_inv("axe.png", 2, axe_slot_pos)
+
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
@@ -280,7 +281,7 @@ while not done:
                 createdialog("Scientist", "That looks more like a toothbrush than an axe.")
             if show_debug == True:
                 print("Dialog Opened")
-#        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
+#        image_display(screen, "Textures/Environment/tree.png", [infox,infoy]) # For rendering an unused tree asset
         if pygame.Rect.colliderect(cursor_square, player_square) == 1:
             createdialog("User", "Hello little mouse!")
             facing = "Down"
