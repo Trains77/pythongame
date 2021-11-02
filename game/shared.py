@@ -38,6 +38,7 @@ enable_program = True # Enables or Disables the program
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0] # Inventory list
+minimum_slot = 80
 
 # Colors
 BLACK = (0, 0, 0)
