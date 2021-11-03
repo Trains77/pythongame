@@ -268,6 +268,9 @@ while not done:
             image_display(screen, characters_path + "Player/playerup.png", [playerx,playery])
         elif facing == "Down":
             image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery])
+        else:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
+            done = True
         if playerx > infox:
             image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
         elif playerx < infox:
