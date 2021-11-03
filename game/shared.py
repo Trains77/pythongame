@@ -23,13 +23,13 @@ GRAY = (200, 200, 200) # The RGB code for Gray
 NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Debugging settings
-disable_background = False # Wether the game should load the background file
+disable_background = False # Wether the game should load the background image
 player_color = (0, 0, 0) # The color of the player's hitbox
 block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = True # Enable debugging messages
+show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
