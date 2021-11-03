@@ -242,6 +242,7 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
+        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
 
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
@@ -257,7 +258,6 @@ while not done:
         # Background and players
         if disable_background == False:
             image_display(screen, environment_path + "background.png", [0,0])
-        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
@@ -277,7 +277,7 @@ while not done:
                 image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
         if show_debug == True:
             print(facing)
-
+#        image_display(screen, environment_path + "tree.png", [450, 450])
         # Inventory Stuff
         item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
         item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "sword.png")
@@ -303,9 +303,9 @@ while not done:
 
         if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
             if SelectItem == "2":
-                createdialog("User", "It is still not a tree, and I only have not an axe.")
+                createdialog("User", "It is still a tree, and I only have a not an axe.")
             if not SelectItem == "2":
-                createdialog("User", "It is not a tree.")
+                createdialog("User", "It is a tree.")
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
