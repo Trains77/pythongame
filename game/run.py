@@ -1,6 +1,5 @@
 # Script Modules
 import platform
-import sys
 import colored
 from colored import fore, back, style
 system_required = "Linux"
