@@ -1,6 +1,5 @@
 # Script Modules
 import platform
-# import sys
 import colored
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"

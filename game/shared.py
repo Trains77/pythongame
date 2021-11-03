@@ -13,7 +13,7 @@ Inv_Slot = 0 # Default inventory slot
 enable_program = True # Enables or Disables the program
 facing = "Right" # Default player rotation
 
-# Colors, these variables are however rarely used
+# Color rgb codes
 BLACK = (0, 0, 0) # The RGB code for Black
 RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
