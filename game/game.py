@@ -14,6 +14,7 @@ import math
 import random
 pygame.mixer.init()
 mapid = 0
+
 # Cordinates and stuff
 infox = 200
 infoy = 200
@@ -25,10 +26,12 @@ item3x = 99
 item3y = 450
 disable_controls = False
 
+# Internal Dialog Data
 nextdialog = False
 nextdialog2 = False
 nextdialog3 = False
 nextdialog4 = False
+
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -41,6 +44,10 @@ dialog_select = 0
 if show_debug == True:
     print("Debugging logs enabled")
 
+# Player data
+facing = "Right"
+playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 # Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
@@ -131,11 +138,6 @@ pygame.display.set_caption(GameName)
 done = False
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
-
-# Player Position
-playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-facing = "Right"
 
 # The actual Game
 while not done:
@@ -382,5 +384,20 @@ while not done:
             print("Held Item: " + SelectItem)
         pygame.display.update()
         pygame.display.flip()
+
+        # Game Variable Checker
+        if playerx > game_border1:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            done = True
+        elif playery > game_border1:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            done = True
+        if playerx < game_border2:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            done = True
+        elif playery < game_border2:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            done = True
+
 pygame.quit()
 exit()
