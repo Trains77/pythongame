@@ -6,7 +6,6 @@ pygame.init()
 
 # Game Settings
 enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems, will be deprecated soon
-credits = True # Whether to display the credits at startup
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
 enable_music = True # Whether or not music is enabled
