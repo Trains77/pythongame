@@ -54,7 +54,8 @@ def createdialog(speaker, text):
 
 def create_notice(posx, posy):
     img4 = pygame.image.load(characters_path + "speaking.png")
-    screen.blit(img4, ([posx, posy - 20))
+    screen.blit(img4, [posx, posy - 20])
+
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
     surface.blit(img, xy)
@@ -322,6 +323,7 @@ while not done:
                 if nextdialog == False:
                     disable_controls = True
                     createdialog("Scientist", "Why are you holding a sword?")
+                    create_notice(200, 200)
                 if nextdialog == True:
                     disable_controls = False
                     nextdialog2 = True
@@ -331,6 +333,7 @@ while not done:
                 if nextdialog == False:
                     disable_controls = True
                     createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                    create_notice(200, 200)
                 if nextdialog == True:
                     disable_controls = False
                     nextdialog2 = True
@@ -340,15 +343,18 @@ while not done:
                 if nextdialog == False:
                     disable_controls = True
                     createdialog("Scientist", "That looks more like a toothbrush than an axe.")
+                    create_notice(200, 200)
                 if not nextdialog == False:
                     if nextdialog2 == False:
                         createdialog("User", "Yeah, I know")
+                        create_notice(playerx, playery)
                 if not nextdialog2 == False:
                     if nextdialog3 == False:
                         createdialog("Trains77", "Hey, I did my best.")
                 if not nextdialog3 == False:
                     if nextdialog4 == False:
                         createdialog("Scientist", "Well your best sucks.")
+                        create_notice(200, 200)
                 if nextdialog4 == True:
                     disable_controls = False
             if show_debug == True:
