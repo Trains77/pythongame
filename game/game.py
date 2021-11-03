@@ -37,7 +37,7 @@ sword_slot_pos = 235
 axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
-
+dialog_select = 0
 if show_debug == True:
     print("Debugging logs enabled")
 
@@ -301,11 +301,11 @@ while not done:
         render_item_inv("sword.png", 1, sword_slot_pos)
         render_item_inv("axe.png", 2, axe_slot_pos)
 
-        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
-            if SelectItem == "2":
-                createdialog("User", "It is still a tree, and I only have a not an axe.")
-            if not SelectItem == "2":
-                createdialog("User", "It is a tree.")
+#        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
+#            if SelectItem == "2":
+#                createdialog("User", "It is still a tree, and I only have a not an axe.")
+#            if not SelectItem == "2":
+#                createdialog("User", "It is a tree.")
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
@@ -344,7 +344,7 @@ while not done:
                         createdialog("User", "Yeah, I know")
                 if not nextdialog2 == False:
                     if nextdialog3 == False:
-                        createdialog("Trains77", "Hey, I did my best :c")
+                        createdialog("Trains77", "Hey, I did my best.")
                 if not nextdialog3 == False:
                     if nextdialog4 == False:
                         createdialog("Scientist", "Well your best sucks.")
@@ -357,7 +357,7 @@ while not done:
             nextdialog2 = False
             nextdialog3 = False
             nextdialog4 = False
-#        image_display(screen, "Textures/Environment/tree.png", [infox,infoy]) # For rendering an unused tree asset
+
         # Debugging stuff
         if show_debug == True:
             print("Controls Status: " + str(disable_controls))
