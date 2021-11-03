@@ -1,6 +1,5 @@
 # Script Modules
 import platform
-import sys
 import colored
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
@@ -8,11 +7,10 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, inv, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, flipped_prefix, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
-# Default Variables
 pygame.mixer.init()
 
 # Cordinates and stuff
@@ -24,6 +22,13 @@ item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
+disable_controls = False
+
+# Internal Dialog Data
+nextdialog = False
+nextdialog2 = False
+nextdialog3 = False
+nextdialog4 = False
 
 # Item related stuff
 hammer_slot = -1
@@ -37,14 +42,24 @@ SelectItem = "NaN"
 if show_debug == True:
     print("Debugging logs enabled")
 
+# Player data
+playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+
 # Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     font1 = pygame.font.SysFont('Nerds', 20)
     img1 = font1.render(speaker + ":", True, BLACK)
     img2 = font1.render(text, True, BLACK)
+    img3 = font1.render("Press 'z' to continue", True, BLACK)
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
+    screen.blit(img3, (355, 470))
+
+def create_notice(posx, posy):
+    img4 = pygame.image.load(characters_path + "speaking.png")
+    screen.blit(img4, [posx, posy - 20])
 
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
@@ -60,18 +75,19 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
             if not Inv_Slot == hammer_slot:
                 if not Inv_Slot == sword_slot:
                     if not Inv_Slot == axe_slot:
-                        Selected_Slot = 150 + 70 * Inv_Slot
+                        Selected_Slot = 80 + 70 * Inv_Slot
                         item_slot_pos = Selected_Slot + 15
                         item_slot = Inv_Slot
                         inv[ItemSlotID] = 1
                         if show_debug == 1:
                             print("Item Get!")
+                        playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
-def render_item_inv(item_texture, item_texture2, InvID, ItemSlotPos):
+def render_item_inv(item_texture, InvID, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            image_display(screen, inventory_path + item_texture2, [ItemSlotPos,20])
+            image_display(screen, inventory_path + transparent_prefix + item_texture, [ItemSlotPos,20])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
 
@@ -87,18 +103,30 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
             elif facing == "Right":
                 image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
             SelectedItem = str(ItemSlotID)
-        if mouse_button_list[2] == True:
-            if not playery + 30 > game_border1:
-                if ItemID == Inv_Slot:
-                    posx = playerx
-                    posy = playery + 30
-                    ItemID = -1
-                    inv[ItemSlotID] = 0
-                    SelectedItem = "NaN"
-            elif playery + 30 > game_border1:
-                playsound(1, environment_audio_path + "wallhit.wav")
+        if disable_controls == False:
+            if mouse_button_list[2] == True:
+                if not playery + 12 > game_border1:
+                    if ItemID == Inv_Slot:
+                        posx = playerx + 6
+                        posy = playery + 25
+                        ItemID = -1
+                        inv[ItemSlotID] = 0
+                        SelectedItem = "NaN"
+                elif playery + 30 > game_border1:
+                    playsound(1, environment_audio_path + "wallhit.wav")
     return posx, posy, ItemID, SelectedItem
 
+def render_slot(slot_id):
+    if Inv_Slot == slot_id:
+        image_display(screen, inventory_path + "icon_select.png", [minimum_slot + 70 * slot_id, 5])
+    elif not Inv_Slot == slot_id:
+        image_display(screen, inventory_path + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
+
+def render_transparent_slot(slot_id):
+    if Inv_Slot == slot_id:
+        image_display(screen, inventory_path + transparent_prefix + "icon_select.png", [minimum_slot + 70 * slot_id, 5])
+    elif not Inv_Slot == slot_id:
+        image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
 # Credits
 import credits
 
@@ -109,88 +137,103 @@ done = False
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 
-# Player Position
-playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-
 # The actual Game
-facing = "Right"
 while not done:
         clock.tick(fps)
         screen.fill(background_color)
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-        inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [140, 5, 220, 60])
+        inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [70, 5, 360, 60])
         Selected_Slot = 150 + 70 * Inv_Slot
 
         # Controls
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    if not playerx == game_border2:
-                        playerx = playerx - speed
-                    elif playerx == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Left"
+                    if disable_controls == False:
+                        if not playerx == game_border2:
+                            playerx = playerx - speed
+                        elif playerx == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Left"
                 if event.key == pygame.K_d:
-                    if not playerx == game_border1:
-                        playerx = playerx + speed
-                    elif playerx == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Right"
+                    if disable_controls == False:
+                        if not playerx == game_border1:
+                            playerx = playerx + speed
+                        elif playerx == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Right"
                 if event.key == pygame.K_w:
-                    if not playery == game_border2:
-                        playery = playery - speed
-                    elif playery == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Up"
+                    if disable_controls == False:
+                        if not playery == game_border2:
+                            playery = playery - speed
+                        elif playery == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Up"
                 if event.key == pygame.K_s:
-                    if not playery == game_border1:
-                        playery =playery + speed
-                    elif playery == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Down"
+                    if disable_controls == False:
+                        if not playery == game_border1:
+                            playery =playery + speed
+                        elif playery == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Down"
                 if event.key == pygame.K_LEFT:
-                    if not playerx == game_border2:
-                        playerx = playerx - speed
-                    elif playerx == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Left"
+                    if disable_controls == False:
+                        if not playerx == game_border2:
+                            playerx = playerx - speed
+                        elif playerx == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Left"
                 if event.key == pygame.K_RIGHT:
-                    if not playerx == game_border1:
-                        playerx = playerx + speed
-                    elif playerx == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Right"
+                    if disable_controls == False:
+                        if not playerx == game_border1:
+                            playerx = playerx + speed
+                        elif playerx == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Right"
                 if event.key == pygame.K_UP:
-                    if not playery == game_border2:
-                        playery = playery - speed
-                    elif playery == game_border2:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Up"
+                    if disable_controls == False:
+                        if not playery == game_border2:
+                            playery = playery - speed
+                        elif playery == game_border2:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Up"
                 if event.key == pygame.K_DOWN:
-                    if not playery == game_border1:
-                        playery =playery + speed
-                    elif playery == game_border1:
-                        playsound(1, environment_audio_path + "wallhit.wav")
-                    facing = "Down"
+                    if disable_controls == False:
+                        if not playery == game_border1:
+                            playery =playery + speed
+                        elif playery == game_border1:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Down"
                 if event.key == pygame.K_ESCAPE:
                     done = True
                     if show_debug == True:
                         print("Quit")
                 if event.key == pygame.K_q:
-                    if not Inv_Slot == 0:
-                        Inv_Slot = Inv_Slot - 1
-                        SelectItem = "NaN"
-                    elif Inv_Slot == 0:
-                        Inv_Slot = 2
-                        SelectItem = "NaN"
+                    if disable_controls == False:
+                        if not Inv_Slot == 0:
+                            Inv_Slot = Inv_Slot - 1
+                            SelectItem = "NaN"
+                        elif Inv_Slot == 0:
+                            Inv_Slot = 4
+                            SelectItem = "NaN"
                 if event.key == pygame.K_e:
-                    if not Inv_Slot == 2:
-                        Inv_Slot = Inv_Slot + 1
-                        SelectItem = "NaN"
-                    elif Inv_Slot == 2:
-                        Inv_Slot = 0
-                        SelectItem = "NaN"
+                    if disable_controls == False:
+                        if not Inv_Slot == 4:
+                            Inv_Slot = Inv_Slot + 1
+                            SelectItem = "NaN"
+                        elif Inv_Slot == 4:
+                            Inv_Slot = 0
+                            SelectItem = "NaN"
+                if event.key == pygame.K_z:
+                    if nextdialog3 == True:
+                        nextdialog4 = True
+                    if nextdialog2 == True:
+                        nextdialog3 = True
+                    if nextdialog == True:
+                        nextdialog2 = True
+                    if show_debug == True:
+                        print("Entered")
+                    nextdialog = True
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -201,6 +244,7 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
+        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
 
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
@@ -224,6 +268,9 @@ while not done:
             image_display(screen, characters_path + "Player/playerup.png", [playerx,playery])
         elif facing == "Down":
             image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery])
+        else:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
+            done = True
         if playerx > infox:
             image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
         elif playerx < infox:
@@ -233,74 +280,138 @@ while not done:
                 image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
             elif playery < infoy:
                 image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
-        if show_debug == True:
-            print(facing)
-
+#        image_display(screen, environment_path + "tree.png", [450, 450]) # Unused tree asset
         # Inventory Stuff
         item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
         item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "sword.png")
         item3x, item3y, axe_slot, SelectItem = item_render(2, axe_slot, item3x, item3y, "axe.png")
 
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            if Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_select_transparent.png", [220, 5])
-            elif not Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_unselect_transparent.png", [220, 5])
-            if Inv_Slot == 0:
-                image_display(screen, inventory_path + "icon_select_transparent.png", [150, 5])
-            elif not Inv_Slot == 0:
-                image_display(screen, inventory_path + "icon_unselect_transparent.png", [150, 5])
-            if Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_select_transparent.png", [290, 5])
-            elif not Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_unselect_transparent.png", [290, 5])
+            render_transparent_slot(0)
+            render_transparent_slot(1)
+            render_transparent_slot(2)
+            render_transparent_slot(3)
+            render_transparent_slot(4)
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-            if Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_select.png", [220, 5])
-            elif not Inv_Slot == 1:
-                image_display(screen, inventory_path + "icon_unselect.png", [220, 5])
-            if Inv_Slot == 0:
-                image_display(screen, inventory_path + "icon_select.png", [150, 5])
-            elif not Inv_Slot == 0:
-                image_display(screen, inventory_path + "icon_unselect.png", [150, 5])
-            if Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_select.png", [290, 5])
-            elif not Inv_Slot == 2:
-                image_display(screen, inventory_path + "icon_unselect.png", [290, 5])
+            render_slot(0)
+            render_slot(1)
+            render_slot(2)
+            render_slot(3)
+            render_slot(4)
 
-        render_item_inv("hammer.png", "hammer_transparent.png", 0, hammer_slot_pos)
-        render_item_inv("sword.png", "sword_transparent.png", 1, sword_slot_pos)
-        render_item_inv("axe.png", "axe_transparent.png", 2, axe_slot_pos)
+        render_item_inv("hammer.png", 0, hammer_slot_pos)
+        render_item_inv("sword.png", 1, sword_slot_pos)
+        render_item_inv("axe.png", 2, axe_slot_pos)
+
+#        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
+#            if SelectItem == "2":
+#                createdialog("User", "It is still a tree, and I only have a not an axe.")
+#            if not SelectItem == "2":
+#                createdialog("User", "It is a tree.")
         # Dialogs
         if pygame.Rect.colliderect(player_square, player_detector) == 1:
             if SelectItem == "NaN":
-                createdialog("Scientist", "Hello User!")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Hello User!")
+                    create_notice(200, 200)
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "1":
-                createdialog("Scientist", "Why are you holding a sword?")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Why are you holding a sword?")
+                    create_notice(200, 200)
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "0":
-                createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                    create_notice(200, 200)
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
             if SelectItem == "2":
-                createdialog("Scientist", "That looks more like a toothbrush than an axe.")
-            if show_debug == True:
-                print("Dialog Opened")
-#        image_display(screen, "Textures/Environment/tree.png", [infox,infoy])
-        if pygame.Rect.colliderect(cursor_square, player_square) == 1:
-            createdialog("User", "Hello little mouse!")
-            facing = "Down"
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "That looks more like a toothbrush than an axe.")
+                    create_notice(200, 200)
+                if not nextdialog == False:
+                    if nextdialog2 == False:
+                        createdialog("User", "Yeah, I know")
+                        create_notice(playerx, playery)
+                if not nextdialog2 == False:
+                    if nextdialog3 == False:
+                        createdialog("Trains77", "Hey, I did my best.")
+                if not nextdialog3 == False:
+                    if nextdialog4 == False:
+                        createdialog("Scientist", "Well your best sucks.")
+                        create_notice(200, 200)
+                if nextdialog4 == True:
+                    disable_controls = False
             if show_debug == True:
                 print("Dialog Opened")
 
+        if not pygame.Rect.colliderect(player_square, player_detector) == 1:
+            nextdialog = False
+            nextdialog2 = False
+            nextdialog3 = False
+            nextdialog4 = False
+
         # Debugging stuff
         if show_debug == True:
+            print("Inventory Data")
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
             print("Sword Slot: " + str(sword_slot))
             print("Axe Slot: " + str(axe_slot))
+            print("Held Item: " + SelectItem)
+            print()
+            print("Item Positions")
             print("Hammer POS: " + str(hammer_slot_pos))
             print("Sword POS: " + str(sword_slot_pos))
             print("Axe POS: " + str(axe_slot_pos))
-            print("Held Item: " + SelectItem)
+            print()
+            print("Player Data")
+            print("Controls Status: " + str(disable_controls))
+            print("Player Rotation: " + facing)
+            print()
+            print("Dialog Internals")
+            print(nextdialog)
+            print(nextdialog2)
+            print(nextdialog3)
+            print(nextdialog4)
+            print()
         pygame.display.update()
         pygame.display.flip()
+
+        # Game Variable Checker
+        if playerx > game_border1:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            done = True
+        elif playery > game_border1:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            done = True
+        if playerx < game_border2:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            done = True
+        elif playery < game_border2:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            done = True
+        if Inv_Slot < 0:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
+            done = True
+        if Inv_Slot > 4:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
+            done = True
 pygame.quit()
 exit()

@@ -1,5 +1,5 @@
 # Python Game
-It is a python thing I started making, not sure what it would be yet
+It is a python game thing that I started making, not sure where I plan to go with it yet
 
 Don't expect much, this is my second python program
 
