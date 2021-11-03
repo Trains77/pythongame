@@ -283,9 +283,7 @@ while not done:
                 image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
             elif playery < infoy:
                 image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
-        if show_debug == True:
-            print(facing)
-#        image_display(screen, environment_path + "tree.png", [450, 450])
+#        image_display(screen, environment_path + "tree.png", [450, 450]) # Unused tree asset
         # Inventory Stuff
         item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
         item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "sword.png")
@@ -303,7 +301,6 @@ while not done:
             render_slot(2)
             render_slot(3)
             render_slot(4)
-
 
         render_item_inv("hammer.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", 1, sword_slot_pos)
@@ -366,6 +363,7 @@ while not done:
                     disable_controls = False
             if show_debug == True:
                 print("Dialog Opened")
+
         if not pygame.Rect.colliderect(player_square, player_detector) == 1:
             nextdialog = False
             nextdialog2 = False
@@ -374,15 +372,28 @@ while not done:
 
         # Debugging stuff
         if show_debug == True:
-            print("Controls Status: " + str(disable_controls))
+            print("Inventory Data")
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot))
             print("Sword Slot: " + str(sword_slot))
             print("Axe Slot: " + str(axe_slot))
+            print("Held Item: " + SelectItem)
+            print()
+            print("Item Positions")
             print("Hammer POS: " + str(hammer_slot_pos))
             print("Sword POS: " + str(sword_slot_pos))
             print("Axe POS: " + str(axe_slot_pos))
-            print("Held Item: " + SelectItem)
+            print()
+            print("Player Data")
+            print("Controls Status: " + str(disable_controls))
+            print("Player Rotation: " + facing)
+            print()
+            print("Dialog Internals")
+            print(nextdialog)
+            print(nextdialog2)
+            print(nextdialog3)
+            print(nextdialog4)
+            print()
         pygame.display.update()
         pygame.display.flip()
 
@@ -400,10 +411,10 @@ while not done:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
         if Inv_Slot < 0:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_SLOT" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
         if Inv_Slot > 4:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_SLOT" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
 pygame.quit()
 exit()

@@ -5,7 +5,7 @@ import pygame
 pygame.init()
 
 # Game Settings
-enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
+enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems, will be deprecated soon
 credits = True # Whether to display the credits at startup
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
@@ -20,7 +20,7 @@ RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
-NaN = ("NaN", "NaN", "NaN") # The RGB code for Nan
+NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Debugging settings
 disable_background = False # Wether the game should load the background file
@@ -29,7 +29,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
@@ -42,7 +42,6 @@ transparent_prefix = "transparent_" # The prefix to use when retrieving transpar
 flipped_prefix = "flipped_" # Currently does nothing
 
 # WARNING: Changing these settings might cause issues
-enable_os_restrictions = 0 # Whether to enable strict os checking
 size = [500, 500] # The size of the screen
 square_size = 20 # How big the default hitbox is
 game_border1 = 480 # Maximum cordinates player can be
