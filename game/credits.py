@@ -1,4 +1,4 @@
-from shared import credits
+# from shared import credits
 from colored import fore, back, style
 
 # Credits

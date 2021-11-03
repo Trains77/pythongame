@@ -16,4 +16,4 @@ elif enable_music == False:
     if show_debug == True:
         print("Music playing is disabled")
 
-# background music is owned by FesliyanStudios.
+# Background music is owned by FesliyanStudios.

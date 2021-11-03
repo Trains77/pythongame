@@ -2,10 +2,9 @@
 import platform
 import colored
 from colored import fore, back, style
-system_required = "Linux"
 
 # Script Settings
-from shared import enable_os_restrictions, enable_program
+from shared import enable_os_restrictions, enable_program, system_recommends
 
 # This script was made in Linux, it may not work on other operating systems
 
@@ -20,7 +19,7 @@ from shared import enable_os_restrictions, enable_program
 #        print()
 #        print(fore.WHITE + back.RED + style.BOLD + "ERROR: UNSUPPORTED_OPERATING_SYSTEM" + style.RESET)
 #        exit()
-if not platform.system() == system_required:
+if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this script" + style.RESET)
 
 if enable_program == True:

@@ -11,6 +11,7 @@ enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 Inv_Slot = 0 # Default inventory slot
 enable_program = True # Enables or Disables the program
+facing = "Right" # Default player rotation
 
 # Colors, these variables are however rarely used
 BLACK = (0, 0, 0) # The RGB code for Black
@@ -40,7 +41,7 @@ characters_path = "Textures/Characters/" # Where to pull character textures from
 transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
 flipped_prefix = "flipped_" # Currently does nothing
 
-# WARNING: Changing these settings might cause issues
+# Internal variables, changing them will cause issues
 size = [500, 500] # The size of the screen
 square_size = 20 # How big the default hitbox is
 game_border1 = 480 # Maximum cordinates player can be
@@ -51,6 +52,9 @@ fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+dialog_select = 0 # The default selection for dialog
+mapid = 0 # Starting map id, currently unused
+system_recommends = "Linux" # The system(s) that the script is verified to run with
 
 # Deprecated, these settings do not work anymore
 enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems

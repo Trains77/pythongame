@@ -8,12 +8,11 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import credits, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
 pygame.mixer.init()
-mapid = 0
 
 # Cordinates and stuff
 infox = 200
@@ -40,12 +39,11 @@ sword_slot_pos = 235
 axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
-dialog_select = 0
+
 if show_debug == True:
     print("Debugging logs enabled")
 
 # Player data
-facing = "Right"
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 
