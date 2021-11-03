@@ -39,14 +39,14 @@ environment_audio_path = "Audio/Environment/" # Where to pull environment audio 
 environment_path = "Textures/Environment/" # Where to pull environmental textures from
 characters_path = "Textures/Characters/" # Where to pull character textures from
 transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
-flipped_prefix = "flipped_" # Currently does nothing
+flipped_prefix = "flipped_" # The prefix for getting flipped item textures
 
 # Internal variables, changing them will cause issues
 size = [500, 500] # The size of the screen
 square_size = 20 # How big the default hitbox is
-game_border1 = 480 # Maximum cordinates player can be
-game_border2 = 0 # Minimum cordinates playerr can be
-speed = 10 # How fast the player moves
+game_border1 = 480 # Maximum cordinates player's coordinates can be
+game_border2 = 0 # Minimum cordinates the player's cordinates can be
+speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
@@ -54,7 +54,7 @@ minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog
 mapid = 0 # Starting map id, currently unused
-system_recommends = "Linux" # The system(s) that the script is verified to run with
+system_recommends = "Linux" # The system(s) that the script is verified to work with
 
 # Deprecated, these settings do not work anymore
 enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
