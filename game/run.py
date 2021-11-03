@@ -28,5 +28,7 @@ if enable_program == True:
     import game
 elif enable_program == False:
     print("The program has been disabled in shared.py")
+    print()
+    print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
 
 # Hello Nerds!

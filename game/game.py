@@ -48,6 +48,7 @@ if show_debug == True:
 facing = "Right"
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+
 # Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
@@ -387,17 +388,22 @@ while not done:
 
         # Game Variable Checker
         if playerx > game_border1:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
         elif playery > game_border1:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
         if playerx < game_border2:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
         elif playery < game_border2:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POSITION_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
-
+        if Inv_Slot < 0:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_SLOT" + style.RESET)
+            done = True
+        if Inv_Slot > 4:
+            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_SLOT" + style.RESET)
+            done = True
 pygame.quit()
 exit()

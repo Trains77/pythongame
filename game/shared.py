@@ -12,6 +12,7 @@ song = 'Audio/Music/music1.wav' # Path to music file
 enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 Inv_Slot = 0 # Default inventory slot
+enable_program = True # Enables or Disables the program
 
 # Colors, these variables are however rarely used
 BLACK = (0, 0, 0) # The RGB code for Black
@@ -29,6 +30,7 @@ info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
 show_debug = False # Enable debugging messages
+enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
@@ -46,7 +48,6 @@ square_size = 20 # How big the default hitbox is
 game_border1 = 480 # Maximum cordinates player can be
 game_border2 = 0 # Minimum cordinates playerr can be
 speed = 10 # How fast the player moves
-enable_program = True # Enables or Disables the program
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
