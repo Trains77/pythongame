@@ -4,6 +4,23 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 pygame.init()
 
+# Game Settings
+enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
+credits = True # Whether to display the credits at startup
+GameName = "Another Python Game" # The name of the game
+song = 'Audio/Music/music1.wav' # Path to music file
+enable_music = True # Whether or not music is enabled
+enable_audio = True # Whether or not audio should be played
+Inv_Slot = 0 # Default inventory slot
+
+# Colors, these variables are however rarely used
+BLACK = (0, 0, 0) # The RGB code for Black
+RED = (255, 0, 0) # The RGB code for Red
+GREEN = (0, 255, 0) # The RGB code for Green
+BLUE = (0, 0, 255) # The RGB code for Blue
+GRAY = (200, 200, 200) # The RGB code for Gray
+NaN = ("NaN", "NaN", "NaN") # The RGB code for Nan
+
 # Debugging settings
 disable_background = False # Wether the game should load the background file
 player_color = (0, 0, 0) # The color of the player's hitbox
@@ -22,16 +39,7 @@ characters_path = "Textures/Characters/" # Where to pull character textures from
 transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
 flipped_prefix = "flipped_" # Currently does nothing
 
-# Game Settings
-enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
-credits = True # Whether to display the credits at startup
-GameName = "Another Python Game" # The name of the game
-song = 'Audio/Music/music1.wav' # Path to music file
-enable_music = True # Whether or not music is enabled
-enable_audio = True # Whether or not audio should be played
-Inv_Slot = 0 # Default inventory slot
-
-# WARNING: Changing these settings will cause issues
+# WARNING: Changing these settings might cause issues
 enable_os_restrictions = 0 # Whether to enable strict os checking
 size = [500, 500] # The size of the screen
 square_size = 20 # How big the default hitbox is
@@ -44,11 +52,3 @@ fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
-
-# Colors
-BLACK = (0, 0, 0) # The RGB code for Black
-RED = (255, 0, 0) # The RGB code for Red
-GREEN = (0, 255, 0) # The RGB code for Green
-BLUE = (0, 0, 255) # The RGB code for Blue
-GRAY = (200, 200, 200) # The RGB code for Gray
-NaN = ("NaN", "NaN", "NaN") # The RGB code for Nan
