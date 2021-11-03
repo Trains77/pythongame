@@ -314,6 +314,7 @@ while not done:
                 if nextdialog == False:
                     disable_controls = True
                     createdialog("Scientist", "Hello User!")
+                    create_notice(200, 200)
                 if nextdialog == True:
                     disable_controls = False
                     nextdialog2 = True
