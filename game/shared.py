@@ -55,7 +55,7 @@ gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window 
 dialog_select = 0 # The default selection for dialog
 mapid = 0 # Starting map id, currently unused
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-
+version = "0.07.1"
 # Deprecated, these settings do not work anymore
 enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
 credits = True # Whether credits should be displayed
