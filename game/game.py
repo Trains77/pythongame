@@ -48,12 +48,13 @@ def createdialog(speaker, text):
     img1 = font1.render(speaker + ":", True, BLACK)
     img2 = font1.render(text, True, BLACK)
     img3 = font1.render("Press 'z' to continue", True, BLACK)
-    img4 = pygame.image.load(characters_path + "speaking.png")
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
     screen.blit(img3, (355, 470))
-    screen.blit(img4, (infox, infoy - 20))
 
+def create_notice(posx, posy):
+    img4 = pygame.image.load(characters_path + "speaking.png")
+    screen.blit(img4, ([posx, posy - 20))
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
     surface.blit(img, xy)
