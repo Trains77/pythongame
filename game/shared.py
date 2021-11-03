@@ -5,7 +5,6 @@ import pygame
 pygame.init()
 
 # Game Settings
-enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems, will be deprecated soon
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
 enable_music = True # Whether or not music is enabled
@@ -52,3 +51,7 @@ fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+
+# Deprecated, these settings do not work anymore
+enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
+credits = True # Whether credits should be displayed

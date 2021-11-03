@@ -1,6 +1,6 @@
 from time import sleep
 import os
-from shared import song, credits, show_debug
+from shared import song, show_debug
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import pydub
