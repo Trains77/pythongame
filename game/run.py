@@ -8,18 +8,6 @@ from colored import fore, back, style
 # Script Settings
 from shared import enable_os_restrictions, enable_program, system_recommends
 
-# OS Checker has been deprecated in v0.07
-# if enable_os_restrictions == 1:
-#    if platform.system() == system_required:
-#        supported = True
-# if enable_os_restrictions == 1:
-#    if not platform.system() == system_required:
-#        print( "Sorry, your", platform.system(), "system is not supported by this script!")
-#        supported = False
-#        print()
-#        print(fore.WHITE + back.RED + style.BOLD + "ERROR: UNSUPPORTED_OPERATING_SYSTEM" + style.RESET)
-#        exit()
-
 if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
 
