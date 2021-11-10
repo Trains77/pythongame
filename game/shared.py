@@ -20,7 +20,6 @@ GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
 WHITE = (255, 255, 255) # The RGB code fro White
-NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
@@ -56,6 +55,3 @@ dialog_select = 0 # The default selection for dialog
 mapid = 0 # Starting map id, currently unused
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.07.1"
-# Deprecated, these settings do not work anymore
-enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
-credits = True # Whether credits should be displayed

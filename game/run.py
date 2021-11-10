@@ -6,7 +6,7 @@ import colored
 from colored import fore, back, style
 
 # Script Settings
-from shared import enable_os_restrictions, enable_program, system_recommends
+from shared import enable_program, system_recommends
 
 if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
