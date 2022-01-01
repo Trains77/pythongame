@@ -20,7 +20,6 @@ GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
 WHITE = (255, 255, 255) # The RGB code fro White
-NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
@@ -29,7 +28,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
@@ -55,7 +54,6 @@ gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window 
 dialog_select = 0 # The default selection for dialog
 mapid = 0 # Starting map id, currently unused
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.07.1"
-# Deprecated, these settings do not work anymore
-enable_os_restrictions = 0 # Whether to disable usage on non-Linux systems
-credits = True # Whether credits should be displayed
+version = "0.07.2"
+INV_MIN = 0
+INV_MAX = 4

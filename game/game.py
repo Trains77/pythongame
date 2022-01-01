@@ -7,7 +7,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import credits, flipped_prefix, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import flipped_prefix, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -29,6 +29,7 @@ nextdialog = False
 nextdialog2 = False
 nextdialog3 = False
 nextdialog4 = False
+
 
 # Item related stuff
 hammer_slot = -1
@@ -234,6 +235,11 @@ while not done:
                     if show_debug == True:
                         print("Entered")
                     nextdialog = True
+                for i in range(10):
+                    if event.key == eval("pygame.K_" + str(i)):
+                        if i > INV_MIN:
+                            if i - 2 < INV_MAX:
+                                Inv_Slot = i - 1
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -407,10 +413,10 @@ while not done:
         elif playery < game_border2:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
-        if Inv_Slot < 0:
+        if Inv_Slot < INV_MIN:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
-        if Inv_Slot > 4:
+        if Inv_Slot > INV_MAX:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
 pygame.quit()
