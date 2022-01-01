@@ -28,7 +28,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
@@ -55,3 +55,5 @@ dialog_select = 0 # The default selection for dialog
 mapid = 0 # Starting map id, currently unused
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.07.1"
+INV_MIN = 0
+INV_MAX = 4
