@@ -276,16 +276,14 @@ while not done:
 #        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
 
         # Hitbox info
+
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
-        if mapid == 0:
-            square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
-        else:
-            square_info = offscreen
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
         else:
             scientist_square = offscreen
+
         # Item Managment
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
