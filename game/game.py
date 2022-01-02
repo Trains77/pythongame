@@ -30,7 +30,6 @@ nextdialog2 = False
 nextdialog3 = False
 nextdialog4 = False
 
-
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -39,7 +38,7 @@ sword_slot_pos = 235
 axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
-
+item_world_id = [0, 0, 0, 0, 0]
 if show_debug == True:
     print("Debugging logs enabled")
 
@@ -70,19 +69,20 @@ def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
 
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
-    if inv[ItemSlotID] == 0:
-        ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
-        if pygame.Rect.colliderect(ItemID, player_square) == 1:
-            if not Inv_Slot == hammer_slot:
-                if not Inv_Slot == sword_slot:
-                    if not Inv_Slot == axe_slot:
-                        Selected_Slot = 80 + 70 * Inv_Slot
-                        item_slot_pos = Selected_Slot + 15
-                        item_slot = Inv_Slot
-                        inv[ItemSlotID] = 1
-                        if show_debug == 1:
-                            print("Item Get!")
-                        playsound(1, environment_audio_path + "pickup.wav")
+    if item_world_id[ItemSlotID] == mapid:
+        if inv[ItemSlotID] == 0:
+            ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
+            if pygame.Rect.colliderect(ItemID, player_square) == 1:
+                if not Inv_Slot == hammer_slot:
+                    if not Inv_Slot == sword_slot:
+                        if not Inv_Slot == axe_slot:
+                            Selected_Slot = 80 + 70 * Inv_Slot
+                            item_slot_pos = Selected_Slot + 15
+                            item_slot = Inv_Slot
+                            inv[ItemSlotID] = 1
+                            if show_debug == 1:
+                                print("Item Get!")
+                            playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
 def render_item_inv(item_texture, InvID, ItemSlotPos):
@@ -93,29 +93,33 @@ def render_item_inv(item_texture, InvID, ItemSlotPos):
             image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
 
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
+    item_id_thing = item_world_id
     SelectedItem = SelectItem
-    if inv[ItemSlotID] == 0:
-        image_display(screen, item_path + texture, [posx,posy])
-        SelectedItem = str(SelectItem)
-    elif inv[ItemSlotID] == 1:
-        if ItemID == Inv_Slot:
-            if not facing == "Right":
-                image_display(screen, item_path + texture, [playerx + 5,playery + 5])
-            elif facing == "Right":
-                image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
-            SelectedItem = str(ItemSlotID)
-        if disable_controls == False:
-            if mouse_button_list[2] == True:
-                if not playery + 12 > game_border1:
-                    if ItemID == Inv_Slot:
-                        posx = playerx + 6
-                        posy = playery + 25
-                        ItemID = -1
-                        inv[ItemSlotID] = 0
-                        SelectedItem = "NaN"
-                elif playery + 30 > game_border1:
-                    playsound(1, environment_audio_path + "wallhit.wav")
-    return posx, posy, ItemID, SelectedItem
+    if True:
+        if inv[ItemSlotID] == 0:
+            if item_world_id[ItemSlotID] == mapid:
+                image_display(screen, item_path + texture, [posx,posy])
+                SelectedItem = str(SelectItem)
+        elif inv[ItemSlotID] == 1:
+            if ItemID == Inv_Slot:
+                if not facing == "Right":
+                    image_display(screen, item_path + texture, [playerx + 5,playery + 5])
+                elif facing == "Right":
+                    image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
+                SelectedItem = str(ItemSlotID)
+            if disable_controls == False:
+                if mouse_button_list[2] == True:
+                    if not playery + 12 > game_border1:
+                        if ItemID == Inv_Slot:
+                            posx = playerx + 6
+                            posy = playery + 25
+                            ItemID = -1
+                            inv[ItemSlotID] = 0
+                            SelectedItem = "NaN"
+                            item_id_thing[ItemSlotID] = mapid
+                    elif playery + 30 > game_border1:
+                        playsound(1, environment_audio_path + "wallhit.wav")
+    return posx, posy, ItemID, SelectedItem, item_id_thing
 
 def render_slot(slot_id):
     if Inv_Slot == slot_id:
@@ -137,6 +141,7 @@ pygame.display.set_caption(GameName)
 done = False
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
+offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
 
 # The actual Game
 while not done:
@@ -217,6 +222,12 @@ while not done:
                         elif Inv_Slot == 0:
                             Inv_Slot = 4
                             SelectItem = "NaN"
+                if event.key == pygame.K_f:
+                    if disable_controls == False:
+                        if mapid == 0:
+                            mapid = 1
+                        elif mapid == 1:
+                            mapid = 0
                 if event.key == pygame.K_e:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
@@ -250,14 +261,19 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
+#        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
 
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
-        square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
+        if mapid == 0:
+            square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
+        else:
+            square_info = offscreen
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
-        scientist_square = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
-
+        if mapid == 0:
+            scientist_square = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
+        else:
+            scientist_square = offscreen
         # Item Managment
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
@@ -265,7 +281,8 @@ while not done:
 
         # Background and players
         if disable_background == False:
-            image_display(screen, environment_path + "background.png", [0,0])
+            if mapid == 0:
+                image_display(screen, environment_path + "background.png", [0,0])
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
@@ -277,20 +294,21 @@ while not done:
         else:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
             done = True
-        if playerx > infox:
-            image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
-        elif playerx < infox:
-            image_display(screen, characters_path + "Scientist/scientist_flipped.png", [infox,infoy])
-        elif playerx == infox:
-            if playery > infoy:
-                image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
-            elif playery < infoy:
-                image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
+        if mapid == 0:
+            if playerx > infox:
+                image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
+            elif playerx < infox:
+                image_display(screen, characters_path + "Scientist/scientist_flipped.png", [infox,infoy])
+            elif playerx == infox:
+                if playery > infoy:
+                    image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
+                elif playery < infoy:
+                    image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
 #        image_display(screen, environment_path + "tree.png", [450, 450]) # Unused tree asset
         # Inventory Stuff
-        item1x, item1y, hammer_slot, SelectItem = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
-        item2x, item2y, sword_slot, SelectItem = item_render(1, sword_slot, item2x, item2y, "sword.png")
-        item3x, item3y, axe_slot, SelectItem = item_render(2, axe_slot, item3x, item3y, "axe.png")
+        item1x, item1y, hammer_slot, SelectItem, item_world_id = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
+        item2x, item2y, sword_slot, SelectItem, item_world_id = item_render(1, sword_slot, item2x, item2y, "sword.png")
+        item3x, item3y, axe_slot, SelectItem, item_world_id = item_render(2, axe_slot, item3x, item3y, "axe.png")
 
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             render_transparent_slot(0)
@@ -314,6 +332,8 @@ while not done:
 #                createdialog("User", "It is still a tree, and I only have a not an axe.")
 #            if not SelectItem == "2":
 #                createdialog("User", "It is a tree.")
+
+
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if SelectItem == "NaN":
@@ -398,7 +418,8 @@ while not done:
             print(nextdialog4)
             print()
             print("World Data")
-            print("World ID: " + mapid)
+            print("World ID: " + str(mapid))
+            print("Item World ID: " + str(item_world_id))
             print()
         pygame.display.update()
         pygame.display.flip()
