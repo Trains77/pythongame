@@ -5,7 +5,8 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import pydub
 from pygame.locals import *
-from shared import enable_music
+# from shared import enable_music
+enable_music = False
 if enable_music == True:
     pygame.mixer.init()
     pygame.mixer.music.load(song)

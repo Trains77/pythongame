@@ -7,7 +7,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import flipped_prefix, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import flipped_prefix, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -143,6 +143,15 @@ pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
 
+# Music
+if enable_music == True:
+    playsound(0, song)
+    if show_debug == True:
+        print("Playing Music")
+elif enable_music == False:
+    if show_debug == True:
+        print("Music playing is disabled")
+
 # The actual Game
 while not done:
         clock.tick(fps)
@@ -225,8 +234,11 @@ while not done:
                 if event.key == pygame.K_f:
                     if disable_controls == False:
                         if mapid == 0:
+                            playsound(0, spookie)
                             mapid = 1
                         elif mapid == 1:
+                            playsound(0, song)
+                            # playsound(2, environment_audio_path + "null.wav")
                             mapid = 0
                 if event.key == pygame.K_e:
                     if disable_controls == False:
@@ -283,6 +295,8 @@ while not done:
         if disable_background == False:
             if mapid == 0:
                 image_display(screen, environment_path + "background.png", [0,0])
+            if mapid == 1:
+                image_display(screen, environment_path + "background0.png", [0,0])
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":

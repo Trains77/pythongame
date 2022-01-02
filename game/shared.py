@@ -7,6 +7,7 @@ pygame.init()
 # Game Settings
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
+spookie = 'Audio/Music/spookie.wav'
 enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 Inv_Slot = 0 # Default inventory slot
