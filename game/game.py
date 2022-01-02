@@ -51,9 +51,12 @@ item2y = 300
 item2x = 50
 item3x = 99
 item3y = 450
+bow4x = 250
+bow4y = 250
+
 disable_controls = False
 
-# Internal Dialog Data
+# Internal Dialo6g Data
 nextdialog = False
 nextdialog2 = False
 nextdialog3 = False
@@ -67,6 +70,8 @@ sword_slot_pos = 235
 axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
+bow_slot = -1
+bow_slot_pos = 235
 
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -104,16 +109,14 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
         if inv[ItemSlotID] == 0:
             ItemID = pygame.draw.rect(screen, block_color, [posx,posy,item_size,item_size])
             if pygame.Rect.colliderect(ItemID, player_square) == 1:
-                if not Inv_Slot == hammer_slot:
-                    if not Inv_Slot == sword_slot:
-                        if not Inv_Slot == axe_slot:
-                            Selected_Slot = 80 + 70 * Inv_Slot
-                            item_slot_pos = Selected_Slot + 15
-                            item_slot = Inv_Slot
-                            inv[ItemSlotID] = 1
-                            if show_debug == 1:
-                                print("Item Get!")
-                            playsound(1, environment_audio_path + "pickup.wav")
+                if SelectItem == "NaN":
+                    Selected_Slot = 80 + 70 * Inv_Slot
+                    item_slot_pos = Selected_Slot + 15
+                    item_slot = Inv_Slot
+                    inv[ItemSlotID] = 1
+                    if show_debug == 1:
+                        print("Item Get!")
+                    playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
 def render_item_inv(item_texture, InvID, ItemSlotPos):
@@ -345,7 +348,7 @@ while not done:
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
         sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
         axe_slot, axe_slot_pos = item_detector(2, "item3", axe_slot, axe_slot_pos, item3x, item3y)
-
+        bow_slot, bow_slot_pos = item_detector(3, "item4", bow_slot, bow_slot_pos, bow4x, bow4y)
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -380,7 +383,7 @@ while not done:
         item1x, item1y, hammer_slot, SelectItem, item_world_id = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
         item2x, item2y, sword_slot, SelectItem, item_world_id = item_render(1, sword_slot, item2x, item2y, "sword.png")
         item3x, item3y, axe_slot, SelectItem, item_world_id = item_render(2, axe_slot, item3x, item3y, "axe.png")
-
+        bow4x, bow4y, bow_slot, SelectItem, item_world_id = item_render(3, bow_slot, bow4x, bow4y, "bow.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             render_transparent_slot(0)
             render_transparent_slot(1)
@@ -397,7 +400,7 @@ while not done:
         render_item_inv("hammer.png", 0, hammer_slot_pos)
         render_item_inv("sword.png", 1, sword_slot_pos)
         render_item_inv("axe.png", 2, axe_slot_pos)
-
+        render_item_inv("bow.png", 3, bow_slot_pos)
 #        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
 #            if SelectItem == "2":
 #                createdialog("User", "It is still a tree, and I only have a not an axe.")
@@ -433,6 +436,16 @@ while not done:
                 if nextdialog == False:
                     disable_controls = True
                     createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                    create_notice(200, 200)
+                if nextdialog == True:
+                    disable_controls = False
+                    nextdialog2 = True
+                    nextdialog3 = True
+                    nextdialog4 = True
+            if SelectItem == "3":
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "I see you have found a bow")
                     create_notice(200, 200)
                 if nextdialog == True:
                     disable_controls = False

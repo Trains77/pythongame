@@ -29,7 +29,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
@@ -50,7 +50,7 @@ speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
-item_world_id = [0, 0, 0, 0, 0] # What world an item is in
+item_world_id = [0, 0, 0, 2, 0] # What world an item is in
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog, currently unused
