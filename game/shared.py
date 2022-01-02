@@ -20,8 +20,8 @@ RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
-WHITE = (255, 255, 255) # The RGB code fro White
-
+WHITE = (255, 255, 255) # The RGB code for White
+NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 # Debugging settings
 disable_background = False # Wether the game should load the background image
 player_color = (0, 0, 0) # The color of the player's hitbox
@@ -50,6 +50,7 @@ speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
 fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
+item_world_id = [0, 0, 0, 0, 0] # What world an item is in
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog, currently unused
