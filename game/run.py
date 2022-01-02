@@ -12,9 +12,9 @@ if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
 
 if enable_program == True:
-    import music
+#    import music
     import game
 elif enable_program == False:
-    print("The program has been disabled in shared.py")
+    print("The program has been disabled by shared.py")
     print()
     print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
