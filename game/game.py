@@ -171,7 +171,11 @@ while not done:
                         if not playerx == game_border2:
                             playerx = playerx - speed
                         elif playerx == game_border2:
-                            playsound(1, environment_audio_path + "wallhit.wav")
+                            if mapid == 0:
+                                mapid = 2
+                                playerx = game_border1
+                            else:
+                                playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Left"
                         moved = True
                 if event.key == pygame.K_d:
@@ -179,7 +183,11 @@ while not done:
                         if not playerx == game_border1:
                             playerx = playerx + speed
                         elif playerx == game_border1:
-                            playsound(1, environment_audio_path + "wallhit.wav")
+                            if mapid == 2:
+                                mapid = 0
+                                playerx = game_border2
+                            else:
+                                playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Right"
                         moved = True
                 if event.key == pygame.K_w:
@@ -203,7 +211,11 @@ while not done:
                         if not playerx == game_border2:
                             playerx = playerx - speed
                         elif playerx == game_border2:
-                            playsound(1, environment_audio_path + "wallhit.wav")
+                            if mapid == 0:
+                                mapid = 2
+                                playerx = game_border1
+                            else:
+                                playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Left"
                         moved = True
                 if event.key == pygame.K_RIGHT:
@@ -211,9 +223,11 @@ while not done:
                         if not playerx == game_border1:
                             playerx = playerx + speed
                         elif playerx == game_border1:
-                            playsound(1, environment_audio_path + "wallhit.wav")
-                        facing = "Right"
-                        moved = True
+                            if mapid == 2:
+                                mapid = 0
+                                playerx = game_border2
+                            else:
+                                playsound(1, environment_audio_path + "wallhit.wav")
                 if event.key == pygame.K_UP:
                     if disable_controls == False:
                         if not playery == game_border2:
@@ -245,16 +259,17 @@ while not done:
                 # Dimension key thing
                 if event.key == pygame.K_f:
                     if disable_controls == False:
-                        if mapid == 0:
+                        if not mapid == 1:
                             if enable_music == True:
                                 playsound(0, spookie)
+                            previous_map = mapid
                             mapid = 1
                         elif mapid == 1:
                             if enable_music == True:
                                 playsound(0, song)
                             if entered_2_1 == False:
                                 entered_2_1 = True
-                            mapid = 0
+                            mapid = previous_map
                 if event.key == pygame.K_e:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
@@ -308,7 +323,9 @@ while not done:
         if disable_background == False:
             if mapid == 0:
                 image_display(screen, environment_path + "background.png", [0,0])
-            if mapid == 1:
+            elif mapid == 2:
+                image_display(screen, environment_path + "background.png", [0,0])
+            elif mapid == 1:
                 image_display(screen, environment_path + "background0.png", [0,0])
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
