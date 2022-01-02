@@ -1,3 +1,5 @@
+# This script was made on Linux, it may not work on other operating systems
+
 # Script Modules
 import platform
 import colored
@@ -7,11 +9,24 @@ import pygame
 from pygame.locals import *
 pygame.init()
 import time
-from shared import flipped_prefix, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import flipped_prefix, system_recommends, enable_program, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
 pygame.mixer.init()
+
+
+
+if not platform.system() == system_recommends:
+    print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
+if enable_program == True:
+    done = False
+elif enable_program == False:
+    print("The program has been disabled in shared.py")
+    print()
+    print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
+    done = True
+
 
 # Cordinates and stuff
 infox = 200
@@ -141,7 +156,6 @@ import credits
 # Display
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)
-done = False
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
@@ -228,6 +242,7 @@ while not done:
                                 playerx = game_border2
                             else:
                                 playsound(1, environment_audio_path + "wallhit.wav")
+                        facing = "Right"
                 if event.key == pygame.K_UP:
                     if disable_controls == False:
                         if not playery == game_border2:
@@ -310,7 +325,7 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         if mapid == 0:
-            scientist_square = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
+            scientist_square = pygame.draw.rect(screen, block_color, [infox,infoy,square_size + 10,square_size + 10])
         else:
             scientist_square = offscreen
 
