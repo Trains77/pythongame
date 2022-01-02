@@ -7,7 +7,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 from time import sleep
-from shared import flipped_prefix, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import flipped_prefix, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
@@ -256,7 +256,7 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         square_info = pygame.draw.rect(screen, block_color, [infox,infoy,square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
-        player_detector = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
+        scientist_square = pygame.draw.rect(screen, block_color, [infox - 5,infoy - 5,square_size + 10,square_size + 10])
 
         # Item Managment
         hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
@@ -315,7 +315,7 @@ while not done:
 #            if not SelectItem == "2":
 #                createdialog("User", "It is a tree.")
         # Dialogs
-        if pygame.Rect.colliderect(player_square, player_detector) == 1:
+        if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if SelectItem == "NaN":
                 if nextdialog == False:
                     disable_controls = True
@@ -367,7 +367,7 @@ while not done:
             if show_debug == True:
                 print("Dialog Opened")
 
-        if not pygame.Rect.colliderect(player_square, player_detector) == 1:
+        if not pygame.Rect.colliderect(player_square, scientist_square) == 1:
             nextdialog = False
             nextdialog2 = False
             nextdialog3 = False
@@ -396,6 +396,9 @@ while not done:
             print(nextdialog2)
             print(nextdialog3)
             print(nextdialog4)
+            print()
+            print("World Data")
+            print("World ID: " + mapid)
             print()
         pygame.display.update()
         pygame.display.flip()

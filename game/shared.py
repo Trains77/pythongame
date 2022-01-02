@@ -28,7 +28,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = True # Enable debugging messages
+show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # File paths
@@ -51,7 +51,7 @@ fps = 10 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
-dialog_select = 0 # The default selection for dialog
+dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id, currently unused
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.07.2"
