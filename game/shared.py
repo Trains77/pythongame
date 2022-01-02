@@ -1,4 +1,4 @@
-# Stuff for variables
+# Modules
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
@@ -55,6 +55,6 @@ gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window 
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.07.2" # Game version
+version = "0.08.0" # Game version
 INV_MIN = 0 # Minimum inventory slot that is allowed by the game
 INV_MAX = 4 # Maximum inventory slot that is allowed by the game
