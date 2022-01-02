@@ -9,13 +9,27 @@ import pygame
 from pygame.locals import *
 pygame.init()
 import time
-from shared import flipped_prefix, system_recommends, enable_program, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import flipped_prefix, version, system_recommends, enable_program, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
 from colored import fore, back, style
 import math
 import random
 pygame.mixer.init()
 
 
+print(fore.BLUE)
+print("Program by Trains77")
+print()
+print("Artwork by Trains77")
+print()
+print("Background Music: https://www.FesliyanStudios.com and")
+print("                  https://freemusicarchive.org/music/defrini")
+print()
+print("Made with Atom Editor")
+print()
+print("Utilizes Pygame")
+print()
+print("AnotherGame " + version)
+print(style.RESET)
 
 if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
@@ -149,8 +163,6 @@ def render_transparent_slot(slot_id):
         image_display(screen, inventory_path + transparent_prefix + "icon_select.png", [minimum_slot + 70 * slot_id, 5])
     elif not Inv_Slot == slot_id:
         image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
-# Credits
-import credits
 
 
 # Display
