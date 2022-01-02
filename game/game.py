@@ -15,7 +15,7 @@ import math
 import random
 pygame.mixer.init()
 
-
+# The Credits
 print(fore.BLUE)
 print("Program by Trains77")
 print()
@@ -58,7 +58,7 @@ nextdialog = False
 nextdialog2 = False
 nextdialog3 = False
 nextdialog4 = False
-moved = False
+
 # Item related stuff
 hammer_slot = -1
 hammer_slot_pos = 235
@@ -68,8 +68,6 @@ axe_slot = -1
 axe_slot_pos = 235
 SelectItem = "NaN"
 item_world_id = [0, 0, 0, 0, 0]
-if show_debug == True:
-    print("Debugging logs enabled")
 
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -77,7 +75,10 @@ playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 entered_1 = False
 entered_2 = False
 entered_2_1 = False
+moved = False
+
 # Functions
+
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     font1 = pygame.font.SysFont('Nerds', 20)
