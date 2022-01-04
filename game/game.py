@@ -82,7 +82,8 @@ entered_2_1 = False
 moved = False
 
 # Functions
-
+def create_projectile():
+    print("This would create a projectile of some sort")
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     font1 = pygame.font.SysFont('Nerds', 20)
@@ -563,5 +564,6 @@ while not done:
         if Inv_Slot > INV_MAX:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
+        SelectItem = "NaN"
 pygame.quit()
 exit()
