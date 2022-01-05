@@ -42,19 +42,6 @@ elif enable_program == False:
     done = True
 
 
-# Cordinates and stuff
-infox = 200
-infoy = 200
-item1x = 250
-item1y = 275
-item2y = 300
-item2x = 50
-item3x = 99
-item3y = 450
-bow4x = 250
-bow4y = 250
-
-disable_controls = False
 
 # Internal Dialo6g Data
 nextdialog = False
@@ -63,18 +50,10 @@ nextdialog3 = False
 nextdialog4 = False
 
 # Item related stuff
-hammer_slot = -1
-hammer_slot_pos = 235
-sword_slot = -1
-sword_slot_pos = 235
-axe_slot = -1
-axe_slot_pos = 235
 SelectItem = "NaN"
-bow_slot = -1
-bow_slot_pos = 235
 
-# Trees
-tree1 = [450, 450]
+tree1_destroyed = 0
+
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -82,8 +61,9 @@ entered_1 = False
 entered_2 = False
 entered_2_1 = False
 moved = False
-player_movement = [1, 1, 1, 1, 1]
-# left right down up item
+player_movement = [1, 1, 1, 1, 1] # left right down up item
+disable_controls = False
+
 # Functions
 
 def create_projectile():
@@ -195,6 +175,7 @@ def create_wall(xpos, ypos, width, height):
         player_movement[2] = 0
     if pygame.Rect.colliderect(item_drop_location, center):
         player_movement[4] = 0
+    return center
 def trigger_use():
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
@@ -213,6 +194,7 @@ pygame.display.set_caption(GameName)
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
+detector_square = offscreen
 
 # Music
 if enable_music == True:
@@ -388,12 +370,14 @@ while not done:
                         if i > INV_MIN:
                             if i - 2 < INV_MAX:
                                 Inv_Slot = i - 1
+                                SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
                     print("Quit")
 
         player_movement = [1, 1, 1, 1, player_movement[4]]
+
         # Mouse Related info
         cursor_pos = pygame.mouse.get_pos()
         cursory = cursor_pos[1] - 5
@@ -405,19 +389,27 @@ while not done:
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
         if mapid == 0:
-            create_wall(tree1[0], tree1[1], 20, 30)
+            if tree1_destroyed == 0:
+                tree1_hitbox = create_wall(tree1[0], tree1[1], 20, 30)
+            if pygame.Rect.colliderect(detector_square, tree1_hitbox):
+                if SelectItem == "2":
+                    tree1_destroyed = 1
+                    banana_pos[0] = tree1[0] + 10
+                    banana_pos[1] = tree1[1] + 10
         elif mapid == 1:
             create_wall(tree1[0] / 2, tree1[1] / 2, 20, 30)
         if mapid == 0:
-            scientist_square = pygame.draw.rect(screen, block_color, [infox - 3,infoy - 3,square_size + 6,square_size + 6])
+            scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
             scientist_square = offscreen
 
         # Item Managment
-        hammer_slot, hammer_slot_pos = item_detector(0, "item1", hammer_slot, hammer_slot_pos, item1x, item1y)
-        sword_slot, sword_slot_pos = item_detector(1, "item2", sword_slot, sword_slot_pos, item2x, item2y)
-        axe_slot, axe_slot_pos = item_detector(2, "item3", axe_slot, axe_slot_pos, item3x, item3y)
-        bow_slot, bow_slot_pos = item_detector(3, "item4", bow_slot, bow_slot_pos, bow4x, bow4y)
+        hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], hammer_pos[0], hammer_pos[1])
+        sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], sword_pos[0], sword_pos[1])
+        axe_slot[0], axe_slot[1] = item_detector(2, "item3", axe_slot[0], axe_slot[1], axe_pos[0], axe_pos[1])
+        bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
+        banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
+
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -439,25 +431,27 @@ while not done:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
             done = True
         if mapid == 0:
-            if playerx > infox:
-                image_display(screen, characters_path + "Scientist/scientist.png", [infox,infoy])
-            elif playerx < infox:
-                image_display(screen, characters_path + "Scientist/scientist_flipped.png", [infox,infoy])
-            elif playerx == infox:
-                if playery > infoy:
-                    image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
-                elif playery < infoy:
-                    image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
+            if playerx > info_pos[0]:
+                image_display(screen, characters_path + "Scientist/scientist.png", [info_pos[0],info_pos[1]])
+            elif playerx < info_pos[0]:
+                image_display(screen, characters_path + "Scientist/scientist_flipped.png", [info_pos[0],info_pos[1]])
+            elif playerx == info_pos[0]:
+                if playery > info_pos[1]:
+                    image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
+                elif playery < info_pos[1]:
+                    image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
         if mapid == 0:
-            image_display(screen, environment_path + "tree.png", [tree1[0], tree1[1]])
+            if tree1_destroyed == 0:
+                image_display(screen, environment_path + "tree.png", [tree1[0], tree1[1]])
         elif mapid == 1:
             image_display(screen, environment_path + "tree_inverted.png", [tree1[0] / 2, tree1[1] / 2])
         #
         # Inventory Stuff
-        item1x, item1y, hammer_slot, SelectItem, item_world_id = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
-        item2x, item2y, sword_slot, SelectItem, item_world_id = item_render(1, sword_slot, item2x, item2y, "sword.png")
-        item3x, item3y, axe_slot, SelectItem, item_world_id = item_render(2, axe_slot, item3x, item3y, "axe.png")
-        bow4x, bow4y, bow_slot, SelectItem, item_world_id = item_render(3, bow_slot, bow4x, bow4y, "bow.png")
+        hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
+        sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")
+        axe_pos[0], axe_pos[1], axe_slot[0], SelectItem, item_world_id = item_render(2, axe_slot[0], axe_pos[0], axe_pos[1], "axe.png")
+        bow_pos[0], bow_pos[1], bow_slot[0], SelectItem, item_world_id = item_render(3, bow_slot[0], bow_pos[0], bow_pos[1], "bow.png")
+        banana_pos[0], banana_pos[1], banana_slot[0], SelectItem, item_world_id = item_render(4, banana_slot[0], banana_pos[0], banana_pos[1], "banana.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             render_transparent_slot(0)
             render_transparent_slot(1)
@@ -471,17 +465,11 @@ while not done:
             render_slot(3)
             render_slot(4)
 
-        render_item_inv("hammer.png", 0, hammer_slot_pos)
-        render_item_inv("sword.png", 1, sword_slot_pos)
-        render_item_inv("axe.png", 2, axe_slot_pos)
-        render_item_inv("bow.png", 3, bow_slot_pos)
-#        if pygame.Rect.colliderect(tree_hitbox, player_square) == 1:
-#            if SelectItem == "2":
-#                createdialog("User", "It is still a tree, and I only have a not an axe.")
-#            if not SelectItem == "2":
-#                createdialog("User", "It is a tree.")
-
-
+        render_item_inv("hammer.png", 0, hammer_slot[1])
+        render_item_inv("sword.png", 1, sword_slot[1])
+        render_item_inv("axe.png", 2, axe_slot[1])
+        render_item_inv("bow.png", 3, bow_slot[1])
+        render_item_inv("banana.png", 4, banana_slot[1])
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if nextdialog4 == False:
@@ -591,16 +579,16 @@ while not done:
         if show_debug == True:
             print("Inventory Data")
             print("Inv_Slot: " + str(Inv_Slot))
-            print("Hammer Slot: " + str(hammer_slot))
-            print("Sword Slot: " + str(sword_slot))
-            print("Axe Slot: " + str(axe_slot))
+            print("Hammer Slot: " + str(hammer_slot[0]))
+            print("Sword Slot: " + str(sword_slot[0]))
+            print("Axe Slot: " + str(axe_slot[0]))
             print("Held Item: " + SelectItem)
             print()
-            print("Item Positions")
-            print("Hammer POS: " + str(hammer_slot_pos))
-            print("Sword POS: " + str(sword_slot_pos))
-            print("Axe POS: " + str(axe_slot_pos))
-            print()
+            # print("Item Positions")
+            # print("Hammer POS: " + str(hammer_slot[1]))
+            # print("Sword POS: " + str(sword_slot[1]))
+            # print("Axe POS: " + str(axe_slot[1]))
+            # print()
             print("Player Data")
             print("Controls Status: " + str(disable_controls))
             print("Player Rotation: " + facing)
@@ -618,6 +606,9 @@ while not done:
             print()
         pygame.display.update()
         pygame.display.flip()
+
+        # Reset variables for next tick
+        detector_square = offscreen
 
         # Game Variable Checker
         if playerx > game_border1:
@@ -638,7 +629,6 @@ while not done:
         if Inv_Slot > INV_MAX:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
-        SelectItem = "NaN"
         player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
 pygame.quit()
 exit()

@@ -22,6 +22,7 @@ BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
 WHITE = (255, 255, 255) # The RGB code for White
 NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
+
 # Debugging settings
 disable_background = False # Wether the game should load the background image
 player_color = (0, 0, 0) # The color of the player's hitbox
@@ -29,8 +30,26 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
+
+# Item and object Positions
+hammer_pos = [250, 275]
+sword_pos = [50, 300]
+axe_pos = [99, 450]
+bow_pos = [250, 250]
+banana_pos = [3000, 3000]
+info_pos = [200, 200]
+
+# Trees
+tree1 = [450, 450]
+
+# Inventory Stuff
+bow_slot = [-1, 235]
+axe_slot = [-1, 235]
+hammer_slot = [-1, 235]
+sword_slot = [-1, 235]
+banana_slot = [-1, 235]
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
