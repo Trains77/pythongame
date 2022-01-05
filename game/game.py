@@ -82,10 +82,10 @@ entered_1 = False
 entered_2 = False
 entered_2_1 = False
 moved = False
-player_movement = [1, 1, 1, 1]
-# left right down up
-
+player_movement = [1, 1, 1, 1, 1]
+# left right down up item
 # Functions
+
 def create_projectile():
     print("This would create a projectile of some sort")
 def createdialog(speaker, text):
@@ -149,14 +149,17 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
             if disable_controls == False:
                 if mouse_button_list[2] == True:
                     if not playery + 12 > game_border1:
-                        if ItemID == Inv_Slot:
-                            posx = playerx + 6
-                            posy = playery + 25
-                            ItemID = -1
-                            inv[ItemSlotID] = 0
-                            SelectedItem = "NaN"
-                            item_id_thing[ItemSlotID] = mapid
-                    elif playery + 30 > game_border1:
+                        if player_movement[4] == 1:
+                            if ItemID == Inv_Slot:
+                                posx = playerx + 6
+                                posy = playery + 25
+                                ItemID = -1
+                                inv[ItemSlotID] = 0
+                                SelectedItem = "NaN"
+                                item_id_thing[ItemSlotID] = mapid
+                        else:
+                            playsound(1, environment_audio_path + "wallhit.wav")
+                    else:
                         playsound(1, environment_audio_path + "wallhit.wav")
     return posx, posy, ItemID, SelectedItem, item_id_thing
 
@@ -171,14 +174,16 @@ def render_transparent_slot(slot_id):
         image_display(screen, inventory_path + transparent_prefix + "icon_select.png", [minimum_slot + 70 * slot_id, 5])
     elif not Inv_Slot == slot_id:
         image_display(screen, inventory_path + transparent_prefix + "icon_unselect.png", [minimum_slot + 70 * slot_id, 5])
+
 def create_square(COLOR, xpos, ypos, width, height):
     SQUARE = pygame.draw.rect(screen, COLOR, [xpos, ypos, width, height])
     return SQUARE
+
 def create_wall(xpos, ypos, width, height):
-    left = create_square(GREEN, xpos - 3, ypos - 3, 3, height + 6)
-    right = create_square(GREEN, xpos + width, ypos - 3, 3, height + 6)
-    up = create_square(GREEN, xpos - 3, ypos - 3, width + 6, 3)
-    down = create_square(GREEN, xpos - 3, ypos + height, width + 6, 3)
+    left = create_square(GREEN, xpos - 3, ypos, 3, height)
+    right = create_square(GREEN, xpos + width, ypos, 3, height)
+    up = create_square(GREEN, xpos, ypos - 3, width, 3)
+    down = create_square(GREEN, xpos, ypos + height, width, 3)
     center = create_square(BLACK, xpos, ypos, width, height)
     if pygame.Rect.colliderect(player_square, left):
         player_movement[1] = 0
@@ -188,6 +193,20 @@ def create_wall(xpos, ypos, width, height):
         player_movement[3] = 0
     if pygame.Rect.colliderect(player_square, up):
         player_movement[2] = 0
+    if pygame.Rect.colliderect(item_drop_location, center):
+        player_movement[4] = 0
+def trigger_use():
+    if facing == "Right":
+        sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
+    elif facing == "Left":
+        sensor_square = create_square(RED, playerx - square_size, playery, square_size, square_size / 2)
+    elif facing == "Up":
+        sensor_square = create_square(RED, playerx + square_size / 4, playery - square_size, square_size / 2, square_size)
+    elif facing == "Down":
+        sensor_square = create_square(RED, playerx + square_size / 4, playery + square_size, square_size / 2, square_size)
+    else:
+        sensor_square = create_square(RED, 5000, 5000, 10, 10)
+    return sensor_square
 # Display
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)
@@ -331,7 +350,7 @@ while not done:
                             Inv_Slot = 4
                             SelectItem = "NaN"
                 # Dimension key thing
-                if event.key == pygame.K_f:
+                if event.key == pygame.K_r:
                     if disable_controls == False:
                         if not mapid == 1:
                             if enable_music == True:
@@ -362,6 +381,8 @@ while not done:
                     if show_debug == True:
                         print("Entered")
                     nextdialog = True
+                if event.key == pygame.K_f:
+                    detector_square = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if i > INV_MIN:
@@ -371,7 +392,8 @@ while not done:
                 done = True
                 if show_debug == True:
                     print("Quit")
-        player_movement = [1, 1, 1, 1]
+
+        player_movement = [1, 1, 1, 1, player_movement[4]]
         # Mouse Related info
         cursor_pos = pygame.mouse.get_pos()
         cursory = cursor_pos[1] - 5
@@ -381,12 +403,13 @@ while not done:
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
+        item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
         if mapid == 0:
             create_wall(tree1[0], tree1[1], 20, 30)
         elif mapid == 1:
             create_wall(tree1[0] / 2, tree1[1] / 2, 20, 30)
         if mapid == 0:
-            scientist_square = pygame.draw.rect(screen, block_color, [infox,infoy,square_size + 10,square_size + 10])
+            scientist_square = pygame.draw.rect(screen, block_color, [infox - 3,infoy - 3,square_size + 6,square_size + 6])
         else:
             scientist_square = offscreen
 
@@ -616,6 +639,6 @@ while not done:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
         SelectItem = "NaN"
-
+        player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
 pygame.quit()
 exit()
