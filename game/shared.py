@@ -30,7 +30,7 @@ block_color = (0, 0, 0) # Default square color
 info_color = (150, 150, 150) # Info square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = True # Enable debugging messages
+show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 # Item and object Positions
@@ -67,7 +67,7 @@ game_border1 = 480 # Maximum cordinates player's coordinates can be
 game_border2 = 0 # Minimum cordinates the player's cordinates can be
 speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
-fps = 10 # The FPS of the game
+fps = 20 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 item_world_id = [0, 0, 0, 2, 0] # What world an item is in
 minimum_slot = 80 # The default coordinates of slot 0
@@ -78,3 +78,4 @@ system_recommends = "Linux" # The system(s) that the script is verified to work 
 version = "0.08.0" # Game version
 INV_MIN = 0 # Minimum inventory slot that is allowed by the game
 INV_MAX = 4 # Maximum inventory slot that is allowed by the game
+font1 = pygame.font.SysFont('A totally real font', 20)

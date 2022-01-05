@@ -41,14 +41,12 @@ elif enable_program == False:
     print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
     done = True
 
-
-
 # Internal Dialo6g Data
 nextdialog = False
 nextdialog2 = False
 nextdialog3 = False
 nextdialog4 = False
-
+scientist_leaving = False
 # Item related stuff
 SelectItem = "NaN"
 
@@ -70,7 +68,6 @@ def create_projectile():
     print("This would create a projectile of some sort")
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
-    font1 = pygame.font.SysFont('Nerds', 20)
     img1 = font1.render(speaker + ":", True, BLACK)
     img2 = font1.render(text, True, BLACK)
     img3 = font1.render("Press 'z' to continue", True, BLACK)
@@ -104,13 +101,31 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                     playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
-def render_item_inv(item_texture, InvID, ItemSlotPos):
+def render_item_inv(item_texture, InvID, ItemSlot, ItemSlotPos):
     if inv[InvID] == 1:
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             image_display(screen, inventory_path + transparent_prefix + item_texture, [ItemSlotPos,20])
         elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
             image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
-
+        if ItemSlot == Inv_Slot:
+            if item_texture == "axe.png":
+                item_name = font1.render("Axe", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos, 70]))
+            elif item_texture == "hammer.png":
+                item_name = font1.render("Hammer", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos - 10, 70]))
+            elif item_texture == "banana.png":
+                item_name = font1.render("Banana", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos - 10, 70]))
+            elif item_texture == "bow.png":
+                item_name = font1.render("Bow", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos, 70]))
+            elif item_texture == "sword.png":
+                item_name = font1.render("Sword", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos - 5, 70]))
+            else:
+                item_name = font1.render("Null", True, BLACK)
+                screen.blit(item_name, ([ItemSlotPos, 70]))
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     item_id_thing = item_world_id
     SelectedItem = SelectItem
@@ -431,15 +446,18 @@ while not done:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
             done = True
         if mapid == 0:
-            if playerx > info_pos[0]:
+            if scientist_leaving == True:
                 image_display(screen, characters_path + "Scientist/scientist.png", [info_pos[0],info_pos[1]])
-            elif playerx < info_pos[0]:
-                image_display(screen, characters_path + "Scientist/scientist_flipped.png", [info_pos[0],info_pos[1]])
-            elif playerx == info_pos[0]:
-                if playery > info_pos[1]:
-                    image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
-                elif playery < info_pos[1]:
-                    image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
+            else:
+                if playerx > info_pos[0]:
+                    image_display(screen, characters_path + "Scientist/scientist.png", [info_pos[0],info_pos[1]])
+                elif playerx < info_pos[0]:
+                    image_display(screen, characters_path + "Scientist/scientist_flipped.png", [info_pos[0],info_pos[1]])
+                elif playerx == info_pos[0]:
+                    if playery > info_pos[1]:
+                        image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
+                    elif playery < info_pos[1]:
+                        image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
         if mapid == 0:
             if tree1_destroyed == 0:
                 image_display(screen, environment_path + "tree.png", [tree1[0], tree1[1]])
@@ -465,11 +483,11 @@ while not done:
             render_slot(3)
             render_slot(4)
 
-        render_item_inv("hammer.png", 0, hammer_slot[1])
-        render_item_inv("sword.png", 1, sword_slot[1])
-        render_item_inv("axe.png", 2, axe_slot[1])
-        render_item_inv("bow.png", 3, bow_slot[1])
-        render_item_inv("banana.png", 4, banana_slot[1])
+        render_item_inv("hammer.png", 0, hammer_slot[0], hammer_slot[1])
+        render_item_inv("sword.png", 1, sword_slot[0], sword_slot[1])
+        render_item_inv("axe.png", 2, axe_slot[0], axe_slot[1])
+        render_item_inv("bow.png", 3, bow_slot[0], bow_slot[1])
+        render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if nextdialog4 == False:
@@ -517,24 +535,24 @@ while not done:
             if SelectItem == "2":
                 if nextdialog == False:
                     disable_controls = True
-                    createdialog("Scientist", "That looks more like a toothbrush than an axe.")
+                    createdialog("Scientist", "You can use that toothbr- I mean axe to cut down trees")
                     create_notice(200, 200)
-                if not nextdialog == False:
-                    if nextdialog2 == False:
-                        createdialog("User", "Yeah, I know")
-                        create_notice(playerx, playery)
-                if not nextdialog2 == False:
-                    if nextdialog3 == False:
-                        createdialog("Trains77", "Hey, I did my best.")
-                if not nextdialog3 == False:
-                    if nextdialog4 == False:
-                        createdialog("Scientist", "Well your best sucks.")
-                        create_notice(200, 200)
-                if nextdialog4 == True:
+                if nextdialog == True:
                     disable_controls = False
+            if SelectItem == "4":
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "Is... is.. that.. A BANANA!?")
+                if nextdialog == True:
+                    scientist_leaving = scientist_leaving = True
+                    createdialog("Scientist", "AAAAAHHHH!")
+                    disable_controls = False
+                    create_notice(info_pos[0], info_pos[1])
             if show_debug == True:
                 print("Dialog Opened")
             #
+        if scientist_leaving == True:
+            info_pos[0] = info_pos[0] + 5
         if mapid == 1:
             if entered_1 == False:
                 moved = False
