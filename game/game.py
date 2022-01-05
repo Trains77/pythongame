@@ -9,7 +9,7 @@ import pygame
 from pygame.locals import *
 pygame.init()
 import time
-from shared import flipped_prefix, item_world_id, version, system_recommends, enable_program, song, spookie, enable_music, mapid, INV_MIN, INV_MAX, facing, mapid, dialog_select, transparent_prefix, inv, minimum_slot, Inv_Slot, BLACK, RED, GREEN, BLUE, GRAY, WHITE, characters_path, size, item_path, environment_audio_path, environment_path, inventory_path, show_debug, disable_background, GameName, block_color, square_size, item_size, player_color, gameIcon, fps, game_border1, game_border2, speed, info_color, dialog_color, background_color
+from shared import *
 from colored import fore, back, style
 import math
 import random
