@@ -73,6 +73,8 @@ SelectItem = "NaN"
 bow_slot = -1
 bow_slot_pos = 235
 
+# Trees
+tree1 = [450, 450]
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -173,7 +175,6 @@ def create_square(COLOR, xpos, ypos, width, height):
     SQUARE = pygame.draw.rect(screen, COLOR, [xpos, ypos, width, height])
     return SQUARE
 def create_wall(xpos, ypos, width, height):
-    # pygame.Rect.colliderect(player_square, scientist_square)
     left = create_square(GREEN, xpos - 3, ypos - 3, 3, height + 6)
     right = create_square(GREEN, xpos + width, ypos - 3, 3, height + 6)
     up = create_square(GREEN, xpos - 3, ypos - 3, width + 6, 3)
@@ -376,12 +377,14 @@ while not done:
         cursory = cursor_pos[1] - 5
         cursorx = cursor_pos[0] - 5
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
-#        tree_hitbox = pygame.draw.rect(screen, GREEN, [450, 450, square_size,square_size])
 
         # Hitbox info
-
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
+        if mapid == 0:
+            create_wall(tree1[0], tree1[1], 20, 30)
+        elif mapid == 1:
+            create_wall(tree1[0] / 2, tree1[1] / 2, 20, 30)
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [infox,infoy,square_size + 10,square_size + 10])
         else:
@@ -400,6 +403,7 @@ while not done:
                 image_display(screen, environment_path + "background.png", [0,0])
             elif mapid == 1:
                 image_display(screen, environment_path + "background0.png", [0,0])
+        #
         if facing == "Left":
             image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
         elif facing == "Right":
@@ -421,7 +425,11 @@ while not done:
                     image_display(screen, characters_path + "Scientist/scientist_down.png", [infox,infoy])
                 elif playery < infoy:
                     image_display(screen, characters_path + "Scientist/scientist_up.png", [infox,infoy])
-#        image_display(screen, environment_path + "tree.png", [450, 450]) # Unused tree asset
+        if mapid == 0:
+            image_display(screen, environment_path + "tree.png", [tree1[0], tree1[1]])
+        elif mapid == 1:
+            image_display(screen, environment_path + "tree_inverted.png", [tree1[0] / 2, tree1[1] / 2])
+        #
         # Inventory Stuff
         item1x, item1y, hammer_slot, SelectItem, item_world_id = item_render(0, hammer_slot, item1x, item1y, "hammer.png")
         item2x, item2y, sword_slot, SelectItem, item_world_id = item_render(1, sword_slot, item2x, item2y, "sword.png")
