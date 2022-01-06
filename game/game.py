@@ -49,7 +49,7 @@ nextdialog4 = False
 scientist_leaving = False
 # Item related stuff
 SelectItem = "NaN"
-
+score = 0
 tree1_destroyed = 0
 tree2_destroyed = 0
 # Player data
@@ -64,9 +64,11 @@ disable_controls = False
 health = 20
 max_health = 20
 health_tick = 0
+dead = False
+
 # Functions
-def create_projectile(positionx, projectiley):
-    g = "g"
+# def create_projectile(positionx, projectiley):
+    # g = "g"
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -303,10 +305,9 @@ while not done:
                             playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Right"
                         moved = True
-                if event.key == pygame.K_g:
-                    health = deal_damage(1)
-                if event.key == pygame.K_t:
-                    health = deal_damage(-1)
+                if event.key == pygame.K_RETURN:
+                    if dead == True:
+                        done = True
                 if event.key == pygame.K_w:
                     if disable_controls == False:
                         if player_movement[3] == 1:
@@ -505,9 +506,9 @@ while not done:
             health = max_health
         health_tick = health_bar()
         if health < 1:
-            print("You Died!")
-            done = True
-        create_projectile(0, 350)
+            dead = True
+            disable_controls = True
+
         # Inventory Stuff
         hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
         sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")
@@ -534,6 +535,24 @@ while not done:
         render_item_inv("bow.png", 3, bow_slot[0], bow_slot[1])
         render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
         render_item_inv("ananab.png", 5, ananab_slot[0], ananab_slot[1])
+
+        if dead == True:
+            create_square(GRAY, 15, 15, 470, 470)
+            deadfont = pygame.font.SysFont('A totally real font', 50)
+            deadfont2 = pygame.font.SysFont('A totally real font', 30)
+            death_message = deadfont.render("Game Over!", True, RED)
+            screen.blit(death_message, (150, 60))
+            death_notice = deadfont2.render("Press enter to exit", True, RED)
+            screen.blit(death_notice, (165, 350))
+            score_font = pygame.font.SysFont('A totally real font', 25)
+            score_death_message = score_font.render("Score: " + str(score), True, BLACK)
+            screen.blit(score_death_message, (215, 225))
+            nextdialog = True
+            nextdialog2 = True
+            nextdialog3 = True
+            nextdialog4 = True
+            disable_controls = True
+
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if nextdialog4 == False:
