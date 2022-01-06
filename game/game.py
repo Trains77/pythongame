@@ -52,7 +52,6 @@ SelectItem = "NaN"
 
 tree1_destroyed = 0
 tree2_destroyed = 0
-
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -62,7 +61,9 @@ entered_2_1 = False
 moved = False
 player_movement = [1, 1, 1, 1, 1] # left right down up item
 disable_controls = False
-
+health = 20
+max_health = 20
+health_tick = 0
 # Functions
 
 def create_projectile():
@@ -86,6 +87,25 @@ def image_display(surface, filename, xy):
 
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+def health_bar():
+    health_color = RED
+    health_ticks = health_tick + 1
+    if health < max_health / 4:
+        if health_ticks < 10:
+            health_color = BLACK
+        elif health_ticks > 10:
+            health_color = RED
+        else:
+            health_color = RED
+    if health_ticks == 20:
+        health_ticks = 0
+    health_txt = font1.render("Health: " + str(health) + "/" + str(max_health), True, BLACK)
+    screen.blit(health_txt, (20, 470))
+    create_square(GRAY, 9, 484, 6 * max_health + 1, 12)
+    for i in range(health):
+        create_square(health_color, 10 + 6 * i, 485, 5, 10)
+    return health_ticks
+
 
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if item_world_id[ItemSlotID] == mapid:
@@ -212,6 +232,9 @@ def create_wall(xpos, ypos, width, height):
     if pygame.Rect.colliderect(item_drop_location, center):
         player_movement[4] = 0
     return center
+def deal_damage(damage_amount):
+    g = health - damage_amount
+    return g
 def trigger_use():
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
@@ -281,6 +304,10 @@ while not done:
                             playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Right"
                         moved = True
+                if event.key == pygame.K_g:
+                    health = deal_damage(1)
+                if event.key == pygame.K_t:
+                    health = deal_damage(-1)
                 if event.key == pygame.K_w:
                     if disable_controls == False:
                         if player_movement[3] == 1:
@@ -475,7 +502,12 @@ while not done:
         # Trees
         render_tree(0, tree1_destroyed, "tree.png", tree1[0], tree1[1])
         render_tree(1, tree2_destroyed, "tree_inverted.png", tree2[0], tree2[1])
-
+        if health > max_health:
+            health = max_health
+        health_tick = health_bar()
+        if health < 1:
+            print("You Died!")
+            done = True
         # Inventory Stuff
         hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
         sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")

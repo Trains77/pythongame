@@ -20,6 +20,7 @@ RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
+DARK_GRAY = (50, 50, 50)
 WHITE = (255, 255, 255) # The RGB code for White
 NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
