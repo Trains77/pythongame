@@ -241,6 +241,10 @@ def deal_damage(damage_amount):
     g = health - damage_amount
     return g
 def trigger_use():
+    bananas_pos = banana_pos
+    ananabs_pos = ananab_pos
+    item_id_thing = item_world_id
+    healths = health
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
     elif facing == "Left":
@@ -251,7 +255,21 @@ def trigger_use():
         sensor_square = create_square(RED, playerx + square_size / 4, playery + square_size, square_size / 2, square_size)
     else:
         sensor_square = create_square(RED, 5000, 5000, 10, 10)
-    return sensor_square
+    if SelectItem == "4":
+        bananas_pos = [3000, 3000]
+        # ItemID = -1
+        inv[4] = 0
+        SelectedItem = "NaN"
+        item_id_thing[4] = 0
+        healths = healths + 2
+    if SelectItem == "5":
+        ananabs_pos = [3000, 3000]
+        #  = -1
+        inv[5] = 0
+        SelectedItem = "NaN"
+        item_id_thing[5] = 1
+        healths = healths - 2
+    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths
 # Display
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)
@@ -431,7 +449,7 @@ while not done:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square = trigger_use()
+                    detector_square, banana_pos, ananab_pos, item_world_id, health = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if i > INV_MIN:
