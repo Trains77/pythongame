@@ -98,9 +98,11 @@ def health_bar():
         health_ticks = 0
     health_txt = font1.render("Health: " + str(health) + "/" + str(max_health), True, BLACK)
     screen.blit(health_txt, (20, 470))
-    create_square(GRAY, 9, 484, 6 * max_health + 1, 12)
+    if dead == False:
+        create_square(GRAY, 9, 484, 6 * max_health + 1, 12)
     for i in range(health):
-        create_square(health_color, 10 + 6 * i, 485, 5, 10)
+        if dead == False:
+            create_square(health_color, 10 + 6 * i, 485, 5, 10)
     return health_ticks
 
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
@@ -262,6 +264,7 @@ def trigger_use():
         SelectedItem = "NaN"
         item_id_thing[4] = 0
         healths = healths + 2
+        playsound(1, environment_audio_path + "use.wav")
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
         #  = -1
@@ -269,6 +272,7 @@ def trigger_use():
         SelectedItem = "NaN"
         item_id_thing[5] = 1
         healths = healths - 2
+        playsound(1, environment_audio_path + "use.wav")
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths
 # Display
 screen = pygame.display.set_mode(size)
@@ -581,7 +585,6 @@ while not done:
             nextdialog2 = True
             nextdialog3 = True
             nextdialog4 = True
-            disable_controls = True
 
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
@@ -719,7 +722,8 @@ while not done:
             print()
         pygame.display.update()
         pygame.display.flip()
-
+        if dead == True:
+            disable_controls = True
         # Reset variables for next tick
         detector_square = offscreen
 
