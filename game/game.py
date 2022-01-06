@@ -65,9 +65,8 @@ health = 20
 max_health = 20
 health_tick = 0
 # Functions
-
-def create_projectile():
-    print("This would create a projectile of some sort")
+def create_projectile(positionx, projectiley):
+    g = "g"
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -90,7 +89,7 @@ def playsound(channel,audiofile):
 def health_bar():
     health_color = RED
     health_ticks = health_tick + 1
-    if health < max_health / 4:
+    if health < max_health / 4 + 1:
         if health_ticks < 10:
             health_color = BLACK
         elif health_ticks > 10:
@@ -508,6 +507,7 @@ while not done:
         if health < 1:
             print("You Died!")
             done = True
+        create_projectile(0, 350)
         # Inventory Stuff
         hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
         sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")
