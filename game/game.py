@@ -51,7 +51,6 @@ scientist_leaving = False
 SelectItem = "NaN"
 score = 0
 
-trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
 
 inv_tree2_destroyed = 0
 # Player data
@@ -66,9 +65,6 @@ max_health = 20
 health_tick = 0
 dead = False
 
-# Functions
-# def create_projectile(positionx, projectiley):
-    # g = "g"
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -201,9 +197,10 @@ def create_square(COLOR, xpos, ypos, width, height):
 def create_tree_hitbox():
     for i in range(amount_of_trees):
         tree_destroyed = trees_destroyed
-        tree = eval("tree" + str(i + 1))
-        tree_destroyed[i] = create_tree(0, banana_pos, tree_destroyed[i], tree[0], tree[1])
-    return tree_destroyed
+        inv_tree_destroyed = inv_trees_destroyed
+        tree_destroyed[i] = create_tree(0, banana_pos, tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
+        inv_tree_destroyed[i] = create_tree(1, ananab_pos, inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
+    return tree_destroyed, inv_tree_destroyed
 
 def create_tree(worldID, drop_item_id, tree_status, posx, posy):
     if mapid == worldID:
@@ -459,7 +456,7 @@ while not done:
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
 
-        trees_destroyed = create_tree_hitbox()
+        trees_destroyed, inv_tree_destroyed = create_tree_hitbox()
         inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
 
         if mapid == 0:
@@ -511,11 +508,12 @@ while not done:
 
         # Trees
         for i in range(amount_of_trees):
-            tree = eval("tree" + str(i + 1))
             tree_destroyed = trees_destroyed
-            render_tree(0, tree_destroyed[i], "tree.png", tree[0], tree[1])
+            inv_tree_destroyed = inv_trees_destroyed
+            render_tree(0, tree_destroyed[i], "tree.png", tree_positions[i][0], tree_positions[i][1])
+            render_tree(1, inv_tree_destroyed[i], "tree_inverted.png", inv_tree_positions[i][0], inv_tree_positions[i][1])
 
-        render_tree(1, inv_tree2_destroyed, "tree_inverted.png", inv_tree2[0], inv_tree2[1])
+        # Health Bar
         if health > max_health:
             health = max_health
         health_tick = health_bar()
@@ -681,11 +679,11 @@ while not done:
             print("Axe Slot: " + str(axe_slot[0]))
             print("Held Item: " + SelectItem)
             print()
-            # print("Item Positions")
-            # print("Hammer POS: " + str(hammer_slot[1]))
-            # print("Sword POS: " + str(sword_slot[1]))
-            # print("Axe POS: " + str(axe_slot[1]))
-            # print()
+            print("Tree Data")
+            print("Trees Destroyed: " + str(trees_destroyed))
+            print("Tree Positions: " + str(tree_positions))
+            print("Banana: " + str(True))
+            print()
             print("Player Data")
             print("Controls Status: " + str(disable_controls))
             print("Player Rotation: " + facing)
