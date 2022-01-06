@@ -1,7 +1,7 @@
 # Modules
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame
+import pygame, math, random
 pygame.init()
 
 # Game Settings
@@ -43,9 +43,6 @@ banana_pos = [3000, 3000]
 info_pos = [200, 200]
 ananab_pos = [3000, 3000]
 none = [0, 0]
-# Trees
-tree1 = [450, 450]
-tree2 = [250, 350]
 
 # Inventory Stuff
 bow_slot = [-1, 235]
@@ -83,3 +80,24 @@ version = "0.09.0" # Game version
 INV_MIN = 0 # Minimum inventory slot that is allowed by the game
 INV_MAX = 4 # Maximum inventory slot that is allowed by the game
 font1 = pygame.font.SysFont('A totally real font', 20)
+
+# Player positions
+playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
+
+# Trees
+tree1 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree2 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree3 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree4 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree5 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree6 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree7 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree8 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree9 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree10 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree11 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree12 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+tree13 = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+amount_of_trees = 13
+inv_tree2 = [250, 350]

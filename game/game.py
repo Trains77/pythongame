@@ -50,11 +50,11 @@ scientist_leaving = False
 # Item related stuff
 SelectItem = "NaN"
 score = 0
-tree1_destroyed = 0
-tree2_destroyed = 0
+
+trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+
+inv_tree2_destroyed = 0
 # Player data
-playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
 entered_1 = False
 entered_2 = False
 entered_2_1 = False
@@ -106,7 +106,6 @@ def health_bar():
     for i in range(health):
         create_square(health_color, 10 + 6 * i, 485, 5, 10)
     return health_ticks
-
 
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if item_world_id[ItemSlotID] == mapid:
@@ -198,6 +197,14 @@ def render_transparent_slot(slot_id):
 def create_square(COLOR, xpos, ypos, width, height):
     SQUARE = pygame.draw.rect(screen, COLOR, [xpos, ypos, width, height])
     return SQUARE
+
+def create_tree_hitbox():
+    for i in range(amount_of_trees):
+        tree_destroyed = trees_destroyed
+        tree = eval("tree" + str(i + 1))
+        tree_destroyed[i] = create_tree(0, banana_pos, tree_destroyed[i], tree[0], tree[1])
+    return tree_destroyed
+
 def create_tree(worldID, drop_item_id, tree_status, posx, posy):
     if mapid == worldID:
         if tree_status == 0:
@@ -390,10 +397,10 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 0:
                             Inv_Slot = Inv_Slot - 1
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                         elif Inv_Slot == 0:
                             Inv_Slot = 4
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                 # Dimension key thing
                 if event.key == pygame.K_r:
                     if disable_controls == False:
@@ -412,10 +419,10 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
                             Inv_Slot = Inv_Slot + 1
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                         elif Inv_Slot == 4:
                             Inv_Slot = 0
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
@@ -433,7 +440,7 @@ while not done:
                         if i > INV_MIN:
                             if i - 2 < INV_MAX:
                                 Inv_Slot = i - 1
-                                SelectItem = "NaN"
+                                # SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -451,8 +458,10 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-        tree1_destroyed = create_tree(0, banana_pos, tree1_destroyed, tree1[0], tree1[1])
-        tree2_destroyed = create_tree(1, ananab_pos, tree2_destroyed, tree2[0], tree2[1])
+
+        trees_destroyed = create_tree_hitbox()
+        inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
+
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
@@ -465,6 +474,7 @@ while not done:
         bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
         banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
         ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], ananab_pos[0], ananab_pos[1])
+        SelectItem = "NaN"
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -500,8 +510,12 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
 
         # Trees
-        render_tree(0, tree1_destroyed, "tree.png", tree1[0], tree1[1])
-        render_tree(1, tree2_destroyed, "tree_inverted.png", tree2[0], tree2[1])
+        for i in range(amount_of_trees):
+            tree = eval("tree" + str(i + 1))
+            tree_destroyed = trees_destroyed
+            render_tree(0, tree_destroyed[i], "tree.png", tree[0], tree[1])
+
+        render_tree(1, inv_tree2_destroyed, "tree_inverted.png", inv_tree2[0], inv_tree2[1])
         if health > max_health:
             health = max_health
         health_tick = health_bar()
