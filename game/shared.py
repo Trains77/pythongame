@@ -20,7 +20,8 @@ RED = (255, 0, 0) # The RGB code for Red
 GREEN = (0, 255, 0) # The RGB code for Green
 BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
-WHITE = (255, 255, 255) # The RGB code fro White
+WHITE = (255, 255, 255) # The RGB code for White
+NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
@@ -31,6 +32,27 @@ dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
 show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
+
+# Item and object Positions
+hammer_pos = [250, 275]
+sword_pos = [50, 300]
+axe_pos = [99, 450]
+bow_pos = [250, 250]
+banana_pos = [3000, 3000]
+info_pos = [200, 200]
+ananab_pos = [3000, 3000]
+none = [0, 0]
+# Trees
+tree1 = [450, 450]
+tree2 = [250, 350]
+
+# Inventory Stuff
+bow_slot = [-1, 235]
+axe_slot = [-1, 235]
+hammer_slot = [-1, 235]
+sword_slot = [-1, 235]
+banana_slot = [-1, 235]
+ananab_slot = [-1, 235]
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
@@ -48,13 +70,15 @@ game_border1 = 480 # Maximum cordinates player's coordinates can be
 game_border2 = 0 # Minimum cordinates the player's cordinates can be
 speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
-fps = 10 # The FPS of the game
+fps = 20 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
+item_world_id = [0, 0, 0, 2, 0, 1] # What world an item is in
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.08.0" # Game version
+version = "0.09.0" # Game version
 INV_MIN = 0 # Minimum inventory slot that is allowed by the game
 INV_MAX = 4 # Maximum inventory slot that is allowed by the game
+font1 = pygame.font.SysFont('A totally real font', 20)
