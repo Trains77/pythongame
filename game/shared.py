@@ -40,9 +40,11 @@ axe_pos = [99, 450]
 bow_pos = [250, 250]
 banana_pos = [3000, 3000]
 info_pos = [200, 200]
-
+ananab_pos = [3000, 3000]
+none = [0, 0]
 # Trees
 tree1 = [450, 450]
+tree2 = [250, 350]
 
 # Inventory Stuff
 bow_slot = [-1, 235]
@@ -50,6 +52,7 @@ axe_slot = [-1, 235]
 hammer_slot = [-1, 235]
 sword_slot = [-1, 235]
 banana_slot = [-1, 235]
+ananab_slot = [-1, 235]
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
@@ -69,7 +72,7 @@ speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
 fps = 20 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
-item_world_id = [0, 0, 0, 2, 0] # What world an item is in
+item_world_id = [0, 0, 0, 2, 0, 1] # What world an item is in
 minimum_slot = 80 # The default coordinates of slot 0
 gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog, currently unused

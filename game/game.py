@@ -51,6 +51,7 @@ scientist_leaving = False
 SelectItem = "NaN"
 
 tree1_destroyed = 0
+tree2_destroyed = 0
 
 # Player data
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
@@ -123,8 +124,11 @@ def render_item_inv(item_texture, InvID, ItemSlot, ItemSlotPos):
             elif item_texture == "sword.png":
                 item_name = font1.render("Sword", True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos - 5, 70]))
+            elif item_texture == "ananab.png":
+                item_name = font1.render("ananaB", True, WHITE)
+                screen.blit(item_name, ([ItemSlotPos - 10, 70]))
             else:
-                item_name = font1.render("Null", True, BLACK)
+                item_name = font1.render("Unknown Item", True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     item_id_thing = item_world_id
@@ -173,7 +177,24 @@ def render_transparent_slot(slot_id):
 def create_square(COLOR, xpos, ypos, width, height):
     SQUARE = pygame.draw.rect(screen, COLOR, [xpos, ypos, width, height])
     return SQUARE
+def create_tree(worldID, drop_item_id, tree_status, posx, posy):
+    if mapid == worldID:
+        if tree_status == 0:
+            tree_hitbox = create_wall(posx, posy, 20, 30)
+        else:
+            tree_hitbox = create_wall(4000, 4000, 20, 30)
+        if pygame.Rect.colliderect(detector_square, tree_hitbox):
+            if SelectItem == "2":
+                tree_status = 1
+                drop_item_id[0] = posx + 10
+                drop_item_id[1] = posy + 10
+                playsound(1, environment_audio_path + "destroy.wav")
+    return tree_status
 
+def render_tree(worldID, treestatus, treetype, posx, posy):
+    if mapid == worldID:
+        if treestatus == 0:
+            image_display(screen, environment_path + treetype, [posx, posy])
 def create_wall(xpos, ypos, width, height):
     left = create_square(GREEN, xpos - 3, ypos, 3, height)
     right = create_square(GREEN, xpos + width, ypos, 3, height)
@@ -403,16 +424,8 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-        if mapid == 0:
-            if tree1_destroyed == 0:
-                tree1_hitbox = create_wall(tree1[0], tree1[1], 20, 30)
-            if pygame.Rect.colliderect(detector_square, tree1_hitbox):
-                if SelectItem == "2":
-                    tree1_destroyed = 1
-                    banana_pos[0] = tree1[0] + 10
-                    banana_pos[1] = tree1[1] + 10
-        elif mapid == 1:
-            create_wall(tree1[0] / 2, tree1[1] / 2, 20, 30)
+        tree1_destroyed = create_tree(0, banana_pos, tree1_destroyed, tree1[0], tree1[1])
+        tree2_destroyed = create_tree(1, ananab_pos, tree2_destroyed, tree2[0], tree2[1])
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
@@ -424,7 +437,7 @@ while not done:
         axe_slot[0], axe_slot[1] = item_detector(2, "item3", axe_slot[0], axe_slot[1], axe_pos[0], axe_pos[1])
         bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
         banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
-
+        ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], ananab_pos[0], ananab_pos[1])
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -458,18 +471,18 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        if mapid == 0:
-            if tree1_destroyed == 0:
-                image_display(screen, environment_path + "tree.png", [tree1[0], tree1[1]])
-        elif mapid == 1:
-            image_display(screen, environment_path + "tree_inverted.png", [tree1[0] / 2, tree1[1] / 2])
-        #
+
+        # Trees
+        render_tree(0, tree1_destroyed, "tree.png", tree1[0], tree1[1])
+        render_tree(1, tree2_destroyed, "tree_inverted.png", tree2[0], tree2[1])
+
         # Inventory Stuff
         hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
         sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")
         axe_pos[0], axe_pos[1], axe_slot[0], SelectItem, item_world_id = item_render(2, axe_slot[0], axe_pos[0], axe_pos[1], "axe.png")
         bow_pos[0], bow_pos[1], bow_slot[0], SelectItem, item_world_id = item_render(3, bow_slot[0], bow_pos[0], bow_pos[1], "bow.png")
         banana_pos[0], banana_pos[1], banana_slot[0], SelectItem, item_world_id = item_render(4, banana_slot[0], banana_pos[0], banana_pos[1], "banana.png")
+        ananab_pos[0], ananab_pos[1], ananab_slot[0], SelectItem, item_world_id = item_render(5, ananab_slot[0], ananab_pos[0], ananab_pos[1], "ananab.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             render_transparent_slot(0)
             render_transparent_slot(1)
@@ -488,6 +501,7 @@ while not done:
         render_item_inv("axe.png", 2, axe_slot[0], axe_slot[1])
         render_item_inv("bow.png", 3, bow_slot[0], bow_slot[1])
         render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
+        render_item_inv("ananab.png", 5, ananab_slot[0], ananab_slot[1])
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if nextdialog4 == False:
