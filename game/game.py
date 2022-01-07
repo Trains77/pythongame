@@ -64,6 +64,7 @@ health = 20
 max_health = 20
 health_tick = 0
 dead = False
+poison_duration = 0
 
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
@@ -73,7 +74,14 @@ def createdialog(speaker, text):
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
     screen.blit(img3, (355, 470))
-
+def poison_effect():
+    healths = health
+    poison = poison_duration
+    if health_tick == 19:
+        if poison > 0:
+            healths = deal_damage(1)
+            poison = poison - 1
+    return poison, healths
 def create_notice(posx, posy):
     img4 = pygame.image.load(characters_path + "speaking.png")
     screen.blit(img4, [posx, posy - 20])
@@ -85,15 +93,24 @@ def image_display(surface, filename, xy):
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
 def health_bar():
-    health_color = RED
+    if poison_duration > 0:
+        health_color = GREEN
+    else:
+        health_color = RED
     health_ticks = health_tick + 1
     if health < max_health / 4 + 1:
         if health_ticks < 10:
             health_color = BLACK
         elif health_ticks > 10:
-            health_color = RED
+            if poison_duration > 0:
+                health_color = GREEN
+            else:
+                health_color = RED
         else:
-            health_color = RED
+            if poison_duration > 0:
+                health_color = GREEN
+            else:
+                health_color = RED
     if health_ticks == 20:
         health_ticks = 0
     health_txt = font1.render("Health: " + str(health) + "/" + str(max_health), True, BLACK)
@@ -538,6 +555,7 @@ while not done:
         # Health Bar
         if health > max_health:
             health = max_health
+        poison_duration, health = poison_effect()
         health_tick = health_bar()
         if health < 1:
             dead = True
@@ -644,6 +662,15 @@ while not done:
                 if nextdialog == True:
                     scientist_leaving = scientist_leaving = True
                     createdialog("Scientist", "AAAAAHHHH!")
+                    disable_controls = False
+                    create_notice(info_pos[0], info_pos[1])
+            if SelectItem == "5":
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "?!ANANAB A ..taht ..si ...sI")
+                if nextdialog == True:
+                    scientist_leaving = scientist_leaving = True
+                    createdialog("Scientist", "!HHHHAAAAA")
                     disable_controls = False
                     create_notice(info_pos[0], info_pos[1])
             if show_debug == True:
