@@ -190,14 +190,16 @@ def create_square(COLOR, xpos, ypos, width, height):
     return SQUARE
 
 def create_tree_hitbox():
+    scores = score
     for i in range(amount_of_trees):
         tree_destroyed = trees_destroyed
         inv_tree_destroyed = inv_trees_destroyed
-        tree_destroyed[i] = create_tree(0, banana_pos, tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
-        inv_tree_destroyed[i] = create_tree(1, ananab_pos, inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
-    return tree_destroyed, inv_tree_destroyed
+        tree_destroyed[i], scores = create_tree(0, banana_pos, tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
+        inv_tree_destroyed[i], scores = create_tree(1, ananab_pos, inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
+    return tree_destroyed, inv_tree_destroyed, scores
 
 def create_tree(worldID, drop_item_id, tree_status, posx, posy):
+    scores = score
     if mapid == worldID:
         if tree_status == 0:
             tree_hitbox = create_wall(posx, posy, 20, 30)
@@ -208,8 +210,9 @@ def create_tree(worldID, drop_item_id, tree_status, posx, posy):
                 tree_status = 1
                 drop_item_id[0] = posx + 10
                 drop_item_id[1] = posy + 10
+                scores = score + 10
                 playsound(1, environment_audio_path + "destroy.wav")
-    return tree_status
+    return tree_status, scores
 
 def render_tree(worldID, treestatus, treetype, posx, posy):
     if mapid == worldID:
@@ -240,6 +243,7 @@ def deal_damage(damage_amount):
         playsound(1, environment_audio_path + "heal.wav")
     return g
 def trigger_use():
+    scores = score
     bananas_pos = banana_pos
     ananabs_pos = ananab_pos
     item_id_thing = item_world_id
@@ -261,6 +265,7 @@ def trigger_use():
         SelectedItem = "NaN"
         item_id_thing[4] = 0
         healths = deal_damage(-2)
+        scores = score + 5
         # playsound(1, environment_audio_path + "use.wav")
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
@@ -269,8 +274,9 @@ def trigger_use():
         SelectedItem = "NaN"
         item_id_thing[5] = 1
         healths = deal_damage(2)
+        scores = score + 1
         # playsound(1, environment_audio_path + "use.wav")
-    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths
+    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
 
 
 # Music
@@ -444,7 +450,7 @@ while not done:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square, banana_pos, ananab_pos, item_world_id, health = trigger_use()
+                    detector_square, banana_pos, ananab_pos, item_world_id, health, score = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if i > INV_MIN:
@@ -469,8 +475,8 @@ while not done:
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
 
-        trees_destroyed, inv_tree_destroyed = create_tree_hitbox()
-        inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
+        trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
+        # inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
 
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
