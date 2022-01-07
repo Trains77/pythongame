@@ -41,31 +41,6 @@ elif enable_program == False:
     print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
     done = True
 
-# Internal Dialo6g Data
-nextdialog = False
-nextdialog2 = False
-nextdialog3 = False
-nextdialog4 = False
-scientist_leaving = False
-# Item related stuff
-SelectItem = "NaN"
-score = 0
-
-
-inv_tree2_destroyed = 0
-# Player data
-entered_1 = False
-entered_2 = False
-entered_2_1 = False
-moved = False
-player_movement = [1, 1, 1, 1, 1] # left right down up item
-disable_controls = False
-health = 20
-max_health = 20
-health_tick = 0
-dead = False
-poison_duration = 0
-
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -165,6 +140,7 @@ def render_item_inv(item_texture, InvID, ItemSlot, ItemSlotPos):
             else:
                 item_name = font1.render("Unknown Item", True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
+
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     item_id_thing = item_world_id
     SelectedItem = SelectItem
@@ -291,13 +267,7 @@ def trigger_use():
         healths = healths - 2
         playsound(1, environment_audio_path + "use.wav")
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths
-# Display
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption(GameName)
-pygame.display.set_icon(gameIcon)
-clock = pygame.time.Clock()
-offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
-detector_square = offscreen
+
 
 # Music
 if enable_music == True:
