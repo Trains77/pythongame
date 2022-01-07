@@ -234,6 +234,10 @@ def create_wall(xpos, ypos, width, height):
     return center
 def deal_damage(damage_amount):
     g = health - damage_amount
+    if damage_amount > 0:
+        playsound(1, environment_audio_path + "hurt.wav")
+    elif damage_amount < 0:
+        playsound(1, environment_audio_path + "heal.wav")
     return g
 def trigger_use():
     bananas_pos = banana_pos
@@ -256,16 +260,16 @@ def trigger_use():
         inv[4] = 0
         SelectedItem = "NaN"
         item_id_thing[4] = 0
-        healths = healths + 2
-        playsound(1, environment_audio_path + "use.wav")
+        healths = deal_damage(-2)
+        # playsound(1, environment_audio_path + "use.wav")
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
         #  = -1
         inv[5] = 0
         SelectedItem = "NaN"
         item_id_thing[5] = 1
-        healths = healths - 2
-        playsound(1, environment_audio_path + "use.wav")
+        healths = deal_damage(2)
+        # playsound(1, environment_audio_path + "use.wav")
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths
 
 
