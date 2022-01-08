@@ -453,9 +453,10 @@ while not done:
                     detector_square, banana_pos, ananab_pos, item_world_id, health, score = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
-                        if i > INV_MIN:
-                            if i - 2 < INV_MAX:
-                                Inv_Slot = i - 1
+                        if disable_controls == False:
+                            if i > INV_MIN:
+                                if i - 2 < INV_MAX:
+                                    Inv_Slot = i - 1
                                 # SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
