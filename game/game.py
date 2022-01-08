@@ -41,32 +41,6 @@ elif enable_program == False:
     print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
     done = True
 
-# Internal Dialo6g Data
-nextdialog = False
-nextdialog2 = False
-nextdialog3 = False
-nextdialog4 = False
-scientist_leaving = False
-# Item related stuff
-SelectItem = "NaN"
-
-tree1_destroyed = 0
-tree2_destroyed = 0
-
-# Player data
-playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10
-entered_1 = False
-entered_2 = False
-entered_2_1 = False
-moved = False
-player_movement = [1, 1, 1, 1, 1] # left right down up item
-disable_controls = False
-
-# Functions
-
-def create_projectile():
-    print("This would create a projectile of some sort")
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -75,7 +49,14 @@ def createdialog(speaker, text):
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
     screen.blit(img3, (355, 470))
-
+def poison_effect():
+    healths = health
+    poison = poison_duration
+    if health_tick == 19:
+        if poison > 0:
+            healths = deal_damage(1)
+            poison = poison - 1
+    return poison, healths
 def create_notice(posx, posy):
     img4 = pygame.image.load(characters_path + "speaking.png")
     screen.blit(img4, [posx, posy - 20])
@@ -86,6 +67,35 @@ def image_display(surface, filename, xy):
 
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+def health_bar():
+    if poison_duration > 0:
+        health_color = GREEN
+    else:
+        health_color = RED
+    health_ticks = health_tick + 1
+    if health < max_health / 4 + 1:
+        if health_ticks < 10:
+            health_color = BLACK
+        elif health_ticks > 10:
+            if poison_duration > 0:
+                health_color = GREEN
+            else:
+                health_color = RED
+        else:
+            if poison_duration > 0:
+                health_color = GREEN
+            else:
+                health_color = RED
+    if health_ticks == 20:
+        health_ticks = 0
+    health_txt = font1.render("Health: " + str(health) + "/" + str(max_health), True, BLACK)
+    screen.blit(health_txt, (20, 470))
+    if dead == False:
+        create_square(GRAY, 9, 484, 6 * max_health + 1, 12)
+    for i in range(health):
+        if dead == False:
+            create_square(health_color, 10 + 6 * i, 485, 5, 10)
+    return health_ticks
 
 def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
     if item_world_id[ItemSlotID] == mapid:
@@ -130,6 +140,7 @@ def render_item_inv(item_texture, InvID, ItemSlot, ItemSlotPos):
             else:
                 item_name = font1.render("Unknown Item", True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
+
 def item_render(ItemSlotID, ItemID, posx, posy, texture):
     item_id_thing = item_world_id
     SelectedItem = SelectItem
@@ -177,7 +188,18 @@ def render_transparent_slot(slot_id):
 def create_square(COLOR, xpos, ypos, width, height):
     SQUARE = pygame.draw.rect(screen, COLOR, [xpos, ypos, width, height])
     return SQUARE
+
+def create_tree_hitbox():
+    scores = score
+    for i in range(amount_of_trees):
+        tree_destroyed = trees_destroyed
+        inv_tree_destroyed = inv_trees_destroyed
+        tree_destroyed[i], scores = create_tree(0, banana_pos, tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
+        inv_tree_destroyed[i], scores = create_tree(1, ananab_pos, inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
+    return tree_destroyed, inv_tree_destroyed, scores
+
 def create_tree(worldID, drop_item_id, tree_status, posx, posy):
+    scores = score
     if mapid == worldID:
         if tree_status == 0:
             tree_hitbox = create_wall(posx, posy, 20, 30)
@@ -188,8 +210,9 @@ def create_tree(worldID, drop_item_id, tree_status, posx, posy):
                 tree_status = 1
                 drop_item_id[0] = posx + 10
                 drop_item_id[1] = posy + 10
+                scores = score + 10
                 playsound(1, environment_audio_path + "destroy.wav")
-    return tree_status
+    return tree_status, scores
 
 def render_tree(worldID, treestatus, treetype, posx, posy):
     if mapid == worldID:
@@ -212,7 +235,19 @@ def create_wall(xpos, ypos, width, height):
     if pygame.Rect.colliderect(item_drop_location, center):
         player_movement[4] = 0
     return center
+def deal_damage(damage_amount):
+    g = health - damage_amount
+    if damage_amount > 0:
+        playsound(1, environment_audio_path + "hurt.wav")
+    elif damage_amount < 0:
+        playsound(1, environment_audio_path + "heal.wav")
+    return g
 def trigger_use():
+    scores = score
+    bananas_pos = banana_pos
+    ananabs_pos = ananab_pos
+    item_id_thing = item_world_id
+    healths = health
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
     elif facing == "Left":
@@ -223,14 +258,26 @@ def trigger_use():
         sensor_square = create_square(RED, playerx + square_size / 4, playery + square_size, square_size / 2, square_size)
     else:
         sensor_square = create_square(RED, 5000, 5000, 10, 10)
-    return sensor_square
-# Display
-screen = pygame.display.set_mode(size)
-pygame.display.set_caption(GameName)
-pygame.display.set_icon(gameIcon)
-clock = pygame.time.Clock()
-offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
-detector_square = offscreen
+    if SelectItem == "4":
+        bananas_pos = [3000, 3000]
+        # ItemID = -1
+        inv[4] = 0
+        SelectedItem = "NaN"
+        item_id_thing[4] = 0
+        healths = deal_damage(-2)
+        scores = score + 5
+        # playsound(1, environment_audio_path + "use.wav")
+    if SelectItem == "5":
+        ananabs_pos = [3000, 3000]
+        #  = -1
+        inv[5] = 0
+        SelectedItem = "NaN"
+        item_id_thing[5] = 1
+        healths = deal_damage(2)
+        scores = score + 1
+        # playsound(1, environment_audio_path + "use.wav")
+    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
+
 
 # Music
 if enable_music == True:
@@ -281,6 +328,9 @@ while not done:
                             playsound(1, environment_audio_path + "wallhit.wav")
                         facing = "Right"
                         moved = True
+                if event.key == pygame.K_RETURN:
+                    if dead == True:
+                        done = True
                 if event.key == pygame.K_w:
                     if disable_controls == False:
                         if player_movement[3] == 1:
@@ -363,10 +413,10 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 0:
                             Inv_Slot = Inv_Slot - 1
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                         elif Inv_Slot == 0:
                             Inv_Slot = 4
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                 # Dimension key thing
                 if event.key == pygame.K_r:
                     if disable_controls == False:
@@ -385,10 +435,10 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
                             Inv_Slot = Inv_Slot + 1
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                         elif Inv_Slot == 4:
                             Inv_Slot = 0
-                            SelectItem = "NaN"
+                            # SelectItem = "NaN"
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
@@ -400,13 +450,14 @@ while not done:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square = trigger_use()
+                    detector_square, banana_pos, ananab_pos, item_world_id, health, score = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
-                        if i > INV_MIN:
-                            if i - 2 < INV_MAX:
-                                Inv_Slot = i - 1
-                                SelectItem = "NaN"
+                        if disable_controls == False:
+                            if i > INV_MIN:
+                                if i - 2 < INV_MAX:
+                                    Inv_Slot = i - 1
+                                # SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
                 if show_debug == True:
@@ -424,8 +475,10 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-        tree1_destroyed = create_tree(0, banana_pos, tree1_destroyed, tree1[0], tree1[1])
-        tree2_destroyed = create_tree(1, ananab_pos, tree2_destroyed, tree2[0], tree2[1])
+
+        trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
+        # inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
+
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
@@ -438,6 +491,7 @@ while not done:
         bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
         banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
         ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], ananab_pos[0], ananab_pos[1])
+        SelectItem = "NaN"
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -473,8 +527,20 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
 
         # Trees
-        render_tree(0, tree1_destroyed, "tree.png", tree1[0], tree1[1])
-        render_tree(1, tree2_destroyed, "tree_inverted.png", tree2[0], tree2[1])
+        for i in range(amount_of_trees):
+            tree_destroyed = trees_destroyed
+            inv_tree_destroyed = inv_trees_destroyed
+            render_tree(0, tree_destroyed[i], "tree.png", tree_positions[i][0], tree_positions[i][1])
+            render_tree(1, inv_tree_destroyed[i], "tree_inverted.png", inv_tree_positions[i][0], inv_tree_positions[i][1])
+
+        # Health Bar
+        if health > max_health:
+            health = max_health
+        poison_duration, health = poison_effect()
+        health_tick = health_bar()
+        if health < 1:
+            dead = True
+            disable_controls = True
 
         # Inventory Stuff
         hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
@@ -502,6 +568,23 @@ while not done:
         render_item_inv("bow.png", 3, bow_slot[0], bow_slot[1])
         render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
         render_item_inv("ananab.png", 5, ananab_slot[0], ananab_slot[1])
+
+        if dead == True:
+            create_square(GRAY, 15, 15, 470, 470)
+            deadfont = pygame.font.SysFont('A totally real font', 50)
+            deadfont2 = pygame.font.SysFont('A totally real font', 30)
+            death_message = deadfont.render("Game Over!", True, RED)
+            screen.blit(death_message, (150, 60))
+            death_notice = deadfont2.render("Press enter to exit", True, RED)
+            screen.blit(death_notice, (165, 350))
+            score_font = pygame.font.SysFont('A totally real font', 25)
+            score_death_message = score_font.render("Score: " + str(score), True, BLACK)
+            screen.blit(score_death_message, (215, 225))
+            nextdialog = True
+            nextdialog2 = True
+            nextdialog3 = True
+            nextdialog4 = True
+
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if nextdialog4 == False:
@@ -562,6 +645,15 @@ while not done:
                     createdialog("Scientist", "AAAAAHHHH!")
                     disable_controls = False
                     create_notice(info_pos[0], info_pos[1])
+            if SelectItem == "5":
+                if nextdialog == False:
+                    disable_controls = True
+                    createdialog("Scientist", "?!ANANAB A ..taht ..si ...sI")
+                if nextdialog == True:
+                    scientist_leaving = scientist_leaving = True
+                    createdialog("Scientist", "!HHHHAAAAA")
+                    disable_controls = False
+                    create_notice(info_pos[0], info_pos[1])
             if show_debug == True:
                 print("Dialog Opened")
             #
@@ -616,11 +708,11 @@ while not done:
             print("Axe Slot: " + str(axe_slot[0]))
             print("Held Item: " + SelectItem)
             print()
-            # print("Item Positions")
-            # print("Hammer POS: " + str(hammer_slot[1]))
-            # print("Sword POS: " + str(sword_slot[1]))
-            # print("Axe POS: " + str(axe_slot[1]))
-            # print()
+            print("Tree Data")
+            print("Trees Destroyed: " + str(trees_destroyed))
+            print("Tree Positions: " + str(tree_positions))
+            print("Banana: " + str(True))
+            print()
             print("Player Data")
             print("Controls Status: " + str(disable_controls))
             print("Player Rotation: " + facing)
@@ -638,7 +730,8 @@ while not done:
             print()
         pygame.display.update()
         pygame.display.flip()
-
+        if dead == True:
+            disable_controls = True
         # Reset variables for next tick
         detector_square = offscreen
 
