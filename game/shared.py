@@ -76,7 +76,7 @@ gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window 
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.09.0" # Game version
+version = "0.10.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20)
 amount_of_trees = 13 # How many trees in Map 0 to spawn
 
