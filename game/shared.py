@@ -20,7 +20,7 @@ health = 20 # Current player health
 max_health = 20 # Maxinimum health a player can have
 health_tick = 0 # Internal health tick
 poison_duration = 0 # How long the player has poison for
-facing = "Right" # Default player rotation
+facing = "Left" # Default player rotation
 
 # Color rgb codes
 BLACK = (0, 0, 0) # The RGB code for Black
