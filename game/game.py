@@ -583,7 +583,7 @@ while not done:
         render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
         render_item_inv("ananab.png", 5, ananab_slot[0], ananab_slot[1])
 
-        # Deatch Screen
+        # Death Screen
         if dead == True:
             create_square(GRAY, 15, 15, 470, 470)
             deadfont = pygame.font.SysFont('A totally real font', 50)
