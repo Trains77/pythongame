@@ -22,6 +22,9 @@ health_tick = 0 # Internal health tick
 poison_duration = 0 # How long the player has poison for
 facing = "Left" # Default player rotation
 
+# Enemy Positions
+enemyPositions = [[350,250], [450, 450]]
+
 # Color rgb codes
 BLACK = (0, 0, 0) # The RGB code for Black
 RED = (255, 0, 0) # The RGB code for Red

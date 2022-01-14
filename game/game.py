@@ -475,7 +475,7 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-
+        enemy1_square = pygame.draw.rect(screen, RED, [enemyPositions[0][0], enemyPositions[0][1],square_size,square_size])
         trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
         # inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
 
@@ -525,6 +525,20 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
+        if mapid == 0:
+            if playerx > enemyPositions[0][0]:
+                image_display(screen, characters_path + "Enemy/enemy.png", [enemyPositions[0][0],enemyPositions[0][1]])
+                enemyPositions[0][0] = enemyPositions[0][0] + 1
+            elif playerx < enemyPositions[0][0]:
+                image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPositions[0][0],enemyPositions[0][1]])
+                enemyPositions[0][0] = enemyPositions[0][0] - 1
+            elif playerx == enemyPositions[0][0]:
+                if playery > enemyPositions[0][1]:
+                    image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPositions[0][0],enemyPositions[0][1]])
+                    enemyPositions[0][1] = enemyPositions[0][1] + 1
+                elif playery < enemyPositions[0][1]:
+                    image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPositions[0][0],enemyPositions[0][1]])
+                    enemyPositions[0][1] = enemyPositions[0][1] - 1
 
         # Trees
         for i in range(amount_of_trees):
