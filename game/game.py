@@ -236,11 +236,13 @@ def create_wall(xpos, ypos, width, height):
         player_movement[4] = 0
     return center
 def deal_damage(damage_amount):
-    g = health - damage_amount
-    if damage_amount > 0:
-        playsound(1, environment_audio_path + "hurt.wav")
-    elif damage_amount < 0:
-        playsound(1, environment_audio_path + "heal.wav")
+    g = health
+    if dead == False:
+        g = health - damage_amount
+        if damage_amount > 0:
+            playsound(1, environment_audio_path + "hurt.wav")
+        elif damage_amount < 0:
+            playsound(1, environment_audio_path + "heal.wav")
     return g
 def trigger_use():
     scores = score
@@ -277,7 +279,29 @@ def trigger_use():
         scores = score + 1
         # playsound(1, environment_audio_path + "use.wav")
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
-
+def render_enemy(map,enemyID):
+    healths = health
+    enemyPosition = enemyPositions
+    if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
+        if health_tick == 19:
+            healths = deal_damage(1)
+    if map == 0:
+        if playerx > enemyPositions[enemyID][0]:
+            image_display(screen, characters_path + "Enemy/enemy.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+            enemyPosition[enemyID][0] = enemyPosition[enemyID][0] + 1
+        elif playerx < enemyPosition[enemyID][0]:
+            image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+            enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - 1
+        elif playerx == enemyPosition[enemyID][0]:
+            if playery > enemyPosition[enemyID][1]:
+                image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + 1
+            elif playery < enemyPosition[enemyID][1]:
+                image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - 1
+            else:
+                image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+    return enemyPosition, healths
 
 # Music
 if enable_music == True:
@@ -475,9 +499,8 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-        enemy1_square = pygame.draw.rect(screen, RED, [enemyPositions[0][0], enemyPositions[0][1],square_size,square_size])
+        enemy_squares = [pygame.draw.rect(screen, RED, [enemyPositions[0][0], enemyPositions[0][1],square_size,square_size])]
         trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
-        # inv_tree2_destroyed = create_tree(1, ananab_pos, inv_tree2_destroyed, inv_tree2[0], inv_tree2[1])
 
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
@@ -525,21 +548,7 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        if mapid == 0:
-            if playerx > enemyPositions[0][0]:
-                image_display(screen, characters_path + "Enemy/enemy.png", [enemyPositions[0][0],enemyPositions[0][1]])
-                enemyPositions[0][0] = enemyPositions[0][0] + 1
-            elif playerx < enemyPositions[0][0]:
-                image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPositions[0][0],enemyPositions[0][1]])
-                enemyPositions[0][0] = enemyPositions[0][0] - 1
-            elif playerx == enemyPositions[0][0]:
-                if playery > enemyPositions[0][1]:
-                    image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPositions[0][0],enemyPositions[0][1]])
-                    enemyPositions[0][1] = enemyPositions[0][1] + 1
-                elif playery < enemyPositions[0][1]:
-                    image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPositions[0][0],enemyPositions[0][1]])
-                    enemyPositions[0][1] = enemyPositions[0][1] - 1
-
+        enemyPositions, health = render_enemy(0,0)
         # Trees
         for i in range(amount_of_trees):
             tree_destroyed = trees_destroyed
