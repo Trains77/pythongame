@@ -569,6 +569,7 @@ while not done:
         render_item_inv("banana.png", 4, banana_slot[0], banana_slot[1])
         render_item_inv("ananab.png", 5, ananab_slot[0], ananab_slot[1])
 
+        # Deatch Screen
         if dead == True:
             create_square(GRAY, 15, 15, 470, 470)
             deadfont = pygame.font.SysFont('A totally real font', 50)
@@ -659,37 +660,7 @@ while not done:
             #
         if scientist_leaving == True:
             info_pos[0] = info_pos[0] + 5
-        if mapid == 1:
-            if entered_1 == False:
-                moved = False
-                if entered_1 == False:
-                    if nextdialog == False:
-                        moved = False
-                        disable_controls = True
-                        createdialog("User", "Why did the world suddenly become inverted?")
-                        create_notice(playerx, playery)
-                    if nextdialog == True:
-                        disable_controls = False
-                        nextdialog2 = True
-                        nextdialog3 = True
-                        nextdialog4 = True
-                        entered_1 = True
-        elif mapid == 0:
-            if entered_2_1 == True:
-                if entered_2 == False:
-                    moved = False
-                    if nextdialog == False:
-                        moved = False
-                        disable_controls = True
-                        createdialog("User", "Now the world is back to normal, I think.")
-                        create_notice(playerx, playery)
-                    if nextdialog == True:
-                        disable_controls = False
-                        nextdialog2 = True
-                        nextdialog3 = True
-                        nextdialog4 = True
-                        entered_2 = True
-        #
+
         if nextdialog4 == True:
             disable_controls = False
         if nextdialog == True:
@@ -709,8 +680,8 @@ while not done:
             print("Held Item: " + SelectItem)
             print()
             print("Tree Data")
-            print("Trees Destroyed: " + str(trees_destroyed))
-            print("Tree Positions: " + str(tree_positions))
+            # print("Trees Destroyed: " + str(trees_destroyed))
+            # print("Tree Positions: " + str(tree_positions))
             print("Banana: " + str(True))
             print()
             print("Player Data")
@@ -728,12 +699,18 @@ while not done:
             print("World ID: " + str(mapid))
             print("Item World ID: " + str(item_world_id))
             print()
+
+        # Update display
         pygame.display.update()
         pygame.display.flip()
+
+        # Disable controls if player is dead
         if dead == True:
             disable_controls = True
+
         # Reset variables for next tick
         detector_square = offscreen
+        player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
 
         # Game Variable Checker
         if playerx > game_border1:
@@ -754,6 +731,5 @@ while not done:
         if Inv_Slot > INV_MAX:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
             done = True
-        player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
 pygame.quit()
 exit()
