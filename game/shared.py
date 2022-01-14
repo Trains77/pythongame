@@ -22,9 +22,6 @@ health_tick = 0 # Internal health tick
 poison_duration = 0 # How long the player has poison for
 facing = "Left" # Default player rotation
 
-# Enemy Positions
-enemyPositions = [[350,250], [450, 450]]
-
 # Color rgb codes
 BLACK = (0, 0, 0) # The RGB code for Black
 RED = (255, 0, 0) # The RGB code for Red
@@ -80,8 +77,10 @@ dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.10.0" # Game version
-font1 = pygame.font.SysFont('A totally real font', 20)
-amount_of_trees = 13 # How many trees in Map 0 to spawn
+font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
+
+# Enemy Data
+enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
 
 # Display Data
 screen = pygame.display.set_mode(size)
@@ -122,10 +121,11 @@ player_movement = [1, 1, 1, 1, 1] # left right down up item
 score = 0 # Player starting score
 
 # Internal Tree Data
-tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-inv_tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-inv_trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+amount_of_trees = 13 # How many trees in Map 0 to spawn
+tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # The positions of all the trees in world 0
+inv_tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # The positions of all the trees in world 1
+trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,] # The trees that have been destroyed in world 0
+inv_trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,] # The trees that have been destroyed in world 1
 inv_tree2_destroyed = 0
 
 for i in range(amount_of_trees):
