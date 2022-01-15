@@ -152,9 +152,9 @@ def item_render(ItemSlotID, ItemID, posx, posy, texture):
         elif inv[ItemSlotID] == 1:
             if ItemID == Inv_Slot:
                 if not facing == "Right":
-                    image_display(screen, item_path + texture, [playerx + 5,playery + 5])
+                    image_display(screen, item_path + texture, [playerx + 5,playery - jump + 5])
                 elif facing == "Right":
-                    image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery + 5])
+                    image_display(screen, item_path + "flipped_" + texture, [playerx + 5,playery - jump + 5])
                 SelectedItem = str(ItemSlotID)
             if disable_controls == False:
                 if mouse_button_list[2] == True:
@@ -251,13 +251,13 @@ def trigger_use():
     item_id_thing = item_world_id
     healths = health
     if facing == "Right":
-        sensor_square = create_square(RED, playerx + square_size, playery, square_size, square_size / 2)
+        sensor_square = create_square(RED, playerx + square_size, playery - jump, square_size, square_size / 2)
     elif facing == "Left":
-        sensor_square = create_square(RED, playerx - square_size, playery, square_size, square_size / 2)
+        sensor_square = create_square(RED, playerx - square_size, playery - jump, square_size, square_size / 2)
     elif facing == "Up":
-        sensor_square = create_square(RED, playerx + square_size / 4, playery - square_size, square_size / 2, square_size)
+        sensor_square = create_square(RED, playerx + square_size / 4, playery - jump - square_size, square_size / 2, square_size)
     elif facing == "Down":
-        sensor_square = create_square(RED, playerx + square_size / 4, playery + square_size, square_size / 2, square_size)
+        sensor_square = create_square(RED, playerx + square_size / 4, playery - jump + square_size, square_size / 2, square_size)
     else:
         sensor_square = create_square(RED, 5000, 5000, 10, 10)
     if SelectItem == "4":
@@ -294,10 +294,10 @@ def render_enemy(map,enemyID,speeds,type):
                 image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                 enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
             elif playerx == enemyPosition[enemyID][0]:
-                if playery > enemyPosition[enemyID][1]:
+                if playery - jump > enemyPosition[enemyID][1]:
                     image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                     enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
-                elif playery < enemyPosition[enemyID][1]:
+                elif playery - jump < enemyPosition[enemyID][1]:
                     image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                     enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
                 else:
@@ -460,10 +460,13 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
                             Inv_Slot = Inv_Slot + 1
-                            # SelectItem = "NaN"
                         elif Inv_Slot == 4:
                             Inv_Slot = 0
-                            # SelectItem = "NaN"
+                if event.key == pygame.K_SPACE:
+                    if disable_controls == False:
+                        if jump == 0:
+                            velocityY = 10
+                            playsound(1, environment_audio_path + "jump.wav")
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
@@ -489,6 +492,12 @@ while not done:
                     print("Quit")
 
         player_movement = [1, 1, 1, 1, player_movement[4]]
+        if velocityY > 0:
+            if jump < velocityY:
+                jump = jump + 2
+            elif velocityY == jump:
+                velocityY = velocityY - 2
+                jump = jump - 2
 
         # Mouse Related info
         cursor_pos = pygame.mouse.get_pos()
@@ -498,7 +507,7 @@ while not done:
 
         # Hitbox info
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
-        player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
+        player_square = pygame.draw.rect(screen, block_color, [playerx,playery - jump,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
         trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
         enemy_squares = enemy_squares
@@ -506,11 +515,9 @@ while not done:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
             scientist_square = offscreen
-        if appended == False:
-            for i in range(enemy_count):
-                enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
-            appended = True
-        
+        for i in range(enemy_count):
+            enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
+            
         # Item Managment
         hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], hammer_pos[0], hammer_pos[1])
         sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], sword_pos[0], sword_pos[1])
@@ -528,14 +535,21 @@ while not done:
             elif mapid == 1:
                 image_display(screen, environment_path + "background0.png", [0,0])
         #
+        if jump > 0:
+            if facing == "Left":
+                image_display(screen, characters_path + "shadow_flipped.png", [playerx,playery + 2])
+            elif facing == "Up":
+                image_display(screen, characters_path + "shadow_flipped.png", [playerx,playery + 2])
+            else:
+                image_display(screen, characters_path + "shadow.png", [playerx,playery + 2])
         if facing == "Left":
-            image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery - jump])
         elif facing == "Right":
-            image_display(screen, characters_path + "Player/player.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/player.png", [playerx,playery - jump])
         elif facing == "Up":
-            image_display(screen, characters_path + "Player/playerup.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerup.png", [playerx,playery - jump])
         elif facing == "Down":
-            image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery])
+            image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery - jump])
         else:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
             done = True
@@ -738,7 +752,7 @@ while not done:
         # Reset variables for next tick
         detector_square = offscreen
         player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
-
+        enemy_squares = []
         # Game Variable Checker
         if playerx > game_border1:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)

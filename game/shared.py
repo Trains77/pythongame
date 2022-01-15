@@ -84,6 +84,7 @@ enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
 enemy_squares = []
 enemy_count = 1
 appended = False
+
 # Display Data
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)
@@ -121,6 +122,8 @@ playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10 # Player x cordinat
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10 # Player y coordinates
 player_movement = [1, 1, 1, 1, 1] # left right down up item
 score = 0 # Player starting score
+velocityY = 0 # Player Y Velocity
+jump = 0 # Player jump
 
 # Internal Tree Data
 amount_of_trees = 13 # How many trees in Map 0 to spawn
