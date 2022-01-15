@@ -517,7 +517,7 @@ while not done:
             scientist_square = offscreen
         for i in range(enemy_count):
             enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
-            
+
         # Item Managment
         hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], hammer_pos[0], hammer_pos[1])
         sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], sword_pos[0], sword_pos[1])
@@ -629,75 +629,74 @@ while not done:
 
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
-            if nextdialog4 == False:
-                moved = False
-            if SelectItem == "NaN":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "Hello User!")
-                    create_notice(200, 200)
-                if nextdialog == True:
-                    disable_controls = False
-                    nextdialog2 = True
-                    nextdialog3 = True
-                    nextdialog4 = True
-            if SelectItem == "1":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "Why are you holding a sword?")
-                    create_notice(200, 200)
-                if nextdialog == True:
-                    disable_controls = False
-                    nextdialog2 = True
-                    nextdialog3 = True
-                    nextdialog4 = True
-            if SelectItem == "0":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
-                    create_notice(200, 200)
-                if nextdialog == True:
-                    disable_controls = False
-                    nextdialog2 = True
-                    nextdialog3 = True
-                    nextdialog4 = True
-            if SelectItem == "3":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "I see you have found a bow")
-                    create_notice(200, 200)
-                if nextdialog == True:
-                    disable_controls = False
-                    nextdialog2 = True
-                    nextdialog3 = True
-                    nextdialog4 = True
-            if SelectItem == "2":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "You can use that toothbr- I mean axe to cut down trees")
-                    create_notice(200, 200)
-                if nextdialog == True:
-                    disable_controls = False
-            if SelectItem == "4":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "Is... is.. that.. A BANANA!?")
-                if nextdialog == True:
-                    scientist_leaving = scientist_leaving = True
-                    createdialog("Scientist", "AAAAAHHHH!")
-                    disable_controls = False
-                    create_notice(info_pos[0], info_pos[1])
-            if SelectItem == "5":
-                if nextdialog == False:
-                    disable_controls = True
-                    createdialog("Scientist", "?!ANANAB A ..taht ..si ...sI")
-                if nextdialog == True:
-                    scientist_leaving = scientist_leaving = True
-                    createdialog("Scientist", "!HHHHAAAAA")
-                    disable_controls = False
-                    create_notice(info_pos[0], info_pos[1])
-            if show_debug == True:
-                print("Dialog Opened")
+            if jump == 0:
+                if nextdialog4 == False:
+                    moved = False
+                if SelectItem == "NaN":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "Hello User!")
+                        create_notice(200, 200)
+                    if nextdialog == True:
+                        disable_controls = False
+                        nextdialog2 = True
+                        nextdialog3 = True
+                        nextdialog4 = True
+                if SelectItem == "1":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "Why are you holding a sword?")
+                        create_notice(200, 200)
+                    if nextdialog == True:
+                        disable_controls = False
+                        nextdialog2 = True
+                        nextdialog3 = True
+                        nextdialog4 = True
+                if SelectItem == "0":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                        create_notice(200, 200)
+                    if nextdialog == True:
+                        disable_controls = False
+                        nextdialog2 = True
+                        nextdialog3 = True
+                        nextdialog4 = True
+                if SelectItem == "3":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "I see you have found a bow")
+                        create_notice(200, 200)
+                    if nextdialog == True:
+                        disable_controls = False
+                        nextdialog2 = True
+                        nextdialog3 = True
+                        nextdialog4 = True
+                if SelectItem == "2":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "You can use that toothbr- I mean axe to cut down trees")
+                        create_notice(200, 200)
+                    if nextdialog == True:
+                        disable_controls = False
+                if SelectItem == "4":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "Is... is.. that.. A BANANA!?")
+                    if nextdialog == True:
+                        scientist_leaving = scientist_leaving = True
+                        createdialog("Scientist", "AAAAAHHHH!")
+                        disable_controls = False
+                        create_notice(info_pos[0], info_pos[1])
+                if SelectItem == "5":
+                    if nextdialog == False:
+                        disable_controls = True
+                        createdialog("Scientist", "?!ANANAB A ..taht ..si ...sI")
+                    if nextdialog == True:
+                        scientist_leaving = scientist_leaving = True
+                        createdialog("Scientist", "!HHHHAAAAA")
+                        disable_controls = False
+                        create_notice(info_pos[0], info_pos[1])
             #
         if scientist_leaving == True:
             info_pos[0] = info_pos[0] + 5
