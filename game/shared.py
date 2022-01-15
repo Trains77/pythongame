@@ -81,7 +81,9 @@ font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text r
 
 # Enemy Data
 enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
-
+enemy_squares = []
+enemy_count = 1
+appended = False
 # Display Data
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)

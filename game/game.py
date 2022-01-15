@@ -500,14 +500,17 @@ while not done:
         cursor_square = pygame.draw.rect(screen, block_color, [cursorx, cursory, square_size,square_size])
         player_square = pygame.draw.rect(screen, block_color, [playerx,playery,square_size,square_size])
         item_drop_location = pygame.draw.rect(screen, GRAY, [playerx + 6,playery + 25,5,5])
-        enemy_squares = [pygame.draw.rect(screen, RED, [enemyPositions[0][0], enemyPositions[0][1],square_size,square_size])]
         trees_destroyed, inv_tree_destroyed, score = create_tree_hitbox()
-
+        enemy_squares = enemy_squares
         if mapid == 0:
             scientist_square = pygame.draw.rect(screen, block_color, [info_pos[0] - 3,info_pos[1] - 3,square_size + 6,square_size + 6])
         else:
             scientist_square = offscreen
-
+        if appended == False:
+            for i in range(enemy_count):
+                enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
+            appended = True
+        
         # Item Managment
         hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], hammer_pos[0], hammer_pos[1])
         sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], sword_pos[0], sword_pos[1])
