@@ -283,6 +283,7 @@ def trigger_use():
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
 def render_enemy(map,enemyID,speeds,type):
     healths = health
+    scores = score
     enemy_statuss = enemy_status
     enemyPosition = enemyPositions
     if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
@@ -291,6 +292,7 @@ def render_enemy(map,enemyID,speeds,type):
     if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
         if SelectItem == "1":
             enemy_statuss[enemyID][0] = 0
+            scores == score + 10
     if enemy_statuss[enemyID][0] == 1:
         if mapid == map:
             if type == 0:
@@ -309,7 +311,7 @@ def render_enemy(map,enemyID,speeds,type):
                         enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
                     else:
                         image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-    return enemyPosition, healths, enemy_statuss
+    return enemyPosition, healths, enemy_statuss, scores
 detector_square = create_square(RED, 5000, 5000, 10, 10)
 
 # The actual Game
@@ -565,7 +567,7 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        enemyPositions, health, enemy_status = render_enemy(2,0,1,0)
+        enemyPositions, health, enemy_status, score = render_enemy(2,0,1,0)
         SelectItem = "NaN"
         # Trees
         for i in range(amount_of_trees):
