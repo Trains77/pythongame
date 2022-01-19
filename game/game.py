@@ -304,15 +304,6 @@ def render_enemy(map,enemyID,speeds,type):
                     image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
     return enemyPosition, healths
 
-# Music
-if enable_music == True:
-    playsound(0, song)
-    if show_debug == True:
-        print("Playing Music")
-elif enable_music == False:
-    if show_debug == True:
-        print("Music playing is disabled")
-
 # The actual Game
 while not done:
         clock.tick(fps)
@@ -720,8 +711,8 @@ while not done:
             print("Held Item: " + SelectItem)
             print()
             print("Tree Data")
-            # print("Trees Destroyed: " + str(trees_destroyed))
-            # print("Tree Positions: " + str(tree_positions))
+            print("Trees Destroyed: " + str(trees_destroyed))
+            print("Tree Positions: " + str(tree_positions))
             print("Banana: " + str(True))
             print()
             print("Player Data")

@@ -131,10 +131,8 @@ tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # The positions of all 
 inv_tree_positions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # The positions of all the trees in world 1
 trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,] # The trees that have been destroyed in world 0
 inv_trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,] # The trees that have been destroyed in world 1
-inv_tree2_destroyed = 0
 
+# Generate Tree coordinates
 for i in range(amount_of_trees):
     tree_positions[i] = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
     inv_tree_positions[i] = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
-
-inv_tree2 = [250, 350]
