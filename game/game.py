@@ -292,7 +292,7 @@ def render_enemy(map,enemyID,speeds,type):
     if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
         if SelectItem == "1":
             enemy_statuss[enemyID][0] = 0
-            scores == score + 10
+            scores = scores + 10
     if enemy_statuss[enemyID][0] == 1:
         if mapid == map:
             if type == 0:
@@ -468,6 +468,10 @@ while not done:
                         if jump == 0:
                             velocityY = 10
                             playsound(1, environment_audio_path + "jump.wav")
+                if event.key == pygame.K_k:
+                    if disable_controls == False:
+                        if show_debug == True:
+                            health = 0
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
