@@ -31,6 +31,7 @@ print()
 print("AnotherGame " + version)
 print(style.RESET)
 
+
 if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
 if enable_program == True:
@@ -282,28 +283,34 @@ def trigger_use():
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
 def render_enemy(map,enemyID,speeds,type):
     healths = health
+    enemy_statuss = enemy_status
     enemyPosition = enemyPositions
     if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
         if health_tick == 19:
             healths = deal_damage(1)
-    if mapid == map:
-        if type == 0:
-            if playerx > enemyPositions[enemyID][0]:
-                image_display(screen, characters_path + "Enemy/enemy.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                enemyPosition[enemyID][0] = enemyPosition[enemyID][0] + speeds
-            elif playerx < enemyPosition[enemyID][0]:
-                image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
-            elif playerx == enemyPosition[enemyID][0]:
-                if playery - jump > enemyPosition[enemyID][1]:
-                    image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
-                elif playery - jump < enemyPosition[enemyID][1]:
-                    image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
-                else:
-                    image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-    return enemyPosition, healths
+    if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
+        if SelectItem == "1":
+            enemy_statuss[enemyID][0] = 0
+    if enemy_statuss[enemyID][0] == 1:
+        if mapid == map:
+            if type == 0:
+                if playerx > enemyPositions[enemyID][0]:
+                    image_display(screen, characters_path + "Enemy/enemy.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][0] = enemyPosition[enemyID][0] + speeds
+                elif playerx < enemyPosition[enemyID][0]:
+                    image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
+                elif playerx == enemyPosition[enemyID][0]:
+                    if playery - jump > enemyPosition[enemyID][1]:
+                        image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                        enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
+                    elif playery - jump < enemyPosition[enemyID][1]:
+                        image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                        enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
+                    else:
+                        image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+    return enemyPosition, healths, enemy_statuss
+detector_square = create_square(RED, 5000, 5000, 10, 10)
 
 # The actual Game
 while not done:
@@ -517,7 +524,7 @@ while not done:
         bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
         banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
         ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], ananab_pos[0], ananab_pos[1])
-        SelectItem = "NaN"
+
         # Background and players
         if disable_background == False:
             if mapid == 0:
@@ -558,7 +565,8 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        enemyPositions, health = render_enemy(2,0,1,0)
+        enemyPositions, health, enemy_status = render_enemy(2,0,1,0)
+        SelectItem = "NaN"
         # Trees
         for i in range(amount_of_trees):
             tree_destroyed = trees_destroyed
@@ -637,7 +645,7 @@ while not done:
                 if SelectItem == "1":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "Why are you holding a sword?")
+                        createdialog("Scientist", "You can use a sword to defend yourself")
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False

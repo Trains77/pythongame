@@ -85,6 +85,7 @@ enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
 enemy_squares = []
 enemy_count = 1
 appended = False
+enemy_status = [[1], [1]]
 
 # Display Data
 screen = pygame.display.set_mode(size)
