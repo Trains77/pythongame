@@ -302,14 +302,14 @@ def render_enemy(map,enemyID,speeds,type):
                 elif playerx < enemyPosition[enemyID][0]:
                     image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                     enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
-                elif playerx == enemyPosition[enemyID][0]:
-                    if playery - jump > enemyPosition[enemyID][1]:
-                        image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                        enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
-                    elif playery - jump < enemyPosition[enemyID][1]:
-                        image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-                        enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
-                    else:
+                if playery - jump > enemyPosition[enemyID][1]:
+                    # image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
+                elif playery - jump < enemyPosition[enemyID][1]:
+                    # image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
+                else:
+                    if playerx == enemyPositions[enemyID][0]:
                         image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
     return enemyPosition, healths, enemy_statuss, scores
 detector_square = create_square(RED, 5000, 5000, 10, 10)
@@ -469,7 +469,7 @@ while not done:
                 if event.key == pygame.K_k:
                     if disable_controls == False:
                         if enable_debug == True:
-                            health = 0
+                            health = deal_damage(999999)
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
