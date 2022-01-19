@@ -43,7 +43,7 @@ none = [0, 0] # Empty
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = False # Enable debugging messages
+enable_debug = False # Enable debug mode
 
 ### Internal variables, changing them will cause issues
 
@@ -78,13 +78,13 @@ mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.10.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
+appended = False # Used for setting up variables
 
 # Enemy Data
 enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
-enemy_squares = []
-enemy_count = 1
-appended = False
-enemy_status = [[1], [1]]
+enemy_squares = [] # Enemy squares list
+enemy_count = 1 # The amount of enemies current enabled
+enemy_status = [[1], [1]] # some enamy statuses
 
 # Display Data
 screen = pygame.display.set_mode(size)
@@ -95,29 +95,26 @@ offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,sq
 detector_square = offscreen
 
 # Internal Dialog Data
-nextdialog = False
-nextdialog2 = False
-nextdialog3 = False
-nextdialog4 = False
+nextdialog = False # Dialog 1
+nextdialog2 = False # Dialog 2
+nextdialog3 = False # Dialog 3
+nextdialog4 = False # Dialog 4
 scientist_leaving = False # Whether or not the scientist is leaving
 
 # Internal Inventory and Item data
 SelectItem = "NaN" # Selected Item
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
-bow_slot = [-1, 235]
-axe_slot = [-1, 235]
-hammer_slot = [-1, 235]
-sword_slot = [-1, 235]
-banana_slot = [-1, 235]
-ananab_slot = [-1, 235]
+bow_slot = [-1, 235] # Slot bow is in
+axe_slot = [-1, 235] # Slot Axe is in
+hammer_slot = [-1, 235] # Slot hammer is in
+sword_slot = [-1, 235] # Slot sword is in
+banana_slot = [-1, 235] # Slot banana is in
+ananab_slot = [-1, 235] # ni si ananab tols
 INV_MIN = 0 # Minimum inventory slot that is allowed by the game
 INV_MAX = 4 # Maximum inventory slot that is allowed by the game
 item_world_id = [0, 0, 0, 2, 0, 1] # What world an item is in
 
 # Internal Player Data
-entered_1 = False
-entered_2 = False
-entered_2_1 = False
 dead = False # Whether or not the player is dead
 playerx = int(math.ceil(random.randint(10,450) / 10.0)) * 10 # Player x cordinates
 playery = int(math.ceil(random.randint(10,450) / 10.0)) * 10 # Player y coordinates

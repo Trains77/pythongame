@@ -454,8 +454,6 @@ while not done:
                         elif mapid == 1:
                             if enable_music == True:
                                 playsound(0, song)
-                            if entered_2_1 == False:
-                                entered_2_1 = True
                             mapid = previous_map
                 if event.key == pygame.K_e:
                     if disable_controls == False:
