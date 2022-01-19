@@ -43,7 +43,7 @@ none = [0, 0] # Empty
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-show_debug = False # Enable debugging messages
+enable_debug = False # Enable debugging messages
 
 ### Internal variables, changing them will cause issues
 

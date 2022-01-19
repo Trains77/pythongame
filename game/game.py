@@ -109,7 +109,7 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                     item_slot_pos = Selected_Slot + 15
                     item_slot = Inv_Slot
                     inv[ItemSlotID] = 1
-                    if show_debug == 1:
+                    if enable_debug == 1:
                         print("Item Get!")
                     playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
@@ -433,7 +433,7 @@ while not done:
                         moved = True
                 if event.key == pygame.K_ESCAPE:
                     done = True
-                    if show_debug == True:
+                    if enable_debug == True:
                         print("Quit")
                 if event.key == pygame.K_q:
                     if disable_controls == False:
@@ -470,7 +470,7 @@ while not done:
                             playsound(1, environment_audio_path + "jump.wav")
                 if event.key == pygame.K_k:
                     if disable_controls == False:
-                        if show_debug == True:
+                        if enable_debug == True:
                             health = 0
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
@@ -479,7 +479,7 @@ while not done:
                         nextdialog3 = True
                     if nextdialog == True:
                         nextdialog2 = True
-                    if show_debug == True:
+                    if enable_debug == True:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
@@ -493,7 +493,7 @@ while not done:
                                 # SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
-                if show_debug == True:
+                if enable_debug == True:
                     print("Quit")
 
         player_movement = [1, 1, 1, 1, player_movement[4]]
@@ -717,7 +717,7 @@ while not done:
                 nextdialog4 = False
 
         # Debugging stuff
-        if show_debug == True:
+        if enable_debug == True:
             print("Inventory Data")
             print("Inv_Slot: " + str(Inv_Slot))
             print("Hammer Slot: " + str(hammer_slot[0]))
