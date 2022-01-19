@@ -66,7 +66,8 @@ def image_display(surface, filename, xy):
     surface.blit(img, xy)
 
 def playsound(channel,audiofile):
-    pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
+    if enable_audio == True:
+        pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
 def health_bar():
     if poison_duration > 0:
         health_color = GREEN

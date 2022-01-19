@@ -30,7 +30,6 @@ BLUE = (0, 0, 255) # The RGB code for Blue
 GRAY = (200, 200, 200) # The RGB code for Gray
 DARK_GRAY = (50, 50, 50) # The RGB code  for Dark Gray
 WHITE = (255, 255, 255) # The RGB code for White
-NaN = ("NaN", "NaN", "NaN") # The RGB code for NaN
 
 # Item and object Positions
 hammer_pos = [250, 275] # Defalt hammer location
@@ -44,11 +43,6 @@ none = [0, 0] # Empty
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-player_color = (0, 0, 0) # The color of the player's hitbox
-block_color = (0, 0, 0) # Default square color
-info_color = (150, 150, 150) # Info square color
-dialog_color = (255, 255, 255) # Dialog box color
-background_color = (128, 0, 128) # The background color of the game
 show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
@@ -62,6 +56,13 @@ environment_path = "Textures/Environment/" # Where to pull environmental texture
 characters_path = "Textures/Characters/" # Where to pull character textures from
 transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
 flipped_prefix = "flipped_" # The prefix for getting flipped item textures
+
+# Hitbox colors
+player_color = (0, 0, 0) # The color of the player's hitbox
+block_color = (0, 0, 0) # Default square color
+info_color = (150, 150, 150) # Info square color
+dialog_color = (255, 255, 255) # Dialog box color
+background_color = (128, 0, 128) # The background color of the game
 
 # Internal Game Variables
 size = [500, 500] # The size of the screen
