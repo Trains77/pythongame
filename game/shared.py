@@ -21,8 +21,8 @@ enable_debug = False # Enable debug mode
 # Player data
 moved = False # Wether or not the player has moved
 disable_controls = False # Wether or not controls are currently enabled
-max_health = 20 # Maxinimum health a player can have
-health = 20 # Current player health
+max_health = 19 # Maxinimum health a player can have
+health = max_health # Current player health
 health_tick = 0 # Internal health tick
 poison_duration = 0 # How long the player has poison for
 facing = "Left" # Default player rotation

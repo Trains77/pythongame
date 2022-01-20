@@ -1,4 +1,3 @@
-
 # Script Modules
 import platform
 import colored
@@ -30,7 +29,7 @@ print()
 print("AnotherGame " + version)
 print(style.RESET)
 
-
+# System Checker
 if not platform.system() == system_recommends:
     print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
 if enable_program == True:
@@ -41,6 +40,7 @@ elif enable_program == False:
     print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
     done = True
 
+# Functions
 def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
@@ -344,6 +344,10 @@ def render_enemy(map,enemyID,speeds,type):
     return enemyPosition, healths, enemy_statuss, scores, poisons
 detector_square = create_square(RED, 5000, 5000, 10, 10)
 
+# Play game music
+if enable_music == True:
+    playsound(0, song)
+
 # The actual Game
 while not done:
         clock.tick(fps)
@@ -351,7 +355,7 @@ while not done:
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
         inventory_hitbox = pygame.draw.rect(screen, (255,255,255), [70, 5, 360, 60])
         Selected_Slot = 150 + 70 * Inv_Slot
-        # Controls
+# Controls
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
@@ -469,10 +473,8 @@ while not done:
                     if disable_controls == False:
                         if not Inv_Slot == 0:
                             Inv_Slot = Inv_Slot - 1
-                            # SelectItem = "NaN"
                         elif Inv_Slot == 0:
                             Inv_Slot = 4
-                            # SelectItem = "NaN"
                 # Dimension key thing
                 if event.key == pygame.K_r:
                     if disable_controls == False:
