@@ -21,8 +21,8 @@ enable_debug = False # Enable debug mode
 # Player data
 moved = False # Wether or not the player has moved
 disable_controls = False # Wether or not controls are currently enabled
-health = 20 # Current player health
 max_health = 20 # Maxinimum health a player can have
+health = max_health # Current player health
 health_tick = 0 # Internal health tick
 poison_duration = 0 # How long the player has poison for
 facing = "Left" # Default player rotation
@@ -36,31 +36,8 @@ GRAY = (200, 200, 200) # The RGB code for Gray
 DARK_GRAY = (50, 50, 50) # The RGB code  for Dark Gray
 WHITE = (255, 255, 255) # The RGB code for White
 
-# Item and object Positions
-item_pos = [[250, 275], [50, 300], [99, 450], [250, 250], [3000, 3000], [3000, 3000]]
-#           hammer      sword       axe         bow_pos     Banana          Ananab
-
-info_pos = [200, 200] # Default info location
-none = [0, 0] # Empty
-
 
 ### Internal variables, changing them will cause issues
-
-# File paths
-inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
-item_path = "Textures/items/" # Where to pull item textures from
-environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
-environment_path = "Textures/Environment/" # Where to pull environmental textures from
-characters_path = "Textures/Characters/" # Where to pull character textures from
-transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
-flipped_prefix = "flipped_" # The prefix for getting flipped item textures
-
-# Hitbox colors
-player_color = (0, 0, 0) # The color of the player's hitbox
-block_color = (0, 0, 0) # Default square color
-info_color = (150, 150, 150) # Info square color
-dialog_color = (255, 255, 255) # Dialog box color
-background_color = (128, 0, 128) # The background color of the game
 
 # Internal Game Variables
 size = [500, 500] # The size of the screen
@@ -71,13 +48,35 @@ speed = 10 # The speed of the player
 item_size = 10 # The size of an item's hitbox
 fps = 20 # The FPS of the game
 minimum_slot = 80 # The default coordinates of slot 0
-gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.10.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
 appended = False # Used for setting up variables
+
+# File paths
+inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
+item_path = "Textures/items/" # Where to pull item textures from
+environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
+environment_path = "Textures/Environment/" # Where to pull environmental textures from
+characters_path = "Textures/Characters/" # Where to pull character textures from
+transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
+flipped_prefix = "flipped_" # The prefix for getting flipped item textures
+gameIcon = pygame.image.load('Textures/Icons/game.png') # Path to game's window icon
+
+# Item and object Positions
+item_pos = [[250, 275], [50, 300], [99, 450], [250, 250], [3000, 3000], [3000, 3000]]
+#           hammer      sword       axe         bow_pos     Banana          Ananab
+info_pos = [200, 200] # Default info location
+none = [0, 0] # Empty
+
+# Hitbox colors
+player_color = (0, 0, 0) # The color of the player's hitbox
+block_color = (0, 0, 0) # Default square color
+info_color = (150, 150, 150) # Info square color
+dialog_color = (255, 255, 255) # Dialog box color
+background_color = (128, 0, 128) # The background color of the game
 
 # Enemy Data
 enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
