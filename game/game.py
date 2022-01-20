@@ -577,17 +577,18 @@ while not done:
                 image_display(screen, characters_path + "shadow_flipped.png", [playerx,playery + 2])
             else:
                 image_display(screen, characters_path + "shadow.png", [playerx,playery + 2])
-        if facing == "Left":
-            image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery - jump])
-        elif facing == "Right":
-            image_display(screen, characters_path + "Player/player.png", [playerx,playery - jump])
-        elif facing == "Up":
-            image_display(screen, characters_path + "Player/playerup.png", [playerx,playery - jump])
-        elif facing == "Down":
-            image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery - jump])
-        else:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
-            done = True
+        if dead == False:
+            if facing == "Left":
+                image_display(screen, characters_path + "Player/playerflipped.png", [playerx,playery - jump])
+            elif facing == "Right":
+                image_display(screen, characters_path + "Player/player.png", [playerx,playery - jump])
+            elif facing == "Up":
+                image_display(screen, characters_path + "Player/playerup.png", [playerx,playery - jump])
+            elif facing == "Down":
+                image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery - jump])
+            else:
+                print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
+                done = True
         if mapid == 0:
             if scientist_leaving == True:
                 image_display(screen, characters_path + "Scientist/scientist.png", [info_pos[0],info_pos[1]])
