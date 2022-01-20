@@ -12,6 +12,11 @@ enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 Inv_Slot = 0 # Default inventory slot
 enable_program = True # Enables or Disables the program
+show_controls = True # Display controls on screen
+
+# Debugging settings
+disable_background = False # Wether the game should load the background image
+enable_debug = False # Enable debug mode
 
 # Player data
 moved = False # Wether or not the player has moved
@@ -38,9 +43,6 @@ item_pos = [[250, 275], [50, 300], [99, 450], [250, 250], [3000, 3000], [3000, 3
 info_pos = [200, 200] # Default info location
 none = [0, 0] # Empty
 
-# Debugging settings
-disable_background = False # Wether the game should load the background image
-enable_debug = False # Enable debug mode
 
 ### Internal variables, changing them will cause issues
 

@@ -616,7 +616,25 @@ while not done:
         if health < 1:
             dead = True
             disable_controls = True
-
+        # Controls
+        if show_controls == True:
+            if disable_controls == False:
+                Control_Font = pygame.font.SysFont('A totally real font', 15)
+                Control_Text1 = Control_Font.render("WASD to Move", True, BLACK)
+                screen.blit(Control_Text1, (425, 430))
+                Control_Text2 = Control_Font.render("ESC to exit", True, BLACK)
+                screen.blit(Control_Text2, (445, 440))
+                Control_Text1 = Control_Font.render("F to use items", True, BLACK)
+                screen.blit(Control_Text1, (430, 450))
+                Control_Text1 = Control_Font.render("Right click to drop", True, BLACK)
+                screen.blit(Control_Text1, (410, 470))
+                Control_Text1 = Control_Font.render("Q and E for to select items", True, BLACK)
+                screen.blit(Control_Text1, (370, 480))
+                Control_Text1 = Control_Font.render("R to invert map", True, BLACK)
+                screen.blit(Control_Text1, (425, 460))
+                if enable_debug == True:
+                    Control_Text1 = Control_Font.render("K to stop living", True, BLACK)
+                    screen.blit(Control_Text1, (425, 490))
         # Inventory Stuff
         item_pos[0][0], item_pos[0][1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], item_pos[0][0], item_pos[0][1], "hammer.png")
         item_pos[1][0], item_pos[1][1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], item_pos[1][0], item_pos[1][1], "sword.png")
