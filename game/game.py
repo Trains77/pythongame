@@ -287,19 +287,20 @@ def render_enemy(map,enemyID,speeds,type):
     enemyPosition = enemyPositions
     poisons = poison_duration
     # Enemy Attack
-    if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
-        if type == 0:
-            if health_tick == 19:
-                healths = deal_damage(1)
-        elif type == 1:
-            if health_tick == 19:
-                poisons = poisons + 1
-            elif health_tick == 10:
-                poisons = poisons + 1
-            elif health_tick == 5:
-                poisons = poisons + 1
-            elif health_tick == 15:
-                poisons = poisons + 1
+    if map == mapid:
+        if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
+            if type == 0:
+                if health_tick == 19:
+                    healths = deal_damage(1)
+            elif type == 1:
+                if health_tick == 19:
+                    poisons = poisons + 1
+                elif health_tick == 10:
+                    poisons = poisons + 1
+                elif health_tick == 5:
+                    poisons = poisons + 1
+                elif health_tick == 15:
+                    poisons = poisons + 1
     # Kill enemy
     if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
         if SelectItem == "1":
@@ -621,7 +622,7 @@ while not done:
             if disable_controls == False:
                 Control_Font = pygame.font.SysFont('A totally real font', 15)
                 Control_Text1 = Control_Font.render("WASD to Move", True, BLACK)
-                screen.blit(Control_Text1, (425, 430))
+                screen.blit(Control_Text1, (428, 430))
                 Control_Text2 = Control_Font.render("ESC to exit", True, BLACK)
                 screen.blit(Control_Text2, (445, 440))
                 Control_Text1 = Control_Font.render("F to use items", True, BLACK)
