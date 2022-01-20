@@ -32,12 +32,9 @@ DARK_GRAY = (50, 50, 50) # The RGB code  for Dark Gray
 WHITE = (255, 255, 255) # The RGB code for White
 
 # Item and object Positions
-hammer_pos = [250, 275] # Defalt hammer location
-sword_pos = [50, 300] # Default sword location
-axe_pos = [99, 450] # Default axe location
-bow_pos = [250, 250] # Default bow location
-banana_pos = [3000, 3000] # Default banana location
-ananab_pos = [3000, 3000] # Default ananab location
+item_pos = [[250, 275], [50, 300], [99, 450], [250, 250], [3000, 3000], [3000, 3000]]
+#           hammer      sword       axe         bow_pos     Banana          Ananab
+
 info_pos = [200, 200] # Default info location
 none = [0, 0] # Empty
 

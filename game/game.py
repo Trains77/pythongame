@@ -1,4 +1,3 @@
-# This script was made on Linux, it may not work on other operating systems
 
 # Script Modules
 import platform
@@ -196,8 +195,8 @@ def create_tree_hitbox():
     for i in range(amount_of_trees):
         tree_destroyed = trees_destroyed
         inv_tree_destroyed = inv_trees_destroyed
-        tree_destroyed[i], scores = create_tree(0, banana_pos, tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
-        inv_tree_destroyed[i], scores = create_tree(1, ananab_pos, inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
+        tree_destroyed[i], scores = create_tree(0, item_pos[4], tree_destroyed[i], tree_positions[i][0], tree_positions[i][1])
+        inv_tree_destroyed[i], scores = create_tree(1, item_pos[5], inv_tree_destroyed[i], inv_tree_positions[i][0], inv_tree_positions[i][1])
     return tree_destroyed, inv_tree_destroyed, scores
 
 def create_tree(worldID, drop_item_id, tree_status, posx, posy):
@@ -248,8 +247,8 @@ def deal_damage(damage_amount):
     return g
 def trigger_use():
     scores = score
-    bananas_pos = banana_pos
-    ananabs_pos = ananab_pos
+    bananas_pos = item_pos[4]
+    ananabs_pos = item_pos[5]
     item_id_thing = item_world_id
     healths = health
     if facing == "Right":
@@ -481,7 +480,7 @@ while not done:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square, banana_pos, ananab_pos, item_world_id, health, score = trigger_use()
+                    detector_square, item_pos[4], item_pos[5], item_world_id, health, score = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if disable_controls == False:
@@ -522,12 +521,12 @@ while not done:
             enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
 
         # Item Managment
-        hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], hammer_pos[0], hammer_pos[1])
-        sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], sword_pos[0], sword_pos[1])
-        axe_slot[0], axe_slot[1] = item_detector(2, "item3", axe_slot[0], axe_slot[1], axe_pos[0], axe_pos[1])
-        bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], bow_pos[0], bow_pos[1])
-        banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], banana_pos[0], banana_pos[1])
-        ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], ananab_pos[0], ananab_pos[1])
+        hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], item_pos[0][0], item_pos[0][1])
+        sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], item_pos[1][0], item_pos[1][1])
+        axe_slot[0], axe_slot[1] = item_detector(2, "item3", axe_slot[0], axe_slot[1], item_pos[2][0], item_pos[2][1])
+        bow_slot[0], bow_slot[1] = item_detector(3, "item4", bow_slot[0], bow_slot[1], item_pos[3][0], item_pos[3][1])
+        banana_slot[0], banana_slot[1] = item_detector(4, "item5", banana_slot[0], banana_slot[1], item_pos[4][0], item_pos[4][1])
+        ananab_slot[0], ananab_slot[1] = item_detector(5, "item6", ananab_slot[0], ananab_slot[1], item_pos[5][0], item_pos[5][1])
 
         # Background and players
         if disable_background == False:
@@ -588,12 +587,12 @@ while not done:
             disable_controls = True
 
         # Inventory Stuff
-        hammer_pos[0], hammer_pos[1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], hammer_pos[0], hammer_pos[1], "hammer.png")
-        sword_pos[0], sword_pos[1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], sword_pos[0], sword_pos[1], "sword.png")
-        axe_pos[0], axe_pos[1], axe_slot[0], SelectItem, item_world_id = item_render(2, axe_slot[0], axe_pos[0], axe_pos[1], "axe.png")
-        bow_pos[0], bow_pos[1], bow_slot[0], SelectItem, item_world_id = item_render(3, bow_slot[0], bow_pos[0], bow_pos[1], "bow.png")
-        banana_pos[0], banana_pos[1], banana_slot[0], SelectItem, item_world_id = item_render(4, banana_slot[0], banana_pos[0], banana_pos[1], "banana.png")
-        ananab_pos[0], ananab_pos[1], ananab_slot[0], SelectItem, item_world_id = item_render(5, ananab_slot[0], ananab_pos[0], ananab_pos[1], "ananab.png")
+        item_pos[0][0], item_pos[0][1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], item_pos[0][0], item_pos[0][1], "hammer.png")
+        item_pos[1][0], item_pos[1][1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], item_pos[1][0], item_pos[1][1], "sword.png")
+        item_pos[2][0], item_pos[2][1], axe_slot[0], SelectItem, item_world_id = item_render(2, axe_slot[0], item_pos[2][0], item_pos[2][1], "axe.png")
+        item_pos[3][0], item_pos[3][1], bow_slot[0], SelectItem, item_world_id = item_render(3, bow_slot[0], item_pos[3][0], item_pos[3][1], "bow.png")
+        item_pos[4][0], item_pos[4][1], banana_slot[0], SelectItem, item_world_id = item_render(4, banana_slot[0], item_pos[4][0], item_pos[4][1], "banana.png")
+        item_pos[5][0], item_pos[5][1], ananab_slot[0], SelectItem, item_world_id = item_render(5, ananab_slot[0], item_pos[5][0], item_pos[5][1], "ananab.png")
         if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
             render_transparent_slot(0)
             render_transparent_slot(1)
