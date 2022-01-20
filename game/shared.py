@@ -80,7 +80,7 @@ appended = False # Used for setting up variables
 # Enemy Data
 enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
 enemy_squares = [] # Enemy squares list
-enemy_count = 1 # The amount of enemies current enabled
+enemy_count = 2 # The amount of enemies current enabled
 enemy_status = [[1], [1]] # some enamy statuses
 
 # Display Data

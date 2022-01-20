@@ -285,9 +285,13 @@ def render_enemy(map,enemyID,speeds,type):
     scores = score
     enemy_statuss = enemy_status
     enemyPosition = enemyPositions
+    poisons = poison_duration
     if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
-        if health_tick == 19:
-            healths = deal_damage(1)
+        if type == 0:
+            if health_tick == 19:
+                healths = deal_damage(1)
+        elif type == 1:
+            poisons = 5
     if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
         if SelectItem == "1":
             enemy_statuss[enemyID][0] = 0
@@ -301,16 +305,32 @@ def render_enemy(map,enemyID,speeds,type):
                 elif playerx < enemyPosition[enemyID][0]:
                     image_display(screen, characters_path + "Enemy/enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                     enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
-                if playery - jump > enemyPosition[enemyID][1]:
-                    # image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                elif playery - jump > enemyPosition[enemyID][1]:
+                    image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
                     enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
                 elif playery - jump < enemyPosition[enemyID][1]:
-                    # image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    image_display(screen, characters_path + "Enemy/enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
+            elif type == 1:
+                if playerx == enemyPosition[enemyID][0]:
+                    if playery < enemyPosition[enemyID][1]:
+                        image_display(screen, characters_path + "Enemy/poison_enemy_up.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    else:
+                        image_display(screen, characters_path + "Enemy/poison_enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                if playerx > enemyPositions[enemyID][0]:
+                    image_display(screen, characters_path + "Enemy/poison_enemy.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][0] = enemyPosition[enemyID][0] + speeds
+                elif playerx < enemyPosition[enemyID][0]:
+                    image_display(screen, characters_path + "Enemy/poison_enemy_flipped.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+                    enemyPosition[enemyID][0] = enemyPosition[enemyID][0] - speeds
+                if playery - jump > enemyPosition[enemyID][1]:
+                    enemyPosition[enemyID][1] = enemyPosition[enemyID][1] + speeds
+                elif playery - jump < enemyPosition[enemyID][1]:
                     enemyPosition[enemyID][1] = enemyPosition[enemyID][1] - speeds
                 else:
                     if playerx == enemyPositions[enemyID][0]:
-                        image_display(screen, characters_path + "Enemy/enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-    return enemyPosition, healths, enemy_statuss, scores
+                        image_display(screen, characters_path + "Enemy/poison_enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
+    return enemyPosition, healths, enemy_statuss, scores, poisons
 detector_square = create_square(RED, 5000, 5000, 10, 10)
 
 # The actual Game
@@ -568,7 +588,8 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        enemyPositions, health, enemy_status, score = render_enemy(2,0,1,0)
+        enemyPositions, health, enemy_status, score, poison_duration = render_enemy(2,0,2,0)
+        enemypositions, health, enemy_status, score, poison_duration = render_enemy(2,1,1,1)
         SelectItem = "NaN"
         # Trees
         for i in range(amount_of_trees):
