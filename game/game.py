@@ -484,7 +484,7 @@ while not done:
                         elif mapid == 1:
                             if enable_music == True:
                                 playsound(0, song)
-                            mapid = previous_map
+                            mapid = 0
                 if event.key == pygame.K_e:
                     if disable_controls == False:
                         if not Inv_Slot == 4:
@@ -523,7 +523,7 @@ while not done:
                 done = True
                 if enable_debug == True:
                     print("Quit")
-
+        # Player jump logic
         player_movement = [1, 1, 1, 1, player_movement[4]]
         if velocityY > 0:
             if jump < velocityY:
@@ -698,7 +698,7 @@ while not done:
                 if SelectItem == "1":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "You can use a sword to defend yourself")
+                        createdialog("Scientist", "You ca6n use a sword to defend yourself")
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
