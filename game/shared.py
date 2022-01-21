@@ -79,7 +79,7 @@ dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
 
 # Enemy Data
-enemyPositions = [[350,250], [450, 450]] # All enemy starting positions
+enemyPositions = [[350,250], [150, 350]] # All enemy starting positions
 enemy_squares = [] # Enemy squares list
 enemy_count = 2 # The amount of enemies current enabled
 enemy_status = [[1], [1]] # some enamy statuses
