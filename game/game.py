@@ -701,7 +701,7 @@ while not done:
                 if SelectItem == "1":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "You ca6n use a sword to defend yourself")
+                        createdialog("Scientist", "You can use a sword to defend yourself")
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
