@@ -263,13 +263,11 @@ def trigger_use():
         sensor_square = create_square(RED, 5000, 5000, 10, 10)
     if SelectItem == "4":
         bananas_pos = [3000, 3000]
-        # ItemID = -1
         inv[4] = 0
         SelectedItem = "NaN"
         item_id_thing[4] = 0
         healths = deal_damage(-2)
         scores = score + 5
-        # playsound(1, environment_audio_path + "use.wav")
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
         #  = -1
@@ -278,7 +276,6 @@ def trigger_use():
         item_id_thing[5] = 1
         healths = deal_damage(2)
         scores = score + 1
-        # playsound(1, environment_audio_path + "use.wav")
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
 def render_enemy(map,enemyID,speeds,type):
     healths = health
@@ -286,6 +283,7 @@ def render_enemy(map,enemyID,speeds,type):
     enemy_statuss = enemy_status
     enemyPosition = enemyPositions
     poisons = poison_duration
+
     # Enemy Attack
     if map == mapid:
         if enemy_statuss[enemyID][0] == 1:
@@ -525,7 +523,8 @@ while not done:
                 done = True
                 if enable_debug == True:
                     print("Quit")
-        # Player jump logic
+
+        # Player jumping logic
         player_movement = [1, 1, 1, 1, player_movement[4]]
         if velocityY > 0:
             if jump < velocityY:
@@ -754,7 +753,6 @@ while not done:
                         createdialog("Scientist", "!HHHHAAAAA")
                         disable_controls = False
                         create_notice(info_pos[0], info_pos[1])
-            #
         if scientist_leaving == True:
             info_pos[0] = info_pos[0] + 5
 
