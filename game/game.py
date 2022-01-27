@@ -520,7 +520,6 @@ while not done:
                             if i > INV_MIN:
                                 if i - 2 < INV_MAX:
                                     Inv_Slot = i - 1
-                                # SelectItem = "NaN"
             if event.type == pygame.QUIT:
                 done = True
                 if enable_debug == True:
@@ -605,6 +604,7 @@ while not done:
         enemyPositions, health, enemy_status, score, poison_duration = render_enemy(2,0,2,0)
         enemypositions, health, enemy_status, score, poison_duration = render_enemy(2,1,1,1)
         SelectItem = "NaN"
+
         # Trees
         for i in range(amount_of_trees):
             tree_destroyed = trees_destroyed
@@ -808,7 +808,8 @@ while not done:
         detector_square = offscreen
         player_movement = [player_movement[0],player_movement[1],player_movement[2],player_movement[3],1]
         enemy_squares = []
-        # Game Variable Checker
+
+        # Checks if variables are valid
         if playerx > game_border1:
             print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
             done = True
