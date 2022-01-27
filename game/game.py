@@ -288,19 +288,20 @@ def render_enemy(map,enemyID,speeds,type):
     poisons = poison_duration
     # Enemy Attack
     if map == mapid:
-        if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
-            if type == 0:
-                if health_tick == 19:
-                    healths = deal_damage(1)
-            elif type == 1:
-                if health_tick == 19:
-                    poisons = poisons + 1
-                elif health_tick == 10:
-                    poisons = poisons + 1
-                elif health_tick == 5:
-                    poisons = poisons + 1
-                elif health_tick == 15:
-                    poisons = poisons + 1
+        if enemy_statuss[enemyID][0] == 1:
+            if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
+                if type == 0:
+                    if health_tick == 19:
+                        healths = deal_damage(1)
+                elif type == 1:
+                    if health_tick == 19:
+                        poisons = poisons + 1
+                    elif health_tick == 10:
+                        poisons = poisons + 1
+                    elif health_tick == 5:
+                        poisons = poisons + 1
+                    elif health_tick == 15:
+                        poisons = poisons + 1
     # Kill enemy
     if pygame.Rect.colliderect(detector_square, enemy_squares[enemyID]) == 1:
         if SelectItem == "1":
