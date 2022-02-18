@@ -15,7 +15,7 @@ enable_program = True # Enables or Disables the program
 show_controls = True # Display controls on screen
 
 # Debugging settings
-disable_background = True # Wether the game should load the background image
+disable_background = False # Wether the game should load the background image
 enable_debug = False # Enable debug mode
 
 # Player data

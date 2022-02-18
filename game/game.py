@@ -254,8 +254,20 @@ def trigger_use():
     item_id_thing = item_world_id
     healths = health
     if SelectItem == "3":
-        arrow_positions.append([playerx, playery])
-        arrows_amount = arrows_amount + 1
+        if facing == "Right":
+            arrow_positions.append([playerx + 15, playery + 5, facing])
+            arrows_amount = arrows_amount + 1
+
+        if facing == "Left":
+            arrow_positions.append([playerx - 3, playery + 5, facing])
+            arrows_amount = arrows_amount + 1
+
+        if facing == "Down":
+            arrow_positions.append([playerx + 7, playery + 20, facing])
+            arrows_amount = arrows_amount + 1
+        if facing == "Up":
+            arrow_positions.append([playerx + 7, playery - 7, facing])
+            arrows_amount = arrows_amount + 1
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery - jump, square_size, square_size / 2)
     elif facing == "Left":
@@ -349,9 +361,16 @@ detector_square = create_square(RED, 5000, 5000, 10, 10)
 def arrow_proc():
     arrow_positions = arrows_positions
     for i in range(arrow_amount):
-        arrow_positions[i][0] = arrow_positions[i][0] + 10
-        pygame.draw.rect(screen, (255,255,255), [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
-    print(str(arrow_positions))
+        if arrow_positions[i][2] == "Right":
+            arrow_positions[i][0] = arrow_positions[i][0] + 10
+        elif arrow_positions[i][2] == "Left":
+            arrow_positions[i][0] = arrow_positions[i][0] - 10
+        elif arrow_positions[i][2] == "Up":
+            arrow_positions[i][1] = arrow_positions[i][1] - 10
+        elif arrow_positions[i][2] == "Down":
+            arrow_positions[i][1] = arrow_positions[i][1] + 10
+        #
+        pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
     return arrow_positions
 # Play game music
 if enable_music == True:
@@ -560,7 +579,6 @@ while not done:
             scientist_square = offscreen
         for i in range(enemy_count):
             enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
-        arrow_proc()
         # Item Managment
         hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], item_pos[0][0], item_pos[0][1])
         sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], item_pos[1][0], item_pos[1][1])
@@ -613,6 +631,9 @@ while not done:
         enemyPositions, health, enemy_status, score, poison_duration = render_enemy(2,0,2,0)
         enemypositions, health, enemy_status, score, poison_duration = render_enemy(2,1,1,1)
         SelectItem = "NaN"
+
+        # Arrows
+        arrow_proc()
 
         # Trees
         for i in range(amount_of_trees):
