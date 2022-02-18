@@ -359,6 +359,7 @@ def render_enemy(map,enemyID,speeds,type):
     return enemyPosition, healths, enemy_statuss, scores, poisons
 detector_square = create_square(RED, 5000, 5000, 10, 10)
 def arrow_proc():
+    healths = health
     arrow_positions = arrows_positions
     for i in range(arrow_amount):
         if arrow_positions[i][2] == "Right":
@@ -370,8 +371,11 @@ def arrow_proc():
         elif arrow_positions[i][2] == "Down":
             arrow_positions[i][1] = arrow_positions[i][1] + 10
         #
-        pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
-    return arrow_positions
+        arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
+        if pygame.Rect.colliderect(arrow, player_square) == True:
+            healths = healths - 1
+        #if pygame.Rect.colliderect(arrow,enemy_squares[enemyID])
+    return healths
 # Play game music
 if enable_music == True:
     playsound(0, song)
@@ -633,7 +637,7 @@ while not done:
         SelectItem = "NaN"
 
         # Arrows
-        arrow_proc()
+        health = arrow_proc()
 
         # Trees
         for i in range(amount_of_trees):
