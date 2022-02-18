@@ -321,6 +321,8 @@ def render_enemy(map,enemyID,speeds,type):
         if SelectItem == "1":
             enemy_statuss[enemyID][0] = 0
             scores = scores + 10
+    elif enemy_statuss[enemyID][0] == 0:
+        enemyPosition[enemyID][0] = 900
     # Enemy Movements
     if enemy_statuss[enemyID][0] == 1:
         if mapid == map:
@@ -359,9 +361,12 @@ def render_enemy(map,enemyID,speeds,type):
     return enemyPosition, healths, enemy_statuss, scores, poisons
 detector_square = create_square(RED, 5000, 5000, 10, 10)
 def arrow_proc():
+    enemy_statuss = enemy_status
     healths = health
     arrow_positions = arrows_positions
+    arrows_amount = arrow_amount
     for i in range(arrow_amount):
+        g = i
         if arrow_positions[i][2] == "Right":
             arrow_positions[i][0] = arrow_positions[i][0] + 10
         elif arrow_positions[i][2] == "Left":
@@ -374,8 +379,12 @@ def arrow_proc():
         arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
         if pygame.Rect.colliderect(arrow, player_square) == True:
             healths = healths - 1
-        #if pygame.Rect.colliderect(arrow,enemy_squares[enemyID])
-    return healths
+        for i in range(enemy_count):
+            if pygame.Rect.colliderect(arrow,enemy_squares[i]):
+                enemy_status[i][0] = 0
+                del arrow_positions[g]
+                arrows_amount = arrows_amount - 1
+    return healths, enemy_statuss, arrow_positions, arrows_amount
 # Play game music
 if enable_music == True:
     playsound(0, song)
@@ -637,7 +646,7 @@ while not done:
         SelectItem = "NaN"
 
         # Arrows
-        health = arrow_proc()
+        health, enemy_status, arrows_positions, arrow_amount = arrow_proc()
 
         # Trees
         for i in range(amount_of_trees):
@@ -759,7 +768,7 @@ while not done:
                 if SelectItem == "3":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "I see you have found a bow")
+                        createdialog("Scientist", "You can shoot things with a bow")
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
