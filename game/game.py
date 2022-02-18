@@ -246,11 +246,16 @@ def deal_damage(damage_amount):
             playsound(1, environment_audio_path + "heal.wav")
     return g
 def trigger_use():
+    arrow_positions = arrows_positions
     scores = score
     bananas_pos = item_pos[4]
     ananabs_pos = item_pos[5]
+    arrows_amount = arrow_amount
     item_id_thing = item_world_id
     healths = health
+    if SelectItem == "3":
+        arrow_positions.append([playerx, playery])
+        arrows_amount = arrows_amount + 1
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery - jump, square_size, square_size / 2)
     elif facing == "Left":
@@ -276,14 +281,13 @@ def trigger_use():
         item_id_thing[5] = 1
         healths = deal_damage(2)
         scores = score + 1
-    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores
+    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount
 def render_enemy(map,enemyID,speeds,type):
     healths = health
     scores = score
     enemy_statuss = enemy_status
     enemyPosition = enemyPositions
     poisons = poison_duration
-
     # Enemy Attack
     if map == mapid:
         if enemy_statuss[enemyID][0] == 1:
@@ -342,7 +346,13 @@ def render_enemy(map,enemyID,speeds,type):
                         image_display(screen, characters_path + "Enemy/poison_enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
     return enemyPosition, healths, enemy_statuss, scores, poisons
 detector_square = create_square(RED, 5000, 5000, 10, 10)
-
+def arrow_proc():
+    arrow_positions = arrows_positions
+    for i in range(arrow_amount):
+        arrow_positions[i][0] = arrow_positions[i][0] + 10
+        pygame.draw.rect(screen, (255,255,255), [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
+    print(str(arrow_positions))
+    return arrow_positions
 # Play game music
 if enable_music == True:
     playsound(0, song)
@@ -512,7 +522,7 @@ while not done:
                         print("Entered")
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square, item_pos[4], item_pos[5], item_world_id, health, score = trigger_use()
+                    detector_square, item_pos[4], item_pos[5], item_world_id, health, score, arrows_positions, arrow_amount = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if disable_controls == False:
@@ -523,7 +533,6 @@ while not done:
                 done = True
                 if enable_debug == True:
                     print("Quit")
-
         # Player jumping logic
         player_movement = [1, 1, 1, 1, player_movement[4]]
         if velocityY > 0:
@@ -551,7 +560,7 @@ while not done:
             scientist_square = offscreen
         for i in range(enemy_count):
             enemy_squares.append(pygame.draw.rect(screen, RED, [enemyPositions[i][0], enemyPositions[i][1],square_size,square_size]))
-
+        arrow_proc()
         # Item Managment
         hammer_slot[0], hammer_slot[1] = item_detector(0, "item1", hammer_slot[0], hammer_slot[1], item_pos[0][0], item_pos[0][1])
         sword_slot[0], sword_slot[1] = item_detector(1, "item2", sword_slot[0], sword_slot[1], item_pos[1][0], item_pos[1][1])
@@ -620,6 +629,7 @@ while not done:
         if health < 1:
             dead = True
             disable_controls = True
+
         # Controls
         if show_controls == True:
             if disable_controls == False:

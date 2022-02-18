@@ -15,7 +15,7 @@ enable_program = True # Enables or Disables the program
 show_controls = True # Display controls on screen
 
 # Debugging settings
-disable_background = False # Wether the game should load the background image
+disable_background = True # Wether the game should load the background image
 enable_debug = False # Enable debug mode
 
 # Player data
@@ -132,3 +132,7 @@ inv_trees_destroyed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,] # The trees th
 for i in range(amount_of_trees):
     tree_positions[i] = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
     inv_tree_positions[i] = [int(math.ceil(random.randint(10,450) / 10.0)) * 10, int(math.ceil(random.randint(10,450) / 10.0)) * 10]
+
+# Bow and Arrow Functions
+arrows_positions = []
+arrow_amount = 0
