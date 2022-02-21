@@ -51,13 +51,14 @@ def createdialog(speaker, text):
     screen.blit(img2, (30, 390))
     screen.blit(img3, (355, 470))
 def poison_effect():
+    last_damages = last_damage
     healths = health
     poison = poison_duration
     if health_tick == 19:
         if poison > 0:
-            healths = deal_damage(1, "poison")
+            healths, last_damages = deal_damage(1, "poison")
             poison = poison - 1
-    return poison, healths
+    return poison, healths, last_damages
 def create_notice(posx, posy):
     img4 = pygame.image.load(characters_path + "speaking.png")
     screen.blit(img4, [posx, posy - 20])
@@ -239,27 +240,28 @@ def create_wall(xpos, ypos, width, height):
     return center
 def deal_damage(damage_amount, damage_type):
     g = health
+    last_damages = last_damage
     if dead == False:
         g = health - damage_amount
         if damage_amount > 0:
             if damage_type == "poison":
-                last_damage = "poison"
+                last_damages = "poison"
             elif damage_type == "arrow":
-                last_damage = "arrow"
+                last_damages = "arrow"
             elif damage_type == "melee":
-                last_damage = "melee"
+                last_damages = "melee"
             elif damage_type == "debug":
-                last_damage = "debug"
+                last_damages = "debug"
             elif damage_type == "banana":
-                last_damage = "banana"
+                last_damages = "banana"
             elif damage_type == "generic":
-                last_damage = "generic"
+                last_damages = "generic"
             else:
-                last_damage = "generic"
+                last_damages = "generic"
             playsound(1, environment_audio_path + "hurt.wav")
         elif damage_amount < 0:
             playsound(1, environment_audio_path + "heal.wav")
-    return g
+    return g, last_damages
 def trigger_use():
     arrow_positions = arrows_positions
     scores = score
@@ -273,15 +275,13 @@ def trigger_use():
         if facing == "Right":
             arrow_positions.append([playerx + 23, playery + 5, facing])
             arrows_amount = arrows_amount + 1
-
-        if facing == "Left":
+        elif facing == "Left":
             arrow_positions.append([playerx - 7, playery + 5, facing])
             arrows_amount = arrows_amount + 1
-
-        if facing == "Down":
+        elif facing == "Down":
             arrow_positions.append([playerx + 9, playery + 20, facing])
             arrows_amount = arrows_amount + 1
-        if facing == "Up":
+        elif facing == "Up":
             arrow_positions.append([playerx + 9, playery - 7, facing])
             arrows_amount = arrows_amount + 1
     if facing == "Right":
@@ -299,7 +299,7 @@ def trigger_use():
         inv[4] = 0
         SelectedItem = "NaN"
         item_id_thing[4] = 0
-        healths = deal_damage(-2, "banana")
+        healths, last_damage = deal_damage(-2, "banana")
         scores = score + 5
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
@@ -307,7 +307,7 @@ def trigger_use():
         inv[5] = 0
         SelectedItem = "NaN"
         item_id_thing[5] = 1
-        healths = deal_damage(2, "banana")
+        healths, last_damage = deal_damage(2, "banana")
         scores = score + 1
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount
 def render_enemy(map,enemyID,speeds,type):
@@ -322,7 +322,7 @@ def render_enemy(map,enemyID,speeds,type):
             if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
                 if type == 0:
                     if health_tick == 19:
-                        healths = deal_damage(1, "melee")
+                        healths, last_damage = deal_damage(1, "melee")
                 elif type == 1:
                     if health_tick == 19:
                         poisons = poisons + 1
@@ -381,41 +381,42 @@ def arrow_proc():
     healths = health
     arrow_positions = arrows_positions
     arrows_amount = arrow_amount
-    for i in range(arrows_amount):
-        g = i
-        #
-        if len(arrow_positions) > i:
-            arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
-            if pygame.Rect.colliderect(arrow, player_square) == True:
-                healths = healths - 1
-                del arrow_positions[g]
-                arrows_amount = arrows_amount - 1
-            elif arrow_positions[i][1] >= 500:
-                del arrow_positions[g]
-                arrows_amount = arrows_amount - 1
-            elif arrow_positions[i][1] <= 0:
-                del arrow_positions[g]
-                arrows_amount = arrows_amount - 1
-            elif arrow_positions[i][0] >= 500:
-                del arrow_positions[g]
-                arrows_amount = arrows_amount - 1
-            elif arrow_positions[i][0] <= 0:
-                del arrow_positions[g]
-                arrows_amount = arrows_amount - 1
-            else:
-                if arrow_positions[i][2] == "Right":
-                    arrow_positions[i][0] = arrow_positions[i][0] + 10
-                elif arrow_positions[i][2] == "Left":
-                    arrow_positions[i][0] = arrow_positions[i][0] - 10
-                elif arrow_positions[i][2] == "Up":
-                    arrow_positions[i][1] = arrow_positions[i][1] - 10
-                elif arrow_positions[i][2] == "Down":
-                    arrow_positions[i][1] = arrow_positions[i][1] + 10
-            for i in range(enemy_count):
-                if pygame.Rect.colliderect(arrow,enemy_squares[i]):
-                    enemy_status[i][0] = 0
+    if not arrows_amount <= 0:
+        for i in range(arrows_amount):
+            g = i
+            #
+            if len(arrow_positions) > i:
+                arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
+                if pygame.Rect.colliderect(arrow, player_square) == True:
+                    healths, last_damage = deal_damage(1, "arrow")
                     del arrow_positions[g]
                     arrows_amount = arrows_amount - 1
+                elif arrow_positions[i][1] >= 500:
+                    del arrow_positions[g]
+                    arrows_amount = arrows_amount - 1
+                elif arrow_positions[i][1] <= 0:
+                    del arrow_positions[g]
+                    arrows_amount = arrows_amount - 1
+                elif arrow_positions[i][0] >= 500:
+                    del arrow_positions[g]
+                    arrows_amount = arrows_amount - 1
+                elif arrow_positions[i][0] <= 0:
+                    del arrow_positions[g]
+                    arrows_amount = arrows_amount - 1
+                else:
+                    if arrow_positions[i][2] == "Right":
+                        arrow_positions[i][0] = arrow_positions[i][0] + 10
+                    elif arrow_positions[i][2] == "Left":
+                        arrow_positions[i][0] = arrow_positions[i][0] - 10
+                    elif arrow_positions[i][2] == "Up":
+                        arrow_positions[i][1] = arrow_positions[i][1] - 10
+                    elif arrow_positions[i][2] == "Down":
+                        arrow_positions[i][1] = arrow_positions[i][1] + 10
+                    for i in range(enemy_count):
+                        if pygame.Rect.colliderect(arrow,enemy_squares[i]):
+                            enemy_status[i][0] = 0
+                            del arrow_positions[g]
+                            arrows_amount = arrows_amount - 1
     return healths, enemy_statuss, arrow_positions, arrows_amount
 # Play game music
 if enable_music == True:
@@ -574,7 +575,7 @@ while not done:
                 if event.key == pygame.K_k:
                     if disable_controls == False:
                         if enable_debug == True:
-                            health = deal_damage(999999, "debug")
+                            health, last_damage = deal_damage(999999, "debug")
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
@@ -690,7 +691,7 @@ while not done:
         # Health Bar
         if health > max_health:
             health = max_health
-        poison_duration, health = poison_effect()
+        poison_duration, health, last_damage = poison_effect()
         health_tick = health_bar()
         if health < 1:
             dead = True
@@ -761,7 +762,22 @@ while not done:
             nextdialog2 = True
             nextdialog3 = True
             nextdialog4 = True
-
+            if last_damage == "generic":
+                e = death_generic
+            elif last_damage == "poison":
+                e = death_poison
+            elif last_damage == "debug":
+                e = death_debug
+            elif last_damage == "melee":
+                e = death_melee
+            elif last_dmage == "arrow":
+                e = death_arrow
+            elif last_damage == "banana":
+                e = death_banana
+            else:
+                e = death_test
+            death_reason = score_font.render(e, True, BLACK)
+            screen.blit(death_reason, (200, 150))
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if jump == 0:
