@@ -270,18 +270,18 @@ def trigger_use():
     if SelectItem == "3":
         playsound(1, environment_audio_path + "shoot.wav")
         if facing == "Right":
-            arrow_positions.append([playerx + 15, playery + 5, facing])
+            arrow_positions.append([playerx + 23, playery + 5, facing])
             arrows_amount = arrows_amount + 1
 
         if facing == "Left":
-            arrow_positions.append([playerx - 3, playery + 5, facing])
+            arrow_positions.append([playerx - 7, playery + 5, facing])
             arrows_amount = arrows_amount + 1
 
         if facing == "Down":
-            arrow_positions.append([playerx + 7, playery + 20, facing])
+            arrow_positions.append([playerx + 9, playery + 20, facing])
             arrows_amount = arrows_amount + 1
         if facing == "Up":
-            arrow_positions.append([playerx + 7, playery - 7, facing])
+            arrow_positions.append([playerx + 9, playery - 7, facing])
             arrows_amount = arrows_amount + 1
     if facing == "Right":
         sensor_square = create_square(RED, playerx + square_size, playery - jump, square_size, square_size / 2)
