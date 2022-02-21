@@ -1,0 +1,74 @@
+
+# Player death messages
+death_debug = "Player was debug killed"
+death_melee = "Player was defeated"
+death_arrow = "Player was shot"
+death_banana = "Player was killed by an inverted banana"
+death_generic = "Player died"
+death_test = "Player was testing"
+death_poison = "Player died of poisoning"
+
+# Death Screens
+death_game_end = "Game Over!"
+death_exit = "Press enter to exit"
+
+# Game
+game_score = "Score: "
+
+# Controls
+control_wasd = "WASD to Move"
+control_spacebar = "Spacebar to jump"
+control_esc = "ESC to exit"
+control_f_key = "F to use items"
+control_right_click = "Right click to drop"
+control_q_e_key = "Q and E for to select items"
+control_r_key = "R to invert map"
+control_debug_k_key = "K to stop living"
+
+# NPC Names
+scientist_name = "Scientist"
+
+# Dialog Messages
+
+scientist_dialog_generic = "Hello User!"
+scientist_dialog_sword = "You can use a sword to defend yourself"
+scientist_dialog_hammer = "Unfortunatly, you can't do anything with hammers yet."
+scientist_dialog_bow = "You can shoot things with a bow"
+scientist_dialog_axe = "You can use that toothbr- I mean axe to cut down trees"
+scientist_dialog_banana_1 = "Is... is.. that.. A BANANA!?"
+scientist_dialog_banana_2 = "AAAAAHHHH!"
+scientist_dialog_invbanana_1 = "?!ANANAB A ..taht ..si ...sI"
+scientist_dialog_invbanana_2 = "!HHHHAAAAA"
+
+# Debug
+debug_inventory_text = "Inventory Data"
+debug_inventory_slot = "Inv_Slot: "
+debug_inventory_hammer = "Hammer Slot: "
+debug_inventory_sword = "Sword Slot: "
+debug_inventory_axe = "Axe Slot: "
+debug_inventory_select = "Held Item: "
+
+debug_player_text = "Player Data"
+debug_player_controls = "Controls Status: "
+debug_player_rotation = "Player Rotation: "
+debug_player_movement = "Player Movement: "
+debug_player_damaged = "Damaged: "
+
+debug_dialog_text = "Dialog Internals"
+
+debug_world_text = "World Data"
+debug_world_mapid = "World ID: "
+debug_world_itemid = "Item World ID: "
+debug_world_tree_destroyed = "Trees Destroyed: "
+debug_world_invtree_destroyed = "InvTrees Destroyed: "
+debug_world_tree_pos = "Tree Positions: "
+debug_world_invtree_pos = "InvTree Positions: "
+debug_world_arrow = "Arrow Data: "
+debug_world_arrow_amount = "Arrow Amount: "
+debug_enter = "Entered"
+
+# Error messages
+error_error = "ERROR: "
+error_rotation = "PLAYER_ROTATION_INVALID"
+error_pos = "PLAYER_POS_OUT_OF_RANGE"
+error_inv = "INVALID_INV_SLOT"

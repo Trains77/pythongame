@@ -8,6 +8,7 @@ from pygame.locals import *
 pygame.init()
 import time
 from shared import *
+from lang import *
 from colored import fore, back, style
 import math
 import random
