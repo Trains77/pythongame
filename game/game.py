@@ -379,6 +379,20 @@ def arrow_proc():
         arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
         if pygame.Rect.colliderect(arrow, player_square) == True:
             healths = healths - 1
+            del arrow_positions[g]
+            arrows_amount = arrows_amount - 1
+        if arrow_positions[i][1] >= 500:
+            del arrow_positions[g]
+            arrows_amount = arrows_amount - 1
+        elif arrow_positions[i][1] <= 0:
+            del arrow_positions[g]
+            arrows_amount = arrows_amount - 1
+        elif arrow_positions[i][0] >= 500:
+            del arrow_positions[g]
+            arrows_amount = arrows_amount - 1
+        elif arrow_positions[i][0] <= 0:
+            del arrow_positions[g]
+            arrows_amount = arrows_amount - 1
         for i in range(enemy_count):
             if pygame.Rect.colliderect(arrow,enemy_squares[i]):
                 enemy_status[i][0] = 0
