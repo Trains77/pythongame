@@ -4,20 +4,23 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, math, random
 pygame.init()
 
+
 # Game Settings
-language = "en_us"
-GameName = "Another Python Game" # The name of the game
-song = 'Audio/Music/music1.wav' # Path to music file
-spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
+language = "en_us" # Currently supported languages: en_us 
 enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
-Inv_Slot = 0 # Default inventory slot
 enable_program = True # Enables or Disables the program
 show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
 enable_debug = True # Enable debug mode
+
+
+
+
+## Modifying settings beyond this point could cause issues, be careful!
+
 
 # Player data
 moved = False # Wether or not the player has moved
@@ -55,6 +58,10 @@ system_recommends = "Linux" # The system(s) that the script is verified to work 
 version = "0.10.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
 appended = False # Used for setting up variables
+GameName = "Another Python Game" # The name of the game
+song = 'Audio/Music/music1.wav' # Path to music file
+spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
+Inv_Slot = 0 # Default inventory slot
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
