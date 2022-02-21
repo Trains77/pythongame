@@ -379,7 +379,7 @@ def arrow_proc():
     healths = health
     arrow_positions = arrows_positions
     arrows_amount = arrow_amount
-    for i in range(arrow_amount):
+    for i in range(arrows_amount):
         g = i
         if arrow_positions[i][2] == "Right":
             arrow_positions[i][0] = arrow_positions[i][0] + 10
@@ -579,7 +579,7 @@ while not done:
                     if nextdialog == True:
                         nextdialog2 = True
                     if enable_debug == True:
-                        print("Entered")
+                        print(debug_enter)
                     nextdialog = True
                 if event.key == pygame.K_f:
                     detector_square, item_pos[4], item_pos[5], item_world_id, health, score, arrows_positions, arrow_amount = trigger_use()
@@ -654,7 +654,7 @@ while not done:
             elif facing == "Down":
                 image_display(screen, characters_path + "Player/playerdown.png", [playerx,playery - jump])
             else:
-                print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_ROTATION_INVALID" + style.RESET)
+                print(fore.WHITE + back.RED + style.BOLD + error_error + error_rotation + style.RESET)
                 done = True
         if mapid == 0:
             if scientist_leaving == True:
@@ -696,23 +696,23 @@ while not done:
         if show_controls == True:
             if disable_controls == False:
                 Control_Font = pygame.font.SysFont('A totally real font', 15)
-                Control_Text1 = Control_Font.render("WASD to Move", True, BLACK)
+                Control_Text1 = Control_Font.render(control_wasd, True, BLACK)
                 screen.blit(Control_Text1, (428, 430))
                 Control_Font = pygame.font.SysFont('A totally real font', 15)
-                Control_Text1 = Control_Font.render("Spacebar to jump", True, BLACK)
+                Control_Text1 = Control_Font.render(control_spacebar, True, BLACK)
                 screen.blit(Control_Text1, (415, 440))
-                Control_Text2 = Control_Font.render("ESC to exit", True, BLACK)
+                Control_Text2 = Control_Font.render(control_esc, True, BLACK)
                 screen.blit(Control_Text2, (445, 420))
-                Control_Text1 = Control_Font.render("F to use items", True, BLACK)
+                Control_Text1 = Control_Font.render(control_f_key, True, BLACK)
                 screen.blit(Control_Text1, (430, 450))
-                Control_Text1 = Control_Font.render("Right click to drop", True, BLACK)
+                Control_Text1 = Control_Font.render(control_right_click, True, BLACK)
                 screen.blit(Control_Text1, (410, 470))
-                Control_Text1 = Control_Font.render("Q and E for to select items", True, BLACK)
+                Control_Text1 = Control_Font.render(control_q_e_key, True, BLACK)
                 screen.blit(Control_Text1, (370, 480))
-                Control_Text1 = Control_Font.render("R to invert map", True, BLACK)
+                Control_Text1 = Control_Font.render(control_r_key, True, BLACK)
                 screen.blit(Control_Text1, (425, 460))
                 if enable_debug == True:
-                    Control_Text1 = Control_Font.render("K to stop living", True, BLACK)
+                    Control_Text1 = Control_Font.render(control_debug_k_key, True, BLACK)
                     screen.blit(Control_Text1, (425, 490))
         # Inventory Stuff
         item_pos[0][0], item_pos[0][1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], item_pos[0][0], item_pos[0][1], "hammer.png")
@@ -746,12 +746,12 @@ while not done:
             create_square(GRAY, 15, 15, 470, 470)
             deadfont = pygame.font.SysFont('A totally real font', 50)
             deadfont2 = pygame.font.SysFont('A totally real font', 30)
-            death_message = deadfont.render("Game Over!", True, RED)
+            death_message = deadfont.render(death_game_end, True, RED)
             screen.blit(death_message, (150, 60))
-            death_notice = deadfont2.render("Press enter to exit", True, RED)
+            death_notice = deadfont2.render(death_exit, True, RED)
             screen.blit(death_notice, (165, 350))
             score_font = pygame.font.SysFont('A totally real font', 25)
-            score_death_message = score_font.render("Score: " + str(score), True, BLACK)
+            score_death_message = score_font.render(game_score + str(score), True, BLACK)
             screen.blit(score_death_message, (215, 225))
             nextdialog = True
             nextdialog2 = True
@@ -766,7 +766,7 @@ while not done:
                 if SelectItem == "NaN":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "Hello User!")
+                        createdialog(scientist_name, scientist_dialog_generic)
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
@@ -776,7 +776,7 @@ while not done:
                 if SelectItem == "1":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "You can use a sword to defend yourself")
+                        createdialog(scientist_name, scientist_dialog_sword)
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
@@ -786,7 +786,7 @@ while not done:
                 if SelectItem == "0":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "Unfortunatly, you can't do anything with hammers yet.")
+                        createdialog(scientist_name, scientist_dialog_hammer)
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
@@ -796,7 +796,7 @@ while not done:
                 if SelectItem == "3":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "You can shoot things with a bow")
+                        createdialog(scientist_name, scientist_dialog_bow)
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
@@ -806,26 +806,26 @@ while not done:
                 if SelectItem == "2":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "You can use that toothbr- I mean axe to cut down trees")
+                        createdialog(scientist_name, scientist_dialog_axe)
                         create_notice(200, 200)
                     if nextdialog == True:
                         disable_controls = False
                 if SelectItem == "4":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "Is... is.. that.. A BANANA!?")
+                        createdialog(scientist_name, scientist_dialog_banana_1)
                     if nextdialog == True:
                         scientist_leaving = scientist_leaving = True
-                        createdialog("Scientist", "AAAAAHHHH!")
+                        createdialog(scientist_name, scientist_dialog_banana_2)
                         disable_controls = False
                         create_notice(info_pos[0], info_pos[1])
                 if SelectItem == "5":
                     if nextdialog == False:
                         disable_controls = True
-                        createdialog("Scientist", "?!ANANAB A ..taht ..si ...sI")
+                        createdialog(scientist_name, scientist_dialog_invbanana_1)
                     if nextdialog == True:
                         scientist_leaving = scientist_leaving = True
-                        createdialog("Scientist", "!HHHHAAAAA")
+                        createdialog(scientist_name, scientist_dialog_invbanana_2)
                         disable_controls = False
                         create_notice(info_pos[0], info_pos[1])
         if scientist_leaving == True:
@@ -842,33 +842,33 @@ while not done:
 
         # Debugging stuff
         if enable_debug == True:
-            print("Inventory Data")
-            print("Inv_Slot: " + str(Inv_Slot))
-            print("Hammer Slot: " + str(hammer_slot[0]))
-            print("Sword Slot: " + str(sword_slot[0]))
-            print("Axe Slot: " + str(axe_slot[0]))
-            print("Held Item: " + SelectItem)
+            print(debug_inventory_text)
+            print(debug_inventory_slot + str(Inv_Slot))
+            # print(debug_inventory_hammer + str(hammer_slot[0]))
+            # print(debug_inventory_sword + str(sword_slot[0]))
+            # print(debug_inventory_axe + str(axe_slot[0]))
+            print(debug_inventory_select + SelectItem)
             print()
-            print("Player Data")
-            print("Controls Status: " + str(disable_controls))
-            print("Player Rotation: " + facing)
-            print("Player Movement: " + str(player_movement))
-            print("Damaged: " + last_damage)
+            print(debug_player_text)
+            print(debug_player_controls + str(disable_controls))
+            print(debug_player_rotation + facing)
+            print(debug_player_movement + str(player_movement))
+            print(debug_player_damaged + last_damage)
             print()
-            print("Dialog Internals")
+            print(debug_dialog_text)
             print(nextdialog)
             print(nextdialog2)
             print(nextdialog3)
             print(nextdialog4)
             print()
-            print("World Data")
-            print("World ID: " + str(mapid))
-            print("Item World ID: " + str(item_world_id))
-            print("Trees Destroyed: " + str(trees_destroyed))
-            print("InvTrees Destroyed: " + str(inv_trees_destroyed))
-            print("Tree Positions: " + str(tree_positions))
-            print("InvTree Positions: " + str(inv_tree_positions))
-            print("Arrow Data: " + str(arrows_positions))
+            print(debug_world_text)
+            print(debug_world_mapid + str(mapid))
+            print(debug_world_itemid + str(item_world_id))
+            print(debug_world_tree_destroyed + str(trees_destroyed))
+            print(debug_world_invtree_destroyed + str(inv_trees_destroyed))
+            print(debug_world_tree_pos + str(tree_positions))
+            print(debug_world_invtree_pos + str(inv_tree_positions))
+            print(debug_world_arrow + str(arrows_positions))
             print()
 
         # Update display
@@ -886,22 +886,22 @@ while not done:
 
         # Checks if variables are valid
         if playerx > game_border1:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error +  + style.RESET)
             done = True
         elif playery > game_border1:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
         if playerx < game_border2:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
         elif playery < game_border2:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: PLAYER_POS_OUT_OF_RANGE" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
         if Inv_Slot < INV_MIN:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error + error_inv + style.RESET)
             done = True
         if Inv_Slot > INV_MAX:
-            print(fore.WHITE + back.RED + style.BOLD + "ERROR: INVALID_INV_SLOT" + style.RESET)
+            print(fore.WHITE + back.RED + style.BOLD + error_error + error_inv + style.RESET)
             done = True
 pygame.quit()
 exit()

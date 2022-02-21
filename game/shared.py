@@ -4,6 +4,9 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, math, random
 pygame.init()
 
+# Language file
+from lang import *
+
 # Game Settings
 GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
