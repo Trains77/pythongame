@@ -54,7 +54,7 @@ def poison_effect():
     poison = poison_duration
     if health_tick == 19:
         if poison > 0:
-            healths = deal_damage(1)
+            healths = deal_damage(1, "poison")
             poison = poison - 1
     return poison, healths
 def create_notice(posx, posy):
@@ -236,11 +236,25 @@ def create_wall(xpos, ypos, width, height):
     if pygame.Rect.colliderect(item_drop_location, center):
         player_movement[4] = 0
     return center
-def deal_damage(damage_amount):
+def deal_damage(damage_amount, damage_type):
     g = health
     if dead == False:
         g = health - damage_amount
         if damage_amount > 0:
+            if damage_type == "poison":
+                last_damage = "poison"
+            elif damage_type == "arrow":
+                last_damage = "arrow"
+            elif damage_type == "melee":
+                last_damage = "melee"
+            elif damage_type == "debug":
+                last_damage = "debug"
+            elif damage_type == "banana":
+                last_damage = "banana"
+            elif damage_type == "generic":
+                last_damage = "generic"
+            else:
+                last_damage = "generic"
             playsound(1, environment_audio_path + "hurt.wav")
         elif damage_amount < 0:
             playsound(1, environment_audio_path + "heal.wav")
@@ -283,7 +297,7 @@ def trigger_use():
         inv[4] = 0
         SelectedItem = "NaN"
         item_id_thing[4] = 0
-        healths = deal_damage(-2)
+        healths = deal_damage(-2, "banana")
         scores = score + 5
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
@@ -291,7 +305,7 @@ def trigger_use():
         inv[5] = 0
         SelectedItem = "NaN"
         item_id_thing[5] = 1
-        healths = deal_damage(2)
+        healths = deal_damage(2, "banana")
         scores = score + 1
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount
 def render_enemy(map,enemyID,speeds,type):
@@ -306,7 +320,7 @@ def render_enemy(map,enemyID,speeds,type):
             if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
                 if type == 0:
                     if health_tick == 19:
-                        healths = deal_damage(1)
+                        healths = deal_damage(1, "melee")
                 elif type == 1:
                     if health_tick == 19:
                         poisons = poisons + 1
@@ -556,7 +570,7 @@ while not done:
                 if event.key == pygame.K_k:
                     if disable_controls == False:
                         if enable_debug == True:
-                            health = deal_damage(999999)
+                            health = deal_damage(999999, "debug")
                 if event.key == pygame.K_z:
                     if nextdialog3 == True:
                         nextdialog4 = True
@@ -835,15 +849,11 @@ while not done:
             print("Axe Slot: " + str(axe_slot[0]))
             print("Held Item: " + SelectItem)
             print()
-            print("Tree Data")
-            print("Trees Destroyed: " + str(trees_destroyed))
-            print("Tree Positions: " + str(tree_positions))
-            print("Banana: " + str(True))
-            print()
             print("Player Data")
             print("Controls Status: " + str(disable_controls))
             print("Player Rotation: " + facing)
             print("Player Movement: " + str(player_movement))
+            print("Damaged: " + last_damage)
             print()
             print("Dialog Internals")
             print(nextdialog)
@@ -854,6 +864,11 @@ while not done:
             print("World Data")
             print("World ID: " + str(mapid))
             print("Item World ID: " + str(item_world_id))
+            print("Trees Destroyed: " + str(trees_destroyed))
+            print("InvTrees Destroyed: " + str(inv_trees_destroyed))
+            print("Tree Positions: " + str(tree_positions))
+            print("InvTree Positions: " + str(inv_tree_positions))
+            print("Arrow Data: " + str(arrows_positions))
             print()
 
         # Update display

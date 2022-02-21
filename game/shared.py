@@ -16,7 +16,7 @@ show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = False # Enable debug mode
+enable_debug = True # Enable debug mode
 
 # Player data
 moved = False # Wether or not the player has moved
@@ -120,6 +120,7 @@ player_movement = [1, 1, 1, 1, 1] # left right down up item
 score = 0 # Player starting score
 velocityY = 0 # Player Y Velocity
 jump = 0 # Player jump
+last_damage = "generic" # Last type of damage received
 
 # Internal Tree Data
 amount_of_trees = 13 # How many trees in Map 0 to spawn
