@@ -381,37 +381,39 @@ def arrow_proc():
     arrows_amount = arrow_amount
     for i in range(arrows_amount):
         g = i
-        if arrow_positions[i][2] == "Right":
-            arrow_positions[i][0] = arrow_positions[i][0] + 10
-        elif arrow_positions[i][2] == "Left":
-            arrow_positions[i][0] = arrow_positions[i][0] - 10
-        elif arrow_positions[i][2] == "Up":
-            arrow_positions[i][1] = arrow_positions[i][1] - 10
-        elif arrow_positions[i][2] == "Down":
-            arrow_positions[i][1] = arrow_positions[i][1] + 10
         #
-        arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
-        if pygame.Rect.colliderect(arrow, player_square) == True:
-            healths = healths - 1
-            del arrow_positions[g]
-            arrows_amount = arrows_amount - 1
-        if arrow_positions[i][1] >= 500:
-            del arrow_positions[g]
-            arrows_amount = arrows_amount - 1
-        elif arrow_positions[i][1] <= 0:
-            del arrow_positions[g]
-            arrows_amount = arrows_amount - 1
-        elif arrow_positions[i][0] >= 500:
-            del arrow_positions[g]
-            arrows_amount = arrows_amount - 1
-        elif arrow_positions[i][0] <= 0:
-            del arrow_positions[g]
-            arrows_amount = arrows_amount - 1
-        for i in range(enemy_count):
-            if pygame.Rect.colliderect(arrow,enemy_squares[i]):
-                enemy_status[i][0] = 0
+        if len(arrow_positions) > i:
+            arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
+            if pygame.Rect.colliderect(arrow, player_square) == True:
+                healths = healths - 1
                 del arrow_positions[g]
                 arrows_amount = arrows_amount - 1
+            elif arrow_positions[i][1] >= 500:
+                del arrow_positions[g]
+                arrows_amount = arrows_amount - 1
+            elif arrow_positions[i][1] <= 0:
+                del arrow_positions[g]
+                arrows_amount = arrows_amount - 1
+            elif arrow_positions[i][0] >= 500:
+                del arrow_positions[g]
+                arrows_amount = arrows_amount - 1
+            elif arrow_positions[i][0] <= 0:
+                del arrow_positions[g]
+                arrows_amount = arrows_amount - 1
+            else:
+                if arrow_positions[i][2] == "Right":
+                    arrow_positions[i][0] = arrow_positions[i][0] + 10
+                elif arrow_positions[i][2] == "Left":
+                    arrow_positions[i][0] = arrow_positions[i][0] - 10
+                elif arrow_positions[i][2] == "Up":
+                    arrow_positions[i][1] = arrow_positions[i][1] - 10
+                elif arrow_positions[i][2] == "Down":
+                    arrow_positions[i][1] = arrow_positions[i][1] + 10
+            for i in range(enemy_count):
+                if pygame.Rect.colliderect(arrow,enemy_squares[i]):
+                    enemy_status[i][0] = 0
+                    del arrow_positions[g]
+                    arrows_amount = arrows_amount - 1
     return healths, enemy_statuss, arrow_positions, arrows_amount
 # Play game music
 if enable_music == True:
@@ -844,9 +846,6 @@ while not done:
         if enable_debug == True:
             print(debug_inventory_text)
             print(debug_inventory_slot + str(Inv_Slot))
-            # print(debug_inventory_hammer + str(hammer_slot[0]))
-            # print(debug_inventory_sword + str(sword_slot[0]))
-            # print(debug_inventory_axe + str(axe_slot[0]))
             print(debug_inventory_select + SelectItem)
             print()
             print(debug_player_text)
@@ -869,6 +868,7 @@ while not done:
             print(debug_world_tree_pos + str(tree_positions))
             print(debug_world_invtree_pos + str(inv_tree_positions))
             print(debug_world_arrow + str(arrows_positions))
+            print(debug_world_arrow_amount + str(arrow_amount))
             print()
 
         # Update display
