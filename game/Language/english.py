@@ -8,12 +8,22 @@ death_generic = "Player died"
 death_test = "Player was testing"
 death_poison = "Player died of poisoning"
 
+# Item Names
+item_hammer = "Hammer"
+item_axe = "Axe"
+item_bow = "Bow"
+item_banana = "Banana"
+item_ananab = "ananaB"
+item_sword = "Sword"
+item_unknown = "Unknown Item"
+
 # Death Screens
 death_game_end = "Game Over!"
 death_exit = "Press enter to exit"
 
 # Game
 game_score = "Score: "
+game_healthbar = "Health: "
 
 # Controls
 control_wasd = "WASD to Move"
@@ -24,6 +34,7 @@ control_right_click = "Right click to drop"
 control_q_e_key = "Q and E for to select items"
 control_r_key = "R to invert map"
 control_debug_k_key = "K to stop living"
+dialog_continue = "Press 'z' to continue"
 
 # NPC Names
 scientist_name = "Scientist"

@@ -46,7 +46,7 @@ def createdialog(speaker, text):
     dialog_box = pygame.draw.rect(screen, dialog_color, [10,350,480,140])
     img1 = font1.render(speaker + ":", True, BLACK)
     img2 = font1.render(text, True, BLACK)
-    img3 = font1.render("Press 'z' to continue", True, BLACK)
+    img3 = font1.render(dialog_continue, True, BLACK)
     screen.blit(img1, (15, 360))
     screen.blit(img2, (30, 390))
     screen.blit(img3, (355, 470))
@@ -90,7 +90,7 @@ def health_bar():
                 health_color = RED
     if health_ticks == 20:
         health_ticks = 0
-    health_txt = font1.render("Health: " + str(health) + "/" + str(max_health), True, BLACK)
+    health_txt = font1.render(game_healthbar + str(health) + "/" + str(max_health), True, BLACK)
     screen.blit(health_txt, (20, 470))
     if dead == False:
         create_square(GRAY, 9, 484, 6 * max_health + 1, 12)
@@ -122,25 +122,25 @@ def render_item_inv(item_texture, InvID, ItemSlot, ItemSlotPos):
             image_display(screen, inventory_path + item_texture, [ItemSlotPos,20])
         if ItemSlot == Inv_Slot:
             if item_texture == "axe.png":
-                item_name = font1.render("Axe", True, BLACK)
+                item_name = font1.render(item_axe, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
             elif item_texture == "hammer.png":
-                item_name = font1.render("Hammer", True, BLACK)
+                item_name = font1.render(item_hammer, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos - 10, 70]))
             elif item_texture == "banana.png":
-                item_name = font1.render("Banana", True, BLACK)
+                item_name = font1.render(item_banana, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos - 10, 70]))
             elif item_texture == "bow.png":
-                item_name = font1.render("Bow", True, BLACK)
+                item_name = font1.render(item_bow, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
             elif item_texture == "sword.png":
-                item_name = font1.render("Sword", True, BLACK)
+                item_name = font1.render(item_sword, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos - 5, 70]))
             elif item_texture == "ananab.png":
-                item_name = font1.render("ananaB", True, WHITE)
+                item_name = font1.render(item_ananab, True, WHITE)
                 screen.blit(item_name, ([ItemSlotPos - 10, 70]))
             else:
-                item_name = font1.render("Unknown Item", True, BLACK)
+                item_name = font1.render(item_unknown, True, BLACK)
                 screen.blit(item_name, ([ItemSlotPos, 70]))
 
 def item_render(ItemSlotID, ItemID, posx, posy, texture):

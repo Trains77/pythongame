@@ -6,7 +6,7 @@ pygame.init()
 
 
 # Game Settings
-language = "en_us" # Currently supported languages: en_us 
+language = "english" # Currently supported languages: english
 enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 enable_program = True # Enables or Disables the program
@@ -14,8 +14,8 @@ show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = True # Enable debug mode
-
+enable_debug = False # Enable debug mode
+fallback_lang_only = False # Only use fallback language file
 
 
 
