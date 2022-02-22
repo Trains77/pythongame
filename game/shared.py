@@ -15,7 +15,7 @@ show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = False # Enable debug mode
+enable_debug = True # Enable debug mode
 fallback_lang_only = False # Only use fallback language file
 
 

@@ -264,6 +264,7 @@ def deal_damage(damage_amount, damage_type):
         elif damage_amount < 0:
             playsound(1, environment_audio_path + "heal.wav")
     return g, last_damages
+
 def trigger_use():
     last_damages = last_damage
     arrow_positions = arrows_positions
@@ -314,6 +315,7 @@ def trigger_use():
         scores = score + 1
     return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount, last_damages
 def render_enemy(map,enemyID,speeds,type):
+    last_damages = last_damage
     healths = health
     scores = score
     enemy_statuss = enemy_status
@@ -325,7 +327,7 @@ def render_enemy(map,enemyID,speeds,type):
             if pygame.Rect.colliderect(player_square, enemy_squares[enemyID]) == 1:
                 if type == 0:
                     if health_tick == 19:
-                        healths, last_damage = deal_damage(1, "melee")
+                        healths, last_damages = deal_damage(1, "melee")
                 elif type == 1:
                     if health_tick == 19:
                         poisons = poisons + 1
@@ -377,8 +379,9 @@ def render_enemy(map,enemyID,speeds,type):
                 else:
                     if playerx == enemyPositions[enemyID][0]:
                         image_display(screen, characters_path + "Enemy/poison_enemy_down.png", [enemyPosition[enemyID][0],enemyPosition[enemyID][1]])
-    return enemyPosition, healths, enemy_statuss, scores, poisons
+    return enemyPosition, healths, enemy_statuss, scores, poisons, last_damages
 detector_square = create_square(RED, 5000, 5000, 10, 10)
+
 def arrow_proc():
     enemy_statuss = enemy_status
     healths = health
@@ -677,8 +680,8 @@ while not done:
                         image_display(screen, characters_path + "Scientist/scientist_down.png", [info_pos[0],info_pos[1]])
                     elif playery < info_pos[1]:
                         image_display(screen, characters_path + "Scientist/scientist_up.png", [info_pos[0],info_pos[1]])
-        enemyPositions, health, enemy_status, score, poison_duration = render_enemy(2,0,2,0)
-        enemypositions, health, enemy_status, score, poison_duration = render_enemy(2,1,1,1)
+        enemyPositions, health, enemy_status, score, poison_duration, last_damage = render_enemy(2,0,2,0)
+        enemypositions, health, enemy_status, score, poison_duration, last_damage = render_enemy(2,1,1,1)
         SelectItem = "NaN"
 
         # Arrows
@@ -866,16 +869,19 @@ while not done:
         # Debugging stuff
         if enable_debug == True:
             print(debug_inventory_text)
+            print(debug_inventory_list + str(inv))
             print(debug_inventory_slot + str(Inv_Slot))
             print(debug_inventory_select + SelectItem)
+            print(debug_item_pos + str(item_pos))
+            print(debug_item_worldid + str(item_world_id))
             print()
             print(debug_player_text)
             print(debug_player_controls + str(disable_controls))
             print(debug_player_rotation + facing)
             print(debug_player_movement + str(player_movement))
             print(debug_player_damaged + last_damage)
-            print(debug_player_poison + poison_duration)
-            print(debug_player_health + health)
+            print(debug_player_poison + str(poison_duration))
+            print(debug_player_health + str(health))
             print()
             print(debug_dialog_text)
             print(nextdialog)

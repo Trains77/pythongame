@@ -65,10 +65,13 @@ credits_game = "credits_game"
 # Debug
 debug_inventory_text = "debug_inventory_text"
 debug_inventory_slot = "debug_inventory_slot "
+debug_inventory_list = "debug_inventory_list"
 debug_inventory_hammer = "debug_inventory_hammer "
 debug_inventory_sword = "debug_inventory_sword "
 debug_inventory_axe = "debug_inventory_axe "
 debug_inventory_select = "debug_inventory_select "
+debug_item_pos = "debug_item_pos "
+debug_item_worldid = "debug_item_worldid"
 
 debug_player_text = "debug_player_text"
 debug_player_controls = "debug_player_controls "

@@ -67,10 +67,13 @@ credits_game = "AnotherGame "
 # Debug
 debug_inventory_text = "Inventory Data"
 debug_inventory_slot = "Inv_Slot: "
+debug_inventory_list = "Inventory: "
 debug_inventory_hammer = "Hammer Slot: "
 debug_inventory_sword = "Sword Slot: "
 debug_inventory_axe = "Axe Slot: "
 debug_inventory_select = "Held Item: "
+debug_item_pos = "Item Positions: "
+debug_item_worldid = "Item World: "
 
 debug_player_text = "Player Data"
 debug_player_controls = "Controls Status: "
