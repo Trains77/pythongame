@@ -260,6 +260,7 @@ def deal_damage(damage_amount, damage_type):
             playsound(1, environment_audio_path + "heal.wav")
     return g, last_damages
 def trigger_use():
+    last_damages = last_damage
     arrow_positions = arrows_positions
     scores = score
     bananas_pos = item_pos[4]
