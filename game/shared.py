@@ -147,5 +147,3 @@ for i in range(amount_of_trees):
 # Bow and Arrow Functions
 arrows_positions = []
 arrow_amount = 0
-
-enable_music = False
