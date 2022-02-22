@@ -299,7 +299,7 @@ def trigger_use():
         inv[4] = 0
         SelectedItem = "NaN"
         item_id_thing[4] = 0
-        healths, last_damage = deal_damage(-2, "banana")
+        healths, last_damages = deal_damage(-2, "banana")
         scores = score + 5
     if SelectItem == "5":
         ananabs_pos = [3000, 3000]
@@ -307,9 +307,9 @@ def trigger_use():
         inv[5] = 0
         SelectedItem = "NaN"
         item_id_thing[5] = 1
-        healths, last_damage = deal_damage(2, "banana")
+        healths, last_damages = deal_damage(2, "banana")
         scores = score + 1
-    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount
+    return sensor_square, bananas_pos, ananabs_pos, item_world_id, healths, scores, arrow_positions, arrows_amount, last_damages
 def render_enemy(map,enemyID,speeds,type):
     healths = health
     scores = score
@@ -587,7 +587,7 @@ while not done:
                         print(debug_enter)
                     nextdialog = True
                 if event.key == pygame.K_f:
-                    detector_square, item_pos[4], item_pos[5], item_world_id, health, score, arrows_positions, arrow_amount = trigger_use()
+                    detector_square, item_pos[4], item_pos[5], item_world_id, health, score, arrows_positions, arrow_amount, last_damage = trigger_use()
                 for i in range(10):
                     if event.key == eval("pygame.K_" + str(i)):
                         if disable_controls == False:
@@ -776,8 +776,8 @@ while not done:
                 e = death_banana
             else:
                 e = death_test
-            death_reason = score_font.render(e, True, BLACK)
-            screen.blit(death_reason, (200, 150))
+            death_reason = score_font.render(e[0], True, BLACK)
+            screen.blit(death_reason, e[1])
         # Dialogs
         if pygame.Rect.colliderect(player_square, scientist_square) == 1:
             if jump == 0:

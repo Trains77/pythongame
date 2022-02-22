@@ -1,12 +1,12 @@
 
 # Player death messages
-death_debug = "Player was debug killed"
-death_melee = "Player was defeated"
-death_arrow = "Player was shot"
-death_banana = "Player was killed by an inverted banana"
-death_generic = "Player died"
-death_test = "Player was testing"
-death_poison = "Player died of poisoning"
+death_debug = ["Player was debug killed", (185, 150)]
+death_melee = ["Player was defeated", (188, 150)]
+death_arrow = ["Player was shot", (190, 150)]
+death_banana = ["Player was killed by an inverted banana", (150, 150)]
+death_generic = ["Player died", (200, 150)]
+death_test = ["Player was testing", (190, 150)]
+death_poison = ["Player died of poisoning", (178, 150)]
 
 # Item Names
 item_hammer = "Hammer"

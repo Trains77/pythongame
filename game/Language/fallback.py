@@ -1,12 +1,12 @@
 
 # Player death messages
-death_debug = "death_debug"
-death_melee = "death_melee"
-death_arrow = "death_arrow"
-death_banana = "death_banana"
-death_generic = "death_generic"
-death_test = "death_test"
-death_poison = "death_poison"
+death_debug = ["death_debug", (150, 150)]
+death_melee = ["death_melee", (150, 150)]
+death_arrow = ["death_arrow", (150, 150)]
+death_banana = ["death_banana", (150, 150)]
+death_generic = ["death_generic", (150, 150)]
+death_test = ["death_test", (150, 150)]
+death_poison = ["death_poison", (150, 150)]
 
 # Item Names
 item_hammer = "item_hammer"
