@@ -1,3 +1,4 @@
+# English version
 
 # Player death messages
 death_debug = ["Player was debug killed", (185, 150)]

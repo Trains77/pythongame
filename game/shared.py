@@ -4,6 +4,7 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, math, random
 pygame.init()
 
+# shared.py is meant to be a single place for me to store and modify various variables used by script, as well as storing some settings
 
 # Game Settings
 language = "english" # Currently supported languages: english

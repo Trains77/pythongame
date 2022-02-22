@@ -1,3 +1,4 @@
+# Fallback if loading language file fails
 
 # Player death messages
 death_debug = ["death_debug", (150, 150)]
