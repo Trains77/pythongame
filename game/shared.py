@@ -9,14 +9,14 @@ pygame.init()
 
 # Game Settings
 language = "english" # Currently supported languages: english
-enable_music = True # Whether or not music is enabled
+enable_music = False # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 enable_program = True # Enables or Disables the program
 show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = True # Enable debug mode
+enable_debug = False # Enable debug mode
 fallback_lang_only = False # Only use fallback language file
 
 
@@ -57,7 +57,7 @@ minimum_slot = 80 # The default coordinates of slot 0
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.10.0" # Game version
+version = "0.11.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
 appended = False # Used for setting up variables
 GameName = "Another Python Game" # The name of the game
@@ -147,3 +147,5 @@ for i in range(amount_of_trees):
 # Bow and Arrow Functions
 arrows_positions = []
 arrow_amount = 0
+
+enable_music = False
