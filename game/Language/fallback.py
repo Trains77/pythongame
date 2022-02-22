@@ -25,6 +25,9 @@ death_exit = "death_exit"
 # Game
 game_score = "game_score "
 game_healthbar = "game_healthbar "
+game_disabled = "game_disabled"
+game_unsupported_1 = "game_unsuported_1"
+game_unsupported_2 = "game_unsuported_2"
 
 # Controls
 control_wasd = "control_wasd"
@@ -65,8 +68,8 @@ debug_player_controls = "debug_player_controls "
 debug_player_rotation = "debug_player_rotation "
 debug_player_movement = "debug_player_movement "
 debug_player_damaged = "debug_player_damaged "
-
-debug_dialog_text = "debug_dialog_text"
+debug_player_poison = "debug_player_poison"
+debug_player_health = "debug_player_health"
 
 debug_world_text = "debug_world_text"
 debug_world_mapid = "debug_world_mapid "
@@ -77,10 +80,15 @@ debug_world_tree_pos = "debug_world_tree_pos "
 debug_world_invtree_pos = "debug_world_invtree_pos "
 debug_world_arrow = "debug_world_arrow "
 debug_world_arrow_amount = "debug_world_arrow_amount "
+
+debug_quit = "debug_quit"
 debug_enter = "debug_enter"
+debug_dialog_text = "debug_dialog_text"
+debug_item_get = "Item Get!"
 
 # Error messages
 error_error = "error_error "
 error_rotation = "error_rotation"
 error_pos = "error_pos"
 error_inv = "error_inv"
+error_disabled = "error_disabled"

@@ -9,7 +9,7 @@ pygame.init()
 
 # Game Settings
 language = "english" # Currently supported languages: english
-enable_music = False # Whether or not music is enabled
+enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
 enable_program = True # Enables or Disables the program
 show_controls = True # Display controls on screen

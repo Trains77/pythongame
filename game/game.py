@@ -21,9 +21,9 @@ print("Program by Trains77")
 print()
 print("Artwork by Trains77")
 print()
-#print("Background Music: https://www.FesliyanStudios.com and")
-#print("                  https://freemusicarchive.org/music/defrini")
-#print()
+print("Background Music: https://www.FesliyanStudios.com and")
+print("                  https://freemusicarchive.org/music/defrini")
+print()
 print("Made with Atom Editor")
 print()
 print("Utilizes Pygame")
@@ -33,13 +33,13 @@ print(style.RESET)
 
 # System Checker
 if not platform.system() == system_recommends:
-    print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
+    print(style.BOLD + fore.RED + game_unsupported_1 + platform.system() + game_unsupported_2 + style.RESET)
 if enable_program == True:
     done = False
 elif enable_program == False:
-    print("The program has been disabled in shared.py")
+    print(game_disabled)
     print()
-    print(fore.WHITE + back.RED + style.BOLD + "ERROR: GAME_DISABLED" + style.RESET)
+    print(fore.WHITE + back.RED + style.BOLD + error_error + error_disabled + style.RESET)
     done = True
 
 # Functions
@@ -112,7 +112,7 @@ def item_detector(ItemSlotID, ItemID, item_slot, item_slot_pos, posx, posy):
                     item_slot = Inv_Slot
                     inv[ItemSlotID] = 1
                     if enable_debug == 1:
-                        print("Item Get!")
+                        print(debug_item_get)
                     playsound(1, environment_audio_path + "pickup.wav")
     return item_slot, item_slot_pos
 
@@ -544,7 +544,7 @@ while not done:
                 if event.key == pygame.K_ESCAPE:
                     done = True
                     if enable_debug == True:
-                        print("Quit")
+                        print(debug_quit)
                 if event.key == pygame.K_q:
                     if disable_controls == False:
                         if not Inv_Slot == 0:
@@ -599,7 +599,7 @@ while not done:
             if event.type == pygame.QUIT:
                 done = True
                 if enable_debug == True:
-                    print("Quit")
+                    print(debug_quit)
         # Player jumping logic
         player_movement = [1, 1, 1, 1, player_movement[4]]
         if velocityY > 0:
@@ -873,6 +873,8 @@ while not done:
             print(debug_player_rotation + facing)
             print(debug_player_movement + str(player_movement))
             print(debug_player_damaged + last_damage)
+            print(debug_player_poison + poison_duration)
+            print(debug_player_health + health)
             print()
             print(debug_dialog_text)
             print(nextdialog)

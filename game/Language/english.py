@@ -25,6 +25,9 @@ death_exit = "Press enter to exit"
 # Game
 game_score = "Score: "
 game_healthbar = "Health: "
+game_disabled = "The program has been disabled in shared.py"
+game_unsupported_1 = "Warning: Your "
+game_unsupported_2 = " system may not work with this program"
 
 # Controls
 control_wasd = "WASD to Move"
@@ -65,8 +68,8 @@ debug_player_controls = "Controls Status: "
 debug_player_rotation = "Player Rotation: "
 debug_player_movement = "Player Movement: "
 debug_player_damaged = "Damaged: "
-
-debug_dialog_text = "Dialog Internals"
+debug_player_poison = "Poison Time: "
+debug_player_health = "Health: "
 
 debug_world_text = "World Data"
 debug_world_mapid = "World ID: "
@@ -77,10 +80,15 @@ debug_world_tree_pos = "Tree Positions: "
 debug_world_invtree_pos = "InvTree Positions: "
 debug_world_arrow = "Arrow Data: "
 debug_world_arrow_amount = "Arrow Amount: "
+
+debug_dialog_text = "Dialog Internals"
+debug_quit = "Quit"
 debug_enter = "Entered"
+debug_item_get = "Item Get!"
 
 # Error messages
 error_error = "ERROR: "
 error_rotation = "PLAYER_ROTATION_INVALID"
 error_pos = "PLAYER_POS_OUT_OF_RANGE"
 error_inv = "INVALID_INV_SLOT"
+error_disabled = "GAME_DISABLED"
