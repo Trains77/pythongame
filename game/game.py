@@ -1,17 +1,14 @@
 # Script Modules
-import platform
-import colored
-import os
+import os, colored, platform, sys, pathlib, time, math, random
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from pygame.locals import *
 pygame.init()
-import time
 from shared import *
+current_path = pathlib.Path().parent.absolute()
+sys.path.insert(1, str(current_path) + '/Language')
 from lang import *
 from colored import fore, back, style
-import math
-import random
 pygame.mixer.init()
 
 # The Credits
