@@ -732,18 +732,12 @@ while not done:
         item_pos[3][0], item_pos[3][1], bow_slot[0], SelectItem, item_world_id = item_render(3, bow_slot[0], item_pos[3][0], item_pos[3][1], "bow.png")
         item_pos[4][0], item_pos[4][1], banana_slot[0], SelectItem, item_world_id = item_render(4, banana_slot[0], item_pos[4][0], item_pos[4][1], "banana.png")
         item_pos[5][0], item_pos[5][1], ananab_slot[0], SelectItem, item_world_id = item_render(5, ananab_slot[0], item_pos[5][0], item_pos[5][1], "ananab.png")
-        if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
-            render_transparent_slot(0)
-            render_transparent_slot(1)
-            render_transparent_slot(2)
-            render_transparent_slot(3)
-            render_transparent_slot(4)
-        elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
-            render_slot(0)
-            render_slot(1)
-            render_slot(2)
-            render_slot(3)
-            render_slot(4)
+
+        for i in range(INV_MAX + 1):
+            if pygame.Rect.colliderect(inventory_hitbox, player_square) == True:
+                render_transparent_slot(i)
+            elif pygame.Rect.colliderect(inventory_hitbox, player_square) == False:
+                render_slot(i)
 
         render_item_inv("hammer.png", 0, hammer_slot[0], hammer_slot[1])
         render_item_inv("sword.png", 1, sword_slot[0], sword_slot[1])
