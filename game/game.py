@@ -755,13 +755,10 @@ while not done:
         # Death Screen
         if dead == True:
             create_square(GRAY, 15, 15, 470, 470)
-            deadfont = pygame.font.SysFont('A totally real font', 50)
-            deadfont2 = pygame.font.SysFont('A totally real font', 30)
             death_message = deadfont.render(death_game_end, True, RED)
             screen.blit(death_message, (150, 60))
             death_notice = deadfont2.render(death_exit, True, RED)
             screen.blit(death_notice, (165, 350))
-            score_font = pygame.font.SysFont('A totally real font', 25)
             score_death_message = score_font.render(game_score + str(score), True, BLACK)
             screen.blit(score_death_message, (215, 225))
             nextdialog = True

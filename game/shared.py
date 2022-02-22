@@ -56,11 +56,16 @@ dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
 system_recommends = "Linux" # The system(s) that the script is verified to work with
 version = "0.11.0" # Game version
-font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
 appended = False # Used for setting up variables
 song = 'Audio/Music/music1.wav' # Path to music file
 spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
 Inv_Slot = 0 # Default inventory slot
+
+# Fonts
+score_font = pygame.font.SysFont('A totally real font', 25)
+font1 = pygame.font.SysFont('A totally real font', 20)
+deadfont = pygame.font.SysFont('A totally real font', 50)
+deadfont2 = pygame.font.SysFont('A totally real font', 30)
 
 # File paths
 inventory_path = "Textures/slot/" # Where to pull Inventory and gui textures from
