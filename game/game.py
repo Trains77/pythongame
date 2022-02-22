@@ -1,19 +1,19 @@
 # Script Modules
-import os # Disabling Pygame support prompt
-import platform # Used to check if system is compatible with the script
-import sys, pathlib # Used for importing from Language folder
-import time # For game ticking
-import math, random # For generating random numbers
+import os, platform, sys, pathlib, time, math, random
+from colored import fore, back, style
+
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame # Used to make graphical windows
-from pygame.locals import * # Import some pygame utils
+import pygame
 pygame.init()
-from shared import * # Import game variables
+
 current_path = pathlib.Path().parent.absolute()
 sys.path.insert(1, str(current_path) + '/Language')
-from lang import * # Import language text file
-from colored import fore, back, style # For Colorful text
-pygame.mixer.init() # Music to my ears
+
+from shared import *
+from lang import *
+from pygame.locals import *
+
+pygame.mixer.init()
 pygame.display.set_caption(GameName)
 
 # The Credits

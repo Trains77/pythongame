@@ -1,8 +1,7 @@
 # Modules
-import os # For disabling pygame support prompt
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide" # Hide Pygame support prompt
-import pygame # For generating some graphical elements
-import math, random # For generating random numbers
+import os, math, random
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
 pygame.init()
 
 # shared.py is meant to be a single place for me to store and modify various variables used by script, as well as storing some settings
