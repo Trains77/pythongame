@@ -28,6 +28,7 @@ game_healthbar = "Health: "
 game_disabled = "The program has been disabled in shared.py"
 game_unsupported_1 = "Warning: Your "
 game_unsupported_2 = " system may not work with this program"
+GameName = "Another Python Game"
 
 # Controls
 control_wasd = "WASD to Move"
@@ -43,7 +44,7 @@ dialog_continue = "Press 'z' to continue"
 # NPC Names
 scientist_name = "Scientist"
 
-# Dialog Messages
+# Dialog MessagesGameName = "Another Python Game" # The name of the game
 
 scientist_dialog_generic = "Hello User!"
 scientist_dialog_sword = "You can use a sword to defend yourself"
@@ -54,6 +55,14 @@ scientist_dialog_banana_1 = "Is... is.. that.. A BANANA!?"
 scientist_dialog_banana_2 = "AAAAAHHHH!"
 scientist_dialog_invbanana_1 = "?!ANANAB A ..taht ..si ...sI"
 scientist_dialog_invbanana_2 = "!HHHHAAAAA"
+
+# Credits
+credits_code = "Program by "
+credits_art = "Artwork by "
+credits_music = "Background Music: "
+credits_editor = "Made with Atom Editor"
+credits_pygame = "Utilizes Pygame"
+credits_game = "AnotherGame "
 
 # Debug
 debug_inventory_text = "Inventory Data"

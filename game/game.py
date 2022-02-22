@@ -14,21 +14,22 @@ sys.path.insert(1, str(current_path) + '/Language')
 from lang import * # Import language text file
 from colored import fore, back, style # For Colorful text
 pygame.mixer.init() # Music to my ears
+pygame.display.set_caption(GameName)
 
 # The Credits
 print(fore.BLUE)
-print("Program by Trains77")
+print(credits_code + "Trains77")
 print()
-print("Artwork by Trains77")
+print(credits_art + "Trains77")
 print()
-print("Background Music: https://www.FesliyanStudios.com and")
+print(credits_music + "https://www.FesliyanStudios.com and")
 print("                  https://freemusicarchive.org/music/defrini")
 print()
-print("Made with Atom Editor")
+print(credits_editor)
 print()
-print("Utilizes Pygame")
+print(credits_pygame)
 print()
-print("AnotherGame " + version)
+print(credits_game + version)
 print(style.RESET)
 
 # System Checker

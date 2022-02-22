@@ -28,7 +28,7 @@ game_healthbar = "game_healthbar "
 game_disabled = "game_disabled"
 game_unsupported_1 = "game_unsuported_1"
 game_unsupported_2 = "game_unsuported_2"
-
+GameName = "GameName"
 # Controls
 control_wasd = "control_wasd"
 control_spacebar = "control_spacebar"
@@ -44,7 +44,6 @@ dialog_continue = "dialog_continue"
 scientist_name = "scientist_name"
 
 # Dialog Messages
-
 scientist_dialog_generic = "scientist_dialog_generic"
 scientist_dialog_sword = "scientist_dialog_sword"
 scientist_dialog_hammer = "scientist_dialog_hammer"
@@ -54,6 +53,14 @@ scientist_dialog_banana_1 = "scientist_dialog_banana_1"
 scientist_dialog_banana_2 = "scientist_dialog_banana_2"
 scientist_dialog_invbanana_1 = "scientist_dialog_invbanana_1"
 scientist_dialog_invbanana_2 = "scientist_dialog_invbanana_2"
+
+# Credits
+credits_code = "credits_code "
+credits_art = "credits_art "
+credits_music = "credits_music "
+credits_editor = "credits_editor"
+credits_pygame = "credits_pygame"
+credits_game = "credits_game"
 
 # Debug
 debug_inventory_text = "debug_inventory_text"

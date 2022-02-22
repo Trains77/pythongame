@@ -60,7 +60,6 @@ system_recommends = "Linux" # The system(s) that the script is verified to work 
 version = "0.11.0" # Game version
 font1 = pygame.font.SysFont('A totally real font', 20) # Default font for text rendering
 appended = False # Used for setting up variables
-GameName = "Another Python Game" # The name of the game
 song = 'Audio/Music/music1.wav' # Path to music file
 spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
 Inv_Slot = 0 # Default inventory slot
@@ -96,7 +95,6 @@ enemy_status = [[1], [1]] # some enamy statuses
 
 # Display Data
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption(GameName)
 pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 offscreen = pygame.draw.rect(screen, block_color, [1000,1000,square_size + 10,square_size + 10])
