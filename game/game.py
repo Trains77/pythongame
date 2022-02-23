@@ -477,12 +477,18 @@ while not done:
                 if event.key == pygame.K_b:
                     if os.path.exists("save.py"):
                         os.remove("save.py")
+                        playsound(1, environment_audio_path + "save_destroy.wav")
+                    else:
+                        playsound(1, environment_audio_path + "save_fail.wav")
                 if event.key == pygame.K_v:
                     if dead == False:
                         if os.path.exists("save.py"):
                             os.remove("save.py")
                         with open("save.py", "a") as savefile:
                             savefile.writelines(["# Save Data \n", "health = ", str(health), "\nhealth_tick = ", str(health_tick), "\nmoved = ", str(moved), "\ndisable_controls = ", str(disable_controls), "\nmax_health = ", str(max_health), "\npoison_duration = ", str(poison_duration), "\nfacing = \"", facing, "\"", "\nmapid = ", str(mapid), "\nappended = ", str(appended), "\nInv_Slot = ", str(Inv_Slot), "\nwritten_save = True", "\nitem_pos = ", str(item_pos), "\ninfo_pos = ", str(info_pos), "\nenemyPositions = ", str(enemyPositions), "\nenemy_squares = ", str(enemy_squares), "\nenemy_count = ", str(enemy_count), "\nenemy_status = ", str(enemy_status), "\nscientist_leaving = ", str(scientist_leaving), "\nnextdialog = ", str(nextdialog), "\nnextdialog2 = ", str(nextdialog2), "\nnextdialog3 = ", str(nextdialog3), "\nnextdialog4 = ", str(nextdialog4), "\nSelectItem = \"", SelectItem, "\"", "\ninv = ", str(inv), "\nbow_slot = ", str(bow_slot), "\naxe_slot = ", str(axe_slot), "\nbow_slot = ", str(bow_slot), "\nsword_slot = ", str(sword_slot), "\nbanana_slot = ", str(banana_slot), "\nananab_slot = ", str(ananab_slot), "\nhammer_slot = ", str(hammer_slot), "\nitem_world_id = ", str(item_world_id), "\ndead = ", str(dead), "\nplayerx = ", str(playerx), "\nplayery = ", str(playery), "\nplayer_movement = ", str(player_movement), "\nscore = ", str(score), "\nvelocityY = ", str(velocityY), "\njump = ", str(jump), "\nlast_damage = \"", last_damage, "\"", "\namount_of_trees = ", str(amount_of_trees), "\ntree_positions = ", str(tree_positions), "\ninv_tree_positions = ", str(inv_tree_positions), "\ntrees_destroyed = ", str(trees_destroyed), "\ninv_trees_destroyed = ", str(inv_trees_destroyed), "\narrows_positions = ", str(arrows_positions), "\narrow_amount = ", str(arrow_amount), "\n" ])
+                            playsound(1, environment_audio_path + "save_pass.wav")
+                    else:
+                        playsound(1, environment_audio_path + "save_fail.wav")
                 if event.key == pygame.K_w:
                     if disable_controls == False:
                         if player_movement[3] == 1:
