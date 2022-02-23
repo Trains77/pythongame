@@ -735,6 +735,7 @@ while not done:
                 if enable_debug == True:
                     Control_Text1 = Control_Font.render(control_debug_k_key, True, BLACK)
                     screen.blit(Control_Text1, (425, 490))
+
         # Inventory Stuff
         item_pos[0][0], item_pos[0][1], hammer_slot[0], SelectItem, item_world_id = item_render(0, hammer_slot[0], item_pos[0][0], item_pos[0][1], "hammer.png")
         item_pos[1][0], item_pos[1][1], sword_slot[0], SelectItem, item_world_id = item_render(1, sword_slot[0], item_pos[1][0], item_pos[1][1], "sword.png")
@@ -777,7 +778,7 @@ while not done:
                 e = death_debug
             elif last_damage == "melee":
                 e = death_melee
-            elif last_dmage == "arrow":
+            elif last_damage == "arrow":
                 e = death_arrow
             elif last_damage == "banana":
                 e = death_banana
