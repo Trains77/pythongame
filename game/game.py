@@ -278,7 +278,7 @@ def trigger_use():
     item_id_thing = item_world_id
     healths = health
     if SelectItem == "3":
-        playsound(1, environment_audio_path + "shoot.wav")
+        playsound(1, environment_audio_path + "bow_use.wav")
         if facing == "Right":
             arrow_positions.append([playerx + 23, playery + 5, facing])
             arrows_amount = arrows_amount + 1
