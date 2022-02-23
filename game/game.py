@@ -390,14 +390,14 @@ def arrow_proc():
     healths = health
     arrow_positions = arrows_positions
     arrows_amount = arrow_amount
+    last_damaged = last_damage
     if not arrows_amount <= 0:
         for i in range(arrows_amount):
             g = i
-            #
             if len(arrow_positions) > i:
                 arrow = pygame.draw.rect(screen, DARK_GRAY, [arrow_positions[i][0], arrow_positions[i][1], 5, 5])
                 if pygame.Rect.colliderect(arrow, player_square) == True:
-                    healths, last_damage = deal_damage(1, "arrow")
+                    healths, last_damaged = deal_damage(1, "arrow")
                     del arrow_positions[g]
                     arrows_amount = arrows_amount - 1
                 elif arrow_positions[i][1] >= 500:
@@ -426,7 +426,7 @@ def arrow_proc():
                             enemy_status[i][0] = 0
                             del arrow_positions[g]
                             arrows_amount = arrows_amount - 1
-    return healths, enemy_statuss, arrow_positions, arrows_amount
+    return healths, enemy_statuss, arrow_positions, arrows_amount, last_damaged
 # Play game music
 if enable_music == True:
     playsound(0, song)
@@ -703,7 +703,7 @@ while not done:
         SelectItem = "NaN"
 
         # Arrows
-        health, enemy_status, arrows_positions, arrow_amount = arrow_proc()
+        health, enemy_status, arrows_positions, arrow_amount, last_damage = arrow_proc()
 
         # Trees
         for i in range(amount_of_trees):
