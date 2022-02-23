@@ -15,7 +15,7 @@ show_controls = True # Display controls on screen
 
 # Debugging settings
 disable_background = False # Wether the game should load the background image
-enable_debug = True # Enable debug mode
+enable_debug = False # Enable debug mode
 
 
 
@@ -60,6 +60,7 @@ appended = False # Used for setting up variables
 song = 'Audio/Music/music1.wav' # Path to music file
 spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
 Inv_Slot = 0 # Default inventory slot
+errored = False
 
 # Fonts
 score_font = pygame.font.SysFont('A totally real font', 25)

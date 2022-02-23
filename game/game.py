@@ -1,7 +1,7 @@
 # Script Modules
 import os, platform, sys, pathlib, time, math, random
 from colored import fore, back, style
-
+from pathlib import Path
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 pygame.init()
@@ -9,7 +9,10 @@ pygame.init()
 current_path = pathlib.Path().parent.absolute()
 sys.path.insert(1, str(current_path) + '/Language')
 
+path = Path.cwd() / 'save.py'
 from shared import *
+if path.is_file():
+    from save import *
 from lang import *
 from pygame.locals import *
 
@@ -471,6 +474,11 @@ while not done:
                 if event.key == pygame.K_RETURN:
                     if dead == True:
                         done = True
+                if event.key == pygame.K_v:
+                    if os.path.exists("save.py"):
+                        os.remove("save.py")
+                    with open("save.py", "a") as savefile:
+                        savefile.writelines(["# Save Data \n", "health = ", str(health), "\nhealth_tick = ", str(health_tick), "\nmoved = ", str(moved), "\ndisable_controls = ", str(disable_controls), "\nmax_health = ", str(max_health), "\npoison_duration = ", str(poison_duration), "\nfacing = \"", facing, "\"", "\nmapid = ", str(mapid), "\nappended = ", str(appended), "\nInv_Slot = ", str(Inv_Slot), "\nwritten_save = True", "\nitem_pos = ", str(item_pos), "\ninfo_pos = ", str(info_pos), "\nenemyPositions = ", str(enemyPositions), "\nenemy_squares = ", str(enemy_squares), "\nenemy_count = ", str(enemy_count), "\nenemy_status = ", str(enemy_status), "\nscientist_leaving = ", str(scientist_leaving), "\nnextdialog = ", str(nextdialog), "\nnextdialog2 = ", str(nextdialog2), "\nnextdialog3 = ", str(nextdialog3), "\nnextdialog4 = ", str(nextdialog4), "\nSelectItem = \"", SelectItem, "\"", "\ninv = ", str(inv), "\nbow_slot = ", str(bow_slot), "\naxe_slot = ", str(axe_slot), "\nbow_slot = ", str(bow_slot), "\nsword_slot = ", str(sword_slot), "\nbanana_slot = ", str(banana_slot), "\nananab_slot = ", str(ananab_slot), "\nhammer_slot = ", str(hammer_slot), "\nitem_world_id = ", str(item_world_id), "\ndead = ", str(dead), "\nplayerx = ", str(playerx), "\nplayery = ", str(playery), "\nplayer_movement = ", str(player_movement), "\nscore = ", str(score), "\nvelocityY = ", str(velocityY), "\njump = ", str(jump), "\nlast_damage = \"", last_damage, "\"", "\namount_of_trees = ", str(amount_of_trees), "\ntree_positions = ", str(tree_positions), "\ninv_tree_positions = ", str(inv_tree_positions), "\ntrees_destroyed = ", str(trees_destroyed), "\ninv_trees_destroyed = ", str(inv_trees_destroyed), "\narrows_positions = ", str(arrows_positions), "\narrow_amount = ", str(arrow_amount), "\n" ])
                 if event.key == pygame.K_w:
                     if disable_controls == False:
                         if player_movement[3] == 1:
@@ -908,20 +916,26 @@ while not done:
         if playerx > game_border1:
             print(fore.WHITE + back.RED + style.BOLD + error_error +  + style.RESET)
             done = True
+            errored = True
         elif playery > game_border1:
             print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
-        if playerx < game_border2:
+            errored = True
+        elif playerx < game_border2:
             print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
+            errored = True
         elif playery < game_border2:
             print(fore.WHITE + back.RED + style.BOLD + error_error + error_pos + style.RESET)
             done = True
-        if Inv_Slot < INV_MIN:
+            errored = True
+        elif Inv_Slot < INV_MIN:
             print(fore.WHITE + back.RED + style.BOLD + error_error + error_inv + style.RESET)
             done = True
-        if Inv_Slot > INV_MAX:
+            errored = True
+        elif Inv_Slot > INV_MAX:
             print(fore.WHITE + back.RED + style.BOLD + error_error + error_inv + style.RESET)
             done = True
+            errored = True
 pygame.quit()
 exit()
