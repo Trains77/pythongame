@@ -40,6 +40,7 @@ control_q_e_key = "Q and E for to select items"
 control_r_key = "R to invert map"
 control_debug_k_key = "K to stop living"
 control_v_key = "V to save game"
+control_b_key = "B to Delete save"
 dialog_continue = "Press 'z' to continue"
 
 # NPC Names
