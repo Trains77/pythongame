@@ -280,10 +280,10 @@ def trigger_use():
     if SelectItem == "3":
         playsound(1, environment_audio_path + "bow_use.wav")
         if facing == "Right":
-            arrow_positions.append([playerx + 23, playery + 5, facing])
+            arrow_positions.append([playerx + 28, playery + 5, facing])
             arrows_amount = arrows_amount + 1
         elif facing == "Left":
-            arrow_positions.append([playerx - 7, playery + 5, facing])
+            arrow_positions.append([playerx - 12, playery + 5, facing])
             arrows_amount = arrows_amount + 1
         elif facing == "Down":
             arrow_positions.append([playerx + 9, playery + 20, facing])
