@@ -23,13 +23,13 @@ enable_debug = False # Enable debug mode
 
 
 # Player data
-moved = False # Wether or not the player has moved
-disable_controls = False # Wether or not controls are currently enabled
-max_health = 19 # Maxinimum health a player can have
-health = max_health # Current player health
-health_tick = 0 # Internal health tick
-poison_duration = 0 # How long the player has poison for
-facing = "Left" # Default player rotation
+moved = False
+disable_controls = False
+max_health = 20
+health = max_health
+health_tick = 0
+poison_duration = 0
+facing = "Left"
 
 # RGB codes
 BLACK = (0, 0, 0) # The RGB code for Black
@@ -54,9 +54,9 @@ fps = 20 # The FPS of the game
 minimum_slot = 80 # The default coordinates of slot 0
 dialog_select = 0 # The default selection for dialog, currently unused
 mapid = 0 # Starting map id
-system_recommends = "Linux" # The system(s) that the script is verified to work with
-version = "0.11.0" # Game version
-appended = False # Used for setting up variables
+system_recommends = "Linux"
+version = "0.11.0"
+appended = False
 song = 'Audio/Music/music1.wav' # Path to music file
 spookie = 'Audio/Music/spookie.wav' # Path to spookie music file
 Inv_Slot = 0 # Default inventory slot
